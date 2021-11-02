@@ -1,6 +1,6 @@
-package gs1_proyecto_final;
+package GS1.App;
 
-public class GS1_proyecto_final {
+public class Main {
     public static void main(String[] args) {
         
     }
