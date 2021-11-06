@@ -7,7 +7,7 @@ public class CreditCardPaymentMethod implements PaymentMethod{
     private final String owner;
     private final int creditNumber;
     private final String expiryDate;
-    private final int secretNumber;
+    //private final int secretNumber;
     
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
     private final String secretNumberPattern = "^([0-9]{3})";
@@ -17,7 +17,6 @@ public class CreditCardPaymentMethod implements PaymentMethod{
         this.owner = owner;
         this.creditNumber = creditNumber;
         this.expiryDate = expiryDate;
-        this.secretNumber = secretNumber;
     }
 
     public String getOwner() {
@@ -32,10 +31,6 @@ public class CreditCardPaymentMethod implements PaymentMethod{
         return expiryDate;
     }
 
-    public int getSecretNumber() {
-        return secretNumber;
-    }
-    
     private boolean isCorrectCreditNumber(int creditNumber){
         Pattern pattern = Pattern.compile(creditNumberPattern);
         Matcher matcher = pattern.matcher(Integer.toString(creditNumber));

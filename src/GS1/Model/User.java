@@ -4,25 +4,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class User {
-    private String name;
-    private String surname;
+    private static int count=0;
+    private int userId;
+    private String firstname;
     private String lastname;
     private String mail;
+    private String password;
     private final String mailPattern = "^(.+)@(.+)$";
 
-    public User(String name, String surname, String lastname, String mail) {
-        this.name = name;
-        this.surname = surname;
+    public User(String firstname, String lastname, String mail, String password) {
+        this.userId = count++;
+        this.firstname = firstname;
         this.lastname = lastname;
-        setMail(mail);
+        this.mail = mail;
+        this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public int getUserId() {
+        return userId;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getFirstname() {
+        return firstname;
     }
 
     public String getLastname() {
@@ -33,12 +36,12 @@ public class User {
         return mail;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public void setLastname(String lastname) {
@@ -48,6 +51,12 @@ public class User {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
     
     private Boolean isCorrectMail(String mail){
         Pattern pattern = Pattern.compile(mailPattern);
