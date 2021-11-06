@@ -1,8 +1,16 @@
 package GS1.App;
 
+import GS1.Model.User;
+import GS1.View.UserLoader;
+import GS1.View.UserLogger;
+
 public class UserLoginDisplay extends javax.swing.JFrame {
+    UserLoader userLoader;
+    UserLogger userLogger;
     public UserLoginDisplay() {
-        initComponents();
+        userLoader = new DataBaseUserLoader();
+        userLogger = new DataBaseUserLogger();
+        initComponents();        
     }
 
     @SuppressWarnings("unchecked")
@@ -146,6 +154,9 @@ public class UserLoginDisplay extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
+        User user = new User("Isidro","Bermudez","bermudez@gmail.com","1234");
+        //userLogger.save(user);
+        userLoader.load("abiamrg.14@gmail.com", "1234");
         this.dispose();
         new UserMainDisplay().setVisible(true);
     }//GEN-LAST:event_loginButtonActionPerformed

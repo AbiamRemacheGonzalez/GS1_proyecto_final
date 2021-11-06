@@ -4,8 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class User {
-    private static int count=0;
-    private int userId;
     private String firstname;
     private String lastname;
     private String mail;
@@ -13,15 +11,10 @@ public class User {
     private final String mailPattern = "^(.+)@(.+)$";
 
     public User(String firstname, String lastname, String mail, String password) {
-        this.userId = count++;
         this.firstname = firstname;
         this.lastname = lastname;
         this.mail = mail;
         this.password = password;
-    }
-
-    public int getUserId() {
-        return userId;
     }
 
     public String getFirstname() {
