@@ -95,7 +95,11 @@ public class DataBaseUserLoader implements UserLoader{
     public Boolean emailExists() {
         return emailExists;
     }
-
+    public Boolean emailUserExists(String mail){
+        this.mail = mail;
+        emailCheck();
+        return emailExists;
+    }
     public Boolean isPasswordCorrect() {
         return passwordIsCorrect;
     }

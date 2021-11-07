@@ -102,6 +102,8 @@ public class UserLoginDisplay extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         registrationPanel.add(emailError, gridBagConstraints);
+
+        passError.setForeground(new java.awt.Color(255, 0, 0));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -153,18 +155,15 @@ public class UserLoginDisplay extends javax.swing.JFrame {
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new UserRegistrationDisplay().setVisible(true);
+        event.openSignUpWindow();
     }//GEN-LAST:event_signupButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         event.login(emailField.getText(), String.valueOf(passwordField.getPassword()));
-        /*userLoader.load();
-        this.dispose();
-        new UserMainDisplay().setVisible(true);*/
     }//GEN-LAST:event_loginButtonActionPerformed
-    public void on(Events ev) {
-        this.event = ev;
+    public void resetErrorPrints() {
+        emailError.setText("");
+        passError.setText("");
     }
     public void printEmailPatternError(){
         emailError.setText("Incorrect email pattern");
@@ -195,8 +194,12 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     private javax.swing.JButton signupButton;
     private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
+    public void on(Events ev) {
+        this.event = ev;
+    }
     public interface Events{
         void login(String mail, String pass);
+        void openSignUpWindow();
     }
 }
 
