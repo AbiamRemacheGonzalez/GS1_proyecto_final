@@ -38,6 +38,10 @@ public class DataBaseUserLoader implements UserLoader{
     public void initialize(String mail, String password) {
         this.mail = mail;
         this.pass = password;
+        loadUser = null;
+        emailPattern=false;
+        emailExists=false;
+        passwordIsCorrect=false;
     }
     
     @Override
@@ -56,24 +60,29 @@ public class DataBaseUserLoader implements UserLoader{
     
     private void emailCheck(){
         try {
-            String sql = "SELECT * FROM users WHERE email='"+mail+"'";
-            emailExists = st.execute(sql);
+            String sql = "SELECT count(*) FROM users WHERE email='"+mail+"'";
+            if(st.execute(sql)){
+                ResultSet r = st.getResultSet();
+                int cuenta=0;
+                while(r.next()){
+                    cuenta=Integer.parseInt(r.getString("count(*)"));
+                }
+                emailExists = (cuenta==0)?Boolean.FALSE:Boolean.TRUE;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void passwordCheck(){
         try {
-            if(pass!=""){
-                String sql = "SELECT * FROM users WHERE email='"+mail+"' and password='"+pass+"'";
-                passwordIsCorrect = st.execute(sql);
-                ResultSet r = st.getResultSet();
-                while(r.next()){
+            String sql = "SELECT * FROM users WHERE email='"+mail+"' and password='"+pass+"'";
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while(r.next()){
                 loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
-                }
-            }else{
-                passwordIsCorrect = false;
             }
+            passwordIsCorrect = (loadUser==null)?Boolean.FALSE:Boolean.TRUE;
+
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,6 +99,4 @@ public class DataBaseUserLoader implements UserLoader{
     public Boolean isPasswordCorrect() {
         return passwordIsCorrect;
     }
-    
-    
 }
