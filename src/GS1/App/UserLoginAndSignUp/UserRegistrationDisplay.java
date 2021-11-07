@@ -1,5 +1,5 @@
 
-package GS1.App;
+package GS1.App.UserLoginAndSignUp;
 
 
 public class UserRegistrationDisplay extends javax.swing.JFrame {

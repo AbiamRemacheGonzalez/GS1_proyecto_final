@@ -1,4 +1,4 @@
-package GS1.App;
+package GS1.App.UserLoginAndSignUp;
 
 import GS1.Model.User;
 import GS1.View.UserLogger;

@@ -8,7 +8,7 @@ public class User {
     private String lastname;
     private String mail;
     private String password;
-    private final String mailPattern = "^(.+)@(.+)$";
+    
 
     public User(String firstname, String lastname, String mail, String password) {
         this.firstname = firstname;
@@ -48,13 +48,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
-    
-    private Boolean isCorrectMail(String mail){
-        Pattern pattern = Pattern.compile(mailPattern);
-        Matcher matcher = pattern.matcher(mail);
-        return matcher.matches();
-    }
-    
 }

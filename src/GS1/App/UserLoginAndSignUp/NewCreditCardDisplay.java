@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.App;
+package GS1.App.UserLoginAndSignUp;
+
+import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
+import GS1.App.UserLoginAndSignUp.UserMainDisplay;
 
 /**
  *

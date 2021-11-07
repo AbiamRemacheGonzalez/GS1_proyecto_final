@@ -1,15 +1,8 @@
-package GS1.App;
-
-import GS1.Model.User;
-import GS1.View.UserLoader;
-import GS1.View.UserLogger;
+package GS1.App.UserLoginAndSignUp;
 
 public class UserLoginDisplay extends javax.swing.JFrame {
-    UserLoader userLoader;
-    UserLogger userLogger;
+    Events event;
     public UserLoginDisplay() {
-        userLoader = new DataBaseUserLoader();
-        userLogger = new DataBaseUserLogger();
         initComponents();        
     }
 
@@ -27,6 +20,8 @@ public class UserLoginDisplay extends javax.swing.JFrame {
         emailField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
+        emailError = new javax.swing.JLabel();
+        passError = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         signupButton = new javax.swing.JButton();
 
@@ -103,6 +98,16 @@ public class UserLoginDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         registrationPanel.add(passwordField, gridBagConstraints);
 
+        emailError.setForeground(new java.awt.Color(255, 51, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        registrationPanel.add(emailError, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        registrationPanel.add(passError, gridBagConstraints);
+
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
@@ -127,7 +132,7 @@ public class UserLoginDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(titlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(registrationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(registrationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -153,16 +158,30 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_signupButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
-        User user = new User("Isidro","Bermudez","bermudez@gmail.com","1234");
-        //userLogger.save(user);
-        userLoader.load("abiamrg.14@gmail.com", "1234");
+        event.login(emailField.getText(), String.valueOf(passwordField.getPassword()));
+        /*userLoader.load();
         this.dispose();
-        new UserMainDisplay().setVisible(true);
+        new UserMainDisplay().setVisible(true);*/
     }//GEN-LAST:event_loginButtonActionPerformed
-
+    public void on(Events ev) {
+        this.event = ev;
+    }
+    public void printEmailPatternError(){
+        emailError.setText("Incorrect email pattern");
+        emailField.setText("");
+    }
+    public void printEmailNotFoundError(){
+        emailError.setText("User email not found");
+        emailField.setText("");
+        passwordField.setText("");
+    }
+    public void printPasswordError(){
+        passError.setText("Incorrect password");
+        passwordField.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel emailError;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -170,9 +189,14 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginButton;
+    private javax.swing.JLabel passError;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JPanel registrationPanel;
     private javax.swing.JButton signupButton;
     private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
+    public interface Events{
+        void login(String mail, String pass);
+    }
 }
+
