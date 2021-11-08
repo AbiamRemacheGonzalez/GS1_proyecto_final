@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package GS1.App.UserLoginAndSignUp;
-
-import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
-import GS1.App.UserLoginAndSignUp.UserMainDisplay;
 import GS1.Model.CreditCardPaymentMethod;
 import GS1.Model.User;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -17,6 +19,9 @@ import GS1.Model.User;
 public class NewCreditCardDisplay extends javax.swing.JFrame {
     private Events event;
     private User newUser;
+    private final int MONTHSIZE = 2;
+    private final int YEARSIZE = 2;
+    private final int CREDITNUMBERSIZE = 16;
     public NewCreditCardDisplay() {
         initComponents();
     }
@@ -37,6 +42,9 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         ownerField = new javax.swing.JTextField();
         addPMButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        ownerError = new javax.swing.JLabel();
+        creditNumberError = new javax.swing.JLabel();
+        expiryDateError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +70,15 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
         jPanel2.add(jLabel2, gridBagConstraints);
+
+        creditNumberField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                creditNumberFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                creditNumberFieldKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -78,6 +95,15 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
         jPanel2.add(jLabel3, gridBagConstraints);
+
+        expiryDateMonthField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                expiryDateMonthFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                expiryDateMonthFieldKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -85,11 +111,20 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 10);
         jPanel2.add(expiryDateMonthField, gridBagConstraints);
+
+        expiryDateYearField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                expiryDateYearFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                expiryDateYearFieldKeyTyped(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipadx = 30;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 5);
         jPanel2.add(expiryDateYearField, gridBagConstraints);
 
@@ -109,7 +144,7 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(ownerField, gridBagConstraints);
 
-        addPMButton.setText("Add Payment Method");
+        addPMButton.setText("Finish");
         addPMButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPMButtonActionPerformed(evt);
@@ -135,6 +170,21 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 10, 10);
         jPanel2.add(cancelButton, gridBagConstraints);
 
+        ownerError.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel2.add(ownerError, new java.awt.GridBagConstraints());
+
+        creditNumberError.setForeground(new java.awt.Color(255, 51, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 1;
+        jPanel2.add(creditNumberError, gridBagConstraints);
+
+        expiryDateError.setForeground(new java.awt.Color(255, 51, 51));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        jPanel2.add(expiryDateError, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +192,7 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -161,21 +211,108 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
 
     private void addPMButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPMButtonActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new UserMainDisplay().setVisible(true);
+        int month = 0;
+        int year =0;
+        long creditNumber = 0;
+        if(!expiryDateMonthField.getText().isEmpty() && !expiryDateYearField.getText().isEmpty()){
+            month = Integer.parseInt(expiryDateMonthField.getText())-1;
+            year = Integer.parseInt(expiryDateYearField.getText())+2000;
+        }
+        if(!creditNumberField.getText().isEmpty()){
+            creditNumber = Long.parseLong(creditNumberField.getText());
+        }
+        Calendar myCalendar = new GregorianCalendar(year, month, 1);
+        Date myDate = myCalendar.getTime();
+        if(event.checkCreditValues(ownerField.getText(), creditNumber, myDate)){
+            CreditCardPaymentMethod credit = new CreditCardPaymentMethod(ownerField.getText(),Long.parseLong(creditNumberField.getText()),myDate);
+            event.signUp(newUser, credit);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_addPMButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
+        event.openUserRegistrationWindow();
         this.dispose();
-        new UserLoginDisplay().setVisible(true);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void expiryDateYearFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_expiryDateYearFieldKeyTyped
+        // TODO add your handling code here:
+        if (expiryDateYearField.getText().length()== YEARSIZE){
+            evt.consume();
+        }
+    }//GEN-LAST:event_expiryDateYearFieldKeyTyped
+
+    private void expiryDateMonthFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_expiryDateMonthFieldKeyTyped
+        // TODO add your handling code here:
+        if (expiryDateMonthField.getText().length()== MONTHSIZE){
+            evt.consume();
+        }
+    }//GEN-LAST:event_expiryDateMonthFieldKeyTyped
+
+    private void creditNumberFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creditNumberFieldKeyTyped
+        // TODO add your handling code here:
+        String credit = creditNumberField.getText();
+        if (creditNumberField.getText().length() == CREDITNUMBERSIZE){
+            evt.consume();
+        }
+    }//GEN-LAST:event_creditNumberFieldKeyTyped
+
+    private void creditNumberFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creditNumberFieldKeyPressed
+        String value = creditNumberField.getText();
+        if ((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            creditNumberField.setEditable(true);
+        } else{
+            creditNumberField.setEditable(false);
+            creditNumberField.setText(value);
+        }
+    }//GEN-LAST:event_creditNumberFieldKeyPressed
+
+    private void expiryDateYearFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_expiryDateYearFieldKeyPressed
+        String value = expiryDateYearField.getText();
+        if ((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            expiryDateYearField.setEditable(true);
+        } else {
+            expiryDateYearField.setEditable(false);
+            expiryDateYearField.setText(value);
+        }
+    }//GEN-LAST:event_expiryDateYearFieldKeyPressed
+
+    private void expiryDateMonthFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_expiryDateMonthFieldKeyPressed
+        // TODO add your handling code here:
+        String value = expiryDateMonthField.getText();
+        if ((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE)  {
+            expiryDateMonthField.setEditable(true);
+        } else {
+            expiryDateMonthField.setEditable(false);
+            expiryDateMonthField.setText(value);
+        }
+    }//GEN-LAST:event_expiryDateMonthFieldKeyPressed
+public void resetErrorPrints(){
+        ownerError.setText("");
+        creditNumberError.setText("");
+        expiryDateError.setText("");
+    }
+    public void printOwnerError(){
+        ownerError.setText("The owner should not be empty.");
+    }
+    public void printCreditNumberError(){
+        creditNumberError.setText("The credit card pattern is not correct.");
+    }
+    public void printExpiryDateError(){
+        expiryDateError.setText("The date is incorrect.");
+    }
+    public void printCreditExpiredError(){
+        expiryDateError.setText("The credit card is expired.");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPMButton;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel creditNumberError;
     private javax.swing.JTextField creditNumberField;
+    private javax.swing.JLabel expiryDateError;
     private javax.swing.JTextField expiryDateMonthField;
     private javax.swing.JTextField expiryDateYearField;
     private javax.swing.JLabel jLabel1;
@@ -184,6 +321,7 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel ownerError;
     private javax.swing.JTextField ownerField;
     // End of variables declaration//GEN-END:variables
     public void setUser(User user){
@@ -194,6 +332,7 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
     }
     public interface Events{
         void signUp(User user, CreditCardPaymentMethod credit);
+        Boolean checkCreditValues(String owner, long creditNumber,Date expiryDate);
         void openUserRegistrationWindow();
     }
 }

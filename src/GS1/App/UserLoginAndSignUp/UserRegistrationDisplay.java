@@ -158,30 +158,40 @@ public class UserRegistrationDisplay extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(fnError, gridBagConstraints);
 
         lnError.setForeground(new java.awt.Color(255, 51, 51));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(lnError, gridBagConstraints);
 
         emError.setForeground(new java.awt.Color(255, 51, 51));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(emError, gridBagConstraints);
 
-        pError.setForeground(new java.awt.Color(255, 0, 51));
+        pError.setForeground(new java.awt.Color(255, 51, 51));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(pError, gridBagConstraints);
 
         cpError.setForeground(new java.awt.Color(255, 51, 51));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         jPanel2.add(cpError, gridBagConstraints);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
@@ -196,7 +206,7 @@ public class UserRegistrationDisplay extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -218,14 +228,15 @@ public class UserRegistrationDisplay extends javax.swing.JFrame {
         if(event.checkNewUserValues(firstNameField.getText(), lastNameField.getText(), emailField.getText(), String.valueOf(passwordField.getPassword()), String.valueOf(confirmPasswordField.getPassword()))){
             User user=new User(firstNameField.getText(),lastNameField.getText(),emailField.getText(), String.valueOf(passwordField.getPassword()));
             event.openNewCreditCardWindow(user);
+            this.dispose();
         }
         
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
+        event.openUserLoginWindow();
         this.dispose();
-        new UserLoginDisplay().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
     public void resetErrorPrints(){
         fnError.setText("");

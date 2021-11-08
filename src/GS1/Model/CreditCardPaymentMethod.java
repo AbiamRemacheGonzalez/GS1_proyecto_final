@@ -1,19 +1,13 @@
 package GS1.Model;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Date;
 
 public class CreditCardPaymentMethod implements PaymentMethod{
     private final String owner;
-    private final int creditNumber;
-    private final String expiryDate;
-    //private final int secretNumber;
-    
-    private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
-    private final String secretNumberPattern = "^([0-9]{3})";
-    private final String expiryDatePattern = "(([0][1-9]|1[1-2])/([0-2][0-9]|3[0-1]))";
+    private final Long creditNumber;
+    private final Date expiryDate;
 
-    public CreditCardPaymentMethod(String owner, int creditNumber, String expiryDate, int secretNumber) {
+    public CreditCardPaymentMethod(String owner, Long creditNumber, Date expiryDate) {
         this.owner = owner;
         this.creditNumber = creditNumber;
         this.expiryDate = expiryDate;
@@ -23,32 +17,16 @@ public class CreditCardPaymentMethod implements PaymentMethod{
         return owner;
     }
 
-    public int getCreditNumber() {
+    public Long getCreditNumber() {
         return creditNumber;
     }
 
-    public String getExpiryDate() {
+    public Date getExpiryDate() {
         return expiryDate;
     }
 
-    private boolean isCorrectCreditNumber(int creditNumber){
-        Pattern pattern = Pattern.compile(creditNumberPattern);
-        Matcher matcher = pattern.matcher(Integer.toString(creditNumber));
-        return matcher.matches();
+    @Override
+    public void pay() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    private boolean isCorrectExpiryDate(String expiryDate){
-        Pattern pattern = Pattern.compile(expiryDatePattern);
-        Matcher matcher = pattern.matcher(expiryDate);
-        return matcher.matches();
-    }
-    
-    private boolean isCorrectSecretNumber(String secretNumber){
-        Pattern pattern = Pattern.compile(secretNumberPattern);
-        Matcher matcher = pattern.matcher(secretNumber);
-        return matcher.matches();
-    }
-    
-    
-    
 }
