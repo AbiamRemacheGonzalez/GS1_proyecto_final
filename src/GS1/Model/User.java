@@ -2,8 +2,12 @@ package GS1.Model;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
+    
+    private static final int LOG_ROUNDS = 12;
+    
     private String firstname;
     private String lastname;
     private String mail;
@@ -14,7 +18,7 @@ public class User {
         this.firstname = firstname;
         this.lastname = lastname;
         this.mail = mail;
-        this.password = password;
+        this.password = hash(password);
     }
 
     public String getFirstname() {
@@ -48,4 +52,14 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean matches(String plainString) {
+        return BCrypt.checkpw(plainString, password);
+    }
+    
+    private String hash(String plainString) {
+        String salt = BCrypt.gensalt(LOG_ROUNDS);
+        return BCrypt.hashpw(plainString, salt);
+    }
+    
 }
