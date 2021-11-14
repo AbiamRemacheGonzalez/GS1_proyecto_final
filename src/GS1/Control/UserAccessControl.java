@@ -1,6 +1,6 @@
 package GS1.Control;
 
-import GS1.App.UserLoginAndSignUp.DataBasePaymentMethodLogger;
+import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
 import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
@@ -16,20 +16,22 @@ import java.util.regex.Pattern;
 
 public class UserAccessControl {
     private UserLoginDisplay userLoginDisplay;
-    private final DataBaseUserLoader userLoader;
-    private final DataBaseUserLogger userLogger;
-    private final DataBasePaymentMethodLogger paymentMethodLogger;
     private UserRegistrationDisplay userRegistrationDisplay;
+    private UserMainDisplay userMainDisplay;
     private NewCreditCardPaymentDisplay newCreditCardDisplay;
+    
+    private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
+    private final DataBaseUserLogger userLogger = new DataBaseUserLogger();
+    private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
+    
+    private UserPaymentsControl userPaymentControl;
+
     private final String mailPattern = "^(.+)@(.+)$";
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
     private final String expiryDatePattern = "(([0][1-9]|1[1-2])/([0-2][0-9]|3[0-1]))";
 
-    public UserAccessControl(UserLoginDisplay userLoginDisplay, DataBaseUserLoader userLoader, DataBaseUserLogger userLogger, DataBasePaymentMethodLogger paymentMethodLogger) {
+    public UserAccessControl(UserLoginDisplay userLoginDisplay){
         this.userLoginDisplay = userLoginDisplay;
-        this.userLoader = userLoader;
-        this.userLogger = userLogger;
-        this.paymentMethodLogger = paymentMethodLogger;
         this.userLoginDisplay.on(setUserLoginDisplayEvents());
     }
 
@@ -39,14 +41,10 @@ public class UserAccessControl {
             public void login(String mail, String pass) {
                 userLoginDisplay.resetErrorPrints();
                 userLoader.initialize(mail, pass);
-                User login = userLoader.load();
-                if(login == null){
-                    if(!userLoader.isEmailPatternCorrect())userLoginDisplay.printEmailPatternError();
-                    if(!userLoader.emailExists())userLoginDisplay.printEmailNotFoundError();
-                    if(!userLoader.isPasswordCorrect())userLoginDisplay.printPasswordError();
-                }else{
-                    new UserMainDisplay().setVisible(true);
-                }
+                User loggedUser = userLoader.load();
+                userMainDisplay = new UserMainDisplay(loggedUser);
+                userPaymentControl = new UserPaymentsControl(userMainDisplay,loggedUser);
+                userMainDisplay.setVisible(true);
             }
 
             @Override
@@ -55,15 +53,28 @@ public class UserAccessControl {
                 userRegistrationDisplay.on(setUserRegistrationDisplayEvents());
                 userRegistrationDisplay.setVisible(true);
             }
+
+            @Override
+            public boolean checkUser(String mail, String pass) {
+                userLoginDisplay.resetErrorPrints();
+                userLoader.initialize(mail, pass);
+                User loggedUser = userLoader.load();
+                if(loggedUser == null){
+                    if(!userLoader.isEmailPatternCorrect())userLoginDisplay.printEmailPatternError();
+                    if(!userLoader.emailExists())userLoginDisplay.printEmailNotFoundError();
+                    if(!userLoader.isPasswordCorrect())userLoginDisplay.printPasswordError();
+                    return false;
+                }
+                return true;
+            }
         };
     }
     private UserRegistrationDisplay.Events setUserRegistrationDisplayEvents(){
         return new UserRegistrationDisplay.Events(){
             @Override
             public void openNewCreditCardWindow(User user) {
-                newCreditCardDisplay = new NewCreditCardPaymentDisplay();
-                newCreditCardDisplay.setUser(user);
-                newCreditCardDisplay.on(setNewCreditCardDisplayEvents());
+                newCreditCardDisplay = new NewCreditCardPaymentDisplay(user);
+                newCreditCardDisplay.on(setNewCreditCardDisplayEvents(),0);
                 newCreditCardDisplay.setVisible(true);
             }
 
@@ -116,7 +127,10 @@ public class UserAccessControl {
                 int userId = userLoader.loadUserId(user.getMail(), user.getPassword());
                 paymentMethodLogger.save(userId, credit);
                 user.addPaymentMethod(credit);
-                new UserMainDisplay().setVisible(true);
+                
+                userMainDisplay = new UserMainDisplay(user);
+                userPaymentControl = new UserPaymentsControl(userMainDisplay,user);
+                userMainDisplay.setVisible(true);
             }
 
             @Override
@@ -148,6 +162,16 @@ public class UserAccessControl {
                     newCreditCardDisplay.printCreditExpiredError();
                 }
                 return res;
+            }
+
+            @Override
+            public void addPayment(CreditCardPaymentMethod credit) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void openUserMainWindow() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }

@@ -1,6 +1,6 @@
 package GS1.App;
 
-import GS1.App.UserLoginAndSignUp.DataBasePaymentMethodLogger;
+import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
@@ -16,10 +16,7 @@ public class Main {
     }
     public Main(){
         userLoginDisplay = new UserLoginDisplay();
-        userloader = new DataBaseUserLoader();
-        userLogger = new DataBaseUserLogger();
-        paymentMethodLogger = new DataBasePaymentMethodLogger();
-        new UserAccessControl(userLoginDisplay,userloader,userLogger,paymentMethodLogger);
+        new UserAccessControl(userLoginDisplay);
     }
 
     private void execute() {

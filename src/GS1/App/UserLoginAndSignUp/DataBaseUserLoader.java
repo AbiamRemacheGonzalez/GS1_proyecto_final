@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class DataBaseUserLoader implements UserLoader{
 
@@ -19,11 +20,13 @@ public class DataBaseUserLoader implements UserLoader{
     private Statement st;
     private String mail="";
     private String pass="";
+    private String loadedPassword;
     private User loadUser;
     private final String mailPattern = "^(.+)@(.+)$";
     private Boolean emailPattern=false;
     private Boolean emailExists=false;
     private Boolean passwordIsCorrect=false;
+    private static final int LOG_ROUNDS = 12;
     
     public DataBaseUserLoader(){
         try {
@@ -56,7 +59,8 @@ public class DataBaseUserLoader implements UserLoader{
     public int loadUserId(String email, String password){
         int res = -1;
         try {
-            String sql = "SELECT userId FROM users WHERE email='"+email+"' and password='"+password+"'";
+            this.mail = email;
+            String sql = "SELECT userId FROM users WHERE email='"+email+"' and password='"+getHashedPassword()+"'";
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while(r.next()){
@@ -90,16 +94,35 @@ public class DataBaseUserLoader implements UserLoader{
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    private String getHashedPassword() {
+        String pass="";
+        try {
+            String sql = "SELECT password FROM users WHERE email='"+mail+"'";
+            if(st.execute(sql)){
+                ResultSet r = st.getResultSet();
+                while(r.next()){
+                    pass=r.getString("password");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pass;
+    }
     private void passwordCheck(){
         try {
-            String sql = "SELECT * FROM users WHERE email='"+mail+"' and password='"+pass+"'";
-            st.execute(sql);
-            ResultSet r = st.getResultSet();
-            while(r.next()){
-                loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+            passwordIsCorrect = Boolean.FALSE;
+            loadedPassword = getHashedPassword();
+            if(matches(pass)){
+                String sql = "SELECT * FROM users WHERE email='"+mail+"' and password='"+loadedPassword+"'";
+                st.execute(sql);
+                ResultSet r = st.getResultSet();
+                while(r.next()){
+                    loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+                }
+                passwordIsCorrect = Boolean.TRUE;
             }
-            passwordIsCorrect = (loadUser==null)?Boolean.FALSE:Boolean.TRUE;
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -120,4 +143,13 @@ public class DataBaseUserLoader implements UserLoader{
     public Boolean isPasswordCorrect() {
         return passwordIsCorrect;
     }
+    private String hash(String plainString) {
+        String salt = BCrypt.gensalt(LOG_ROUNDS);
+        return BCrypt.hashpw(plainString, salt);
+    }
+    public boolean matches(String plainString) {
+        return BCrypt.checkpw(plainString, loadedPassword);
+    }
+
+
 }

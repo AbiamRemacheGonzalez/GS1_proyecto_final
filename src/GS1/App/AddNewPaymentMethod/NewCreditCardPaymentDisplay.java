@@ -1,28 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GS1.App.AddNewPaymentMethod;
 import GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- *
- * @author Exulonk
- */
 public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
     private Events event;
     private User newUser;
+    private int intent;
     private final int MONTHSIZE = 2;
     private final int YEARSIZE = 2;
     private final int CREDITNUMBERSIZE = 16;
-    public NewCreditCardPaymentDisplay() {
+    public NewCreditCardPaymentDisplay(User user) {
+        newUser = user;
         initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -236,16 +228,29 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
         Date myDate = myCalendar.getTime();
         if(event.checkCreditValues(ownerField.getText(), creditNumber, myDate)){
             CreditCardPaymentMethod credit = new CreditCardPaymentMethod(ownerField.getText(),Long.parseLong(creditNumberField.getText()),myDate);
-            event.signUp(newUser, credit);
-            this.dispose();
+            if(intent == 0){
+                event.signUp(newUser, credit);
+                this.dispose();
+            }else{
+                event.addPayment(credit);
+                event.openUserMainWindow();
+                this.dispose();
+            }
+            
         }
         
     }//GEN-LAST:event_finishButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
-        event.openUserRegistrationWindow();
-        this.dispose();
+        if(intent==0){
+            event.openUserRegistrationWindow();
+            this.dispose();
+        }else{
+            event.openUserMainWindow();
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void expiryDateYearFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_expiryDateYearFieldKeyTyped
@@ -264,7 +269,6 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
 
     private void creditNumberFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_creditNumberFieldKeyTyped
         // TODO add your handling code here:
-        String credit = creditNumberField.getText();
         if (creditNumberField.getText().length() == CREDITNUMBERSIZE){
             evt.consume();
         }
@@ -300,7 +304,7 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
             expiryDateMonthField.setText(value);
         }
     }//GEN-LAST:event_expiryDateMonthFieldKeyPressed
-public void resetErrorPrints(){
+    public void resetErrorPrints(){
         ownerError.setText("");
         creditNumberError.setText("");
         expiryDateError.setText("");
@@ -336,15 +340,15 @@ public void resetErrorPrints(){
     private javax.swing.JLabel ownerError;
     private javax.swing.JTextField ownerField;
     // End of variables declaration//GEN-END:variables
-    public void setUser(User user){
-        this.newUser = user;
-    }
-    public void on(Events ev) {
+    public void on(Events ev, int intent) {
         this.event = ev;
+        this.intent = intent;
     }
     public interface Events{
         void signUp(User user, CreditCardPaymentMethod credit);
+        void addPayment(CreditCardPaymentMethod credit);
         Boolean checkCreditValues(String owner, long creditNumber,Date expiryDate);
         void openUserRegistrationWindow();
+        void openUserMainWindow();
     }
 }

@@ -160,8 +160,10 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_signupButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        event.login(emailField.getText(), String.valueOf(passwordField.getPassword()));
-        this.dispose();
+        if(event.checkUser(emailField.getText(),String.valueOf(passwordField.getPassword()))){
+            event.login(emailField.getText(), String.valueOf(passwordField.getPassword()));
+            this.dispose();
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
     public void resetErrorPrints() {
         emailError.setText("");
@@ -201,6 +203,7 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     }
     public interface Events{
         void login(String mail, String pass);
+        boolean checkUser(String mail, String pass);
         void openSignUpWindow();
     }
 }
