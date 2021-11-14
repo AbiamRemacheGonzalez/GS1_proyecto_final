@@ -1,5 +1,6 @@
-package GS1.Model;
+package GS1.Model.Payments;
 
+import GS1.Model.Payments.PaymentMethod;
 import java.util.Date;
 
 public class CreditCardPaymentMethod implements PaymentMethod{
@@ -27,6 +28,6 @@ public class CreditCardPaymentMethod implements PaymentMethod{
 
     @Override
     public void pay() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

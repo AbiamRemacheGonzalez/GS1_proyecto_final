@@ -3,14 +3,13 @@ package GS1.Control;
 import GS1.App.UserLoginAndSignUp.DataBasePaymentMethodLogger;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
-import GS1.App.UserLoginAndSignUp.NewCreditCardDisplay;
+import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
-import GS1.App.UserLoginAndSignUp.UserMainDisplay;
+import GS1.App.UserMainDisplay;
 import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
-import GS1.Model.CreditCardPaymentMethod;
+import GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +20,7 @@ public class UserAccessControl {
     private final DataBaseUserLogger userLogger;
     private final DataBasePaymentMethodLogger paymentMethodLogger;
     private UserRegistrationDisplay userRegistrationDisplay;
-    private NewCreditCardDisplay newCreditCardDisplay;
+    private NewCreditCardPaymentDisplay newCreditCardDisplay;
     private final String mailPattern = "^(.+)@(.+)$";
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
     private final String expiryDatePattern = "(([0][1-9]|1[1-2])/([0-2][0-9]|3[0-1]))";
@@ -62,7 +61,7 @@ public class UserAccessControl {
         return new UserRegistrationDisplay.Events(){
             @Override
             public void openNewCreditCardWindow(User user) {
-                newCreditCardDisplay = new NewCreditCardDisplay();
+                newCreditCardDisplay = new NewCreditCardPaymentDisplay();
                 newCreditCardDisplay.setUser(user);
                 newCreditCardDisplay.on(setNewCreditCardDisplayEvents());
                 newCreditCardDisplay.setVisible(true);
@@ -109,13 +108,14 @@ public class UserAccessControl {
         };
     }
     
-    private NewCreditCardDisplay.Events setNewCreditCardDisplayEvents(){
-        return new NewCreditCardDisplay.Events(){
+    private NewCreditCardPaymentDisplay.Events setNewCreditCardDisplayEvents(){
+        return new NewCreditCardPaymentDisplay.Events(){
             @Override
             public void signUp(User user, CreditCardPaymentMethod credit) {
                 userLogger.save(user);
                 int userId = userLoader.loadUserId(user.getMail(), user.getPassword());
                 paymentMethodLogger.save(userId, credit);
+                user.addPaymentMethod(credit);
                 new UserMainDisplay().setVisible(true);
             }
 

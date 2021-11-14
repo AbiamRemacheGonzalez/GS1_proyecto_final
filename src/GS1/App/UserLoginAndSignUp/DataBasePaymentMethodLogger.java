@@ -1,7 +1,7 @@
 package GS1.App.UserLoginAndSignUp;
 
-import GS1.Model.CreditCardPaymentMethod;
-import GS1.Model.PaymentMethod;
+import GS1.Model.Payments.CreditCardPaymentMethod;
+import GS1.Model.Payments.PaymentMethod;
 import GS1.View.PaymentMethodLogger;
 import java.sql.Connection;
 import java.sql.DriverManager;

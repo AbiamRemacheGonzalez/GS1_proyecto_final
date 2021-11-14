@@ -1,4 +1,4 @@
-package GS1.Model;
+package GS1.Model.Payments;
 
 public interface PaymentMethod {
     public void pay();

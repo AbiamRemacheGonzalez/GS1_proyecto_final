@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.App.UserLoginAndSignUp;
-import GS1.Model.CreditCardPaymentMethod;
+package GS1.App.AddNewPaymentMethod;
+import GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,13 +16,13 @@ import java.util.GregorianCalendar;
  *
  * @author Exulonk
  */
-public class NewCreditCardDisplay extends javax.swing.JFrame {
+public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
     private Events event;
     private User newUser;
     private final int MONTHSIZE = 2;
     private final int YEARSIZE = 2;
     private final int CREDITNUMBERSIZE = 16;
-    public NewCreditCardDisplay() {
+    public NewCreditCardPaymentDisplay() {
         initComponents();
     }
     @SuppressWarnings("unchecked")
@@ -40,18 +40,20 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         expiryDateYearField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         ownerField = new javax.swing.JTextField();
-        addPMButton = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
         ownerError = new javax.swing.JLabel();
         creditNumberError = new javax.swing.JLabel();
         expiryDateError = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        cancelButton = new javax.swing.JButton();
+        finishButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(189, 249, 189));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("New Credit Card");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -61,6 +63,7 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         jPanel1.add(jLabel1, gridBagConstraints);
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel2.setText("Credit Number");
@@ -144,32 +147,6 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(ownerField, gridBagConstraints);
 
-        addPMButton.setText("Finish");
-        addPMButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPMButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(20, 10, 10, 10);
-        jPanel2.add(addPMButton, gridBagConstraints);
-
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(20, 10, 10, 10);
-        jPanel2.add(cancelButton, gridBagConstraints);
-
         ownerError.setForeground(new java.awt.Color(255, 51, 51));
         jPanel2.add(ownerError, new java.awt.GridBagConstraints());
 
@@ -185,15 +162,47 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         jPanel2.add(expiryDateError, gridBagConstraints);
 
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(cancelButton, gridBagConstraints);
+
+        finishButton.setText("Finish");
+        finishButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 15;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(finishButton, gridBagConstraints);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -202,14 +211,16 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addPMButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPMButtonActionPerformed
+    private void finishButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishButtonActionPerformed
         // TODO add your handling code here:
         int month = 0;
         int year =0;
@@ -229,7 +240,7 @@ public class NewCreditCardDisplay extends javax.swing.JFrame {
             this.dispose();
         }
         
-    }//GEN-LAST:event_addPMButtonActionPerformed
+    }//GEN-LAST:event_finishButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
@@ -308,19 +319,20 @@ public void resetErrorPrints(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addPMButton;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel creditNumberError;
     private javax.swing.JTextField creditNumberField;
     private javax.swing.JLabel expiryDateError;
     private javax.swing.JTextField expiryDateMonthField;
     private javax.swing.JTextField expiryDateYearField;
+    private javax.swing.JButton finishButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel ownerError;
     private javax.swing.JTextField ownerField;
     // End of variables declaration//GEN-END:variables

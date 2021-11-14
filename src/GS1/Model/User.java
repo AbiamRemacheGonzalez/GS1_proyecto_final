@@ -1,7 +1,6 @@
 package GS1.Model;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import GS1.Model.Payments.PaymentMethod;
+import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
@@ -12,6 +11,7 @@ public class User {
     private String lastname;
     private String mail;
     private String password;
+    private ArrayList<PaymentMethod> payments;
     
 
     public User(String firstname, String lastname, String mail, String password) {
@@ -19,6 +19,7 @@ public class User {
         this.lastname = lastname;
         this.mail = mail;
         this.password = hash(password);
+        payments = new ArrayList<>();
     }
 
     public String getFirstname() {
@@ -60,6 +61,10 @@ public class User {
     private String hash(String plainString) {
         String salt = BCrypt.gensalt(LOG_ROUNDS);
         return BCrypt.hashpw(plainString, salt);
+    }
+    
+    public void addPaymentMethod(PaymentMethod pm){
+        payments.add(pm);
     }
     
 }
