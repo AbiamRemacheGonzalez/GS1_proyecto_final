@@ -30,7 +30,7 @@ public class DataBaseUserLoader implements UserLoader{
     
     public DataBaseUserLoader(){
         try {
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Not Connected");
@@ -148,6 +148,7 @@ public class DataBaseUserLoader implements UserLoader{
         return BCrypt.hashpw(plainString, salt);
     }
     public boolean matches(String plainString) {
+        //return true;
         return BCrypt.checkpw(plainString, loadedPassword);
     }
 

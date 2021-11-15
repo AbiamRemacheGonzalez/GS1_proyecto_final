@@ -1,5 +1,6 @@
 package GS1.App;
 
+import GS1.App.SearchFriend.SearchUserDisplay;
 import GS1.Model.User;
 
 public class UserMainDisplay extends javax.swing.JFrame {
@@ -21,6 +22,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        searchFriends = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         myPaymentsMethods = new javax.swing.JMenuItem();
@@ -47,6 +49,15 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("My Friends");
+
+        searchFriends.setText("Search Friends");
+        searchFriends.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFriendsActionPerformed(evt);
+            }
+        });
+        jMenu2.add(searchFriends);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("MyResquests");
@@ -136,6 +147,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_addPaypalActionPerformed
 
+    private void searchFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFriendsActionPerformed
+        // TODO add your handling code here:
+        event.openNewUserSearchWindow();
+    }//GEN-LAST:event_searchFriendsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBizum;
@@ -150,6 +166,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem myPaymentsMethods;
+    private javax.swing.JMenuItem searchFriends;
     // End of variables declaration//GEN-END:variables
     public void on(Events ev) {
         this.event = ev;
@@ -158,5 +175,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openNewCreditCardWindow();
         void openNewPaypalWindow();
         void openNewBizumWindow();
+        void openNewUserSearchWindow();
     }
 }

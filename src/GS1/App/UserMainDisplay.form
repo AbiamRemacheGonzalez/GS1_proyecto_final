@@ -13,6 +13,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="My Friends"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="searchFriends">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Search Friends"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchFriendsActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>

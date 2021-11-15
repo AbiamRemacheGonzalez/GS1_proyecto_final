@@ -4,6 +4,7 @@ import GS1.App.AddNewPaymentMethod.NewBizumPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.NewPaypalPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import GS1.App.SearchFriend.SearchUserDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
 import GS1.App.UserMainDisplay;
@@ -23,6 +24,8 @@ public class UserPaymentsControl {
     private NewBizumPaymentDisplay newBizumPaymentDisplay;
     private NewCreditCardPaymentDisplay newCreditCardDisplay;
     private NewPaypalPaymentDisplay newPaypalPaymentDisplay;
+    private SearchUserDisplay searchFriendDisplay;
+    private SearchUserControl searchUserControl;
     
     private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
@@ -60,6 +63,14 @@ public class UserPaymentsControl {
                 newBizumPaymentDisplay = new NewBizumPaymentDisplay();
                 newBizumPaymentDisplay.on(setNewBizumPaymentDisplayEvents());
                 newBizumPaymentDisplay.setVisible(true);
+            }
+
+            @Override
+            public void openNewUserSearchWindow() {
+                searchFriendDisplay = new SearchUserDisplay();
+                searchFriendDisplay.setVisible(true);
+                searchUserControl = new SearchUserControl(searchFriendDisplay);
+                
             }
         };
     }
