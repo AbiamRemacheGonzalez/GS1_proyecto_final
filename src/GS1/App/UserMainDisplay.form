@@ -28,6 +28,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="MyResquests"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="friendRequests">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="FriendsRequests"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="friendRequestsActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>

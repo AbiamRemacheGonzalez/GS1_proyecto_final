@@ -24,6 +24,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         searchFriends = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        friendRequests = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         myPaymentsMethods = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -61,6 +62,15 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("MyResquests");
+
+        friendRequests.setText("FriendsRequests");
+        friendRequests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                friendRequestsActionPerformed(evt);
+            }
+        });
+        jMenu3.add(friendRequests);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("My Payments Methods");
@@ -152,11 +162,17 @@ public class UserMainDisplay extends javax.swing.JFrame {
         event.openNewUserSearchWindow();
     }//GEN-LAST:event_searchFriendsActionPerformed
 
+    private void friendRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestsActionPerformed
+        // TODO add your handling code here:
+        //event.openNewFriendRequestsWindow();
+    }//GEN-LAST:event_friendRequestsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBizum;
     private javax.swing.JMenuItem addCreditCard;
     private javax.swing.JMenuItem addPaypal;
+    private javax.swing.JMenuItem friendRequests;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -176,5 +192,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openNewPaypalWindow();
         void openNewBizumWindow();
         void openNewUserSearchWindow();
+        //void openNewFriendRequestsWindow();
     }
 }

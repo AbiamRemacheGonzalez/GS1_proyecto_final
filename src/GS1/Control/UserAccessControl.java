@@ -15,6 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserAccessControl {
+    public static User loggedUser;
+    
     private UserLoginDisplay userLoginDisplay;
     private UserRegistrationDisplay userRegistrationDisplay;
     private UserMainDisplay userMainDisplay;
@@ -41,7 +43,7 @@ public class UserAccessControl {
             public void login(String mail, String pass) {
                 userLoginDisplay.resetErrorPrints();
                 userLoader.initialize(mail, pass);
-                User loggedUser = userLoader.load();
+                loggedUser = userLoader.load();
                 userMainDisplay = new UserMainDisplay(loggedUser);
                 userPaymentControl = new UserPaymentsControl(userMainDisplay,loggedUser);
                 userMainDisplay.setVisible(true);
@@ -67,6 +69,8 @@ public class UserAccessControl {
                 }
                 return true;
             }
+            
+            
         };
     }
     private UserRegistrationDisplay.Events setUserRegistrationDisplayEvents(){

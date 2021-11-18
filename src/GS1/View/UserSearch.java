@@ -12,5 +12,6 @@ package GS1.View;
 public interface UserSearch {
     
     public String[] search(String search);
+    public void addFriend(String friend);
     
 }

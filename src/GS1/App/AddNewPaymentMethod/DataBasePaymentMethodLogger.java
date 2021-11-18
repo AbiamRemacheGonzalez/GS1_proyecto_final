@@ -18,7 +18,7 @@ public class DataBasePaymentMethodLogger implements PaymentMethodLogger{
     
     public DataBasePaymentMethodLogger() {
         try {
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Not Connected");

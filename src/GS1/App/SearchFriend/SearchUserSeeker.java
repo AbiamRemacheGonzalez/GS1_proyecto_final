@@ -26,8 +26,9 @@ public class SearchUserSeeker implements UserSearch{
     private Statement st;
     
     public SearchUserSeeker() {
+        
         try {
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Not Connected");
@@ -40,19 +41,25 @@ public class SearchUserSeeker implements UserSearch{
     public String[] search(String search) {
         String[] res = new String[50];
         try {
-        String sql = "SELECT firstname FROM users WHERE email LIKE '"+search+"%'";
+        String sql = "SELECT firstname,userId FROM users WHERE email LIKE '"+search+"%'";
         st.execute(sql);
         ResultSet r = st.getResultSet();
         int i = 0;
         while(r.next() && i < res.length){
-            res[i] = r.getString("firstname");
-            System.out.println(res[i]);
+            res[i] = r.getString("firstname")+"#"+r.getString("userId");
             i++;
         }
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
+    }
+    
+    @Override
+    public void addFriend(String friend){
+        
+        
+        
     }
     
 }
