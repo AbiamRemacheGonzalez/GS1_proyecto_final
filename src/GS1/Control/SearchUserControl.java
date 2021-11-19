@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -42,8 +43,8 @@ public class SearchUserControl {
         return new SearchUserDisplay.Events(){
            
             @Override
-            public String[] search(String search) {
-                return userSearch.search(search);
+            public ArrayList<String> search(String search,User currentUser) {
+                return userSearch.search(search,currentUser);
             }
             
             @Override

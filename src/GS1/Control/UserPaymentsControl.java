@@ -66,8 +66,8 @@ public class UserPaymentsControl {
             }
 
             @Override
-            public void openNewUserSearchWindow() {
-                searchFriendDisplay = new SearchUserDisplay();
+            public void openNewUserSearchWindow(User currentUser) {
+                searchFriendDisplay = new SearchUserDisplay(currentUser);
                 searchFriendDisplay.setVisible(true);
                 searchUserControl = new SearchUserControl(searchFriendDisplay);
                 

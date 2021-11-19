@@ -5,13 +5,16 @@
  */
 package GS1.View;
 
+import GS1.Model.User;
+import java.util.ArrayList;
+
 /**
  *
  * @author hugob
  */
 public interface UserSearch {
     
-    public String[] search(String search);
+    public ArrayList<String> search(String search,User currentUser);
     public void addFriend(String friend);
     
 }
