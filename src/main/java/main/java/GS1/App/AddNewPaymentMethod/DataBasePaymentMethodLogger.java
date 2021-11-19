@@ -1,10 +1,10 @@
-package GS1.App.AddNewPaymentMethod;
+package main.java.GS1.App.AddNewPaymentMethod;
 
-import GS1.Model.Payments.BizumPaymentMethod;
-import GS1.Model.Payments.CreditCardPaymentMethod;
-import GS1.Model.Payments.PaymentMethod;
-import GS1.Model.Payments.PaypalPaymentMethod;
-import GS1.View.PaymentMethodLogger;
+import main.java.GS1.Model.Payments.BizumPaymentMethod;
+import main.java.GS1.Model.Payments.CreditCardPaymentMethod;
+import main.java.GS1.Model.Payments.PaymentMethod;
+import main.java.GS1.Model.Payments.PaypalPaymentMethod;
+import main.java.GS1.View.PaymentMethodLogger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

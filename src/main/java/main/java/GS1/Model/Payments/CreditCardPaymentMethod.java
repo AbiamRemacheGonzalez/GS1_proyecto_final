@@ -1,4 +1,4 @@
-package GS1.Model.Payments;
+package main.java.GS1.Model.Payments;
 
 import java.util.Date;
 

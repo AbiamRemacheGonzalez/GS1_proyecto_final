@@ -1,5 +1,5 @@
 
-package GS1.App.UserLoginAndSignUp;
+package main.java.GS1.App.UserLoginAndSignUp;
 
 import GS1.Model.User;
 

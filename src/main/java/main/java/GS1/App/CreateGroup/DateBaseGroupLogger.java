@@ -1,7 +1,7 @@
-package GS1.App.CreateGroup;
+package main.java.GS1.App.CreateGroup;
 
-import GS1.Model.Group;
-import GS1.View.GroupLogger;
+import main.java.GS1.Model.Group;
+import main.java.GS1.View.GroupLogger;
 
 public class DateBaseGroupLogger implements GroupLogger {
 

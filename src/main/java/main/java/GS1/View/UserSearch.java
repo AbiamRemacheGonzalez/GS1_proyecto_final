@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.View;
+package main.java.GS1.View;
+
+import GS1.Model.User;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,7 +14,7 @@ package GS1.View;
  */
 public interface UserSearch {
     
-    public String[] search(String search);
+    public ArrayList<String> search(String search,User currentUser);
     public void addFriend(String friend);
     
 }

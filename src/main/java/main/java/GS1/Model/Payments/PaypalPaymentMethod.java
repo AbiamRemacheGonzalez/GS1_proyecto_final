@@ -1,4 +1,4 @@
-package GS1.Model.Payments;
+package main.java.GS1.Model.Payments;
 
 public class PaypalPaymentMethod  implements PaymentMethod{
     private final String email;

@@ -1,17 +1,17 @@
-package GS1.Control;
+package main.java.GS1.Control;
 
-import GS1.App.AddNewPaymentMethod.NewBizumPaymentDisplay;
-import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
-import GS1.App.AddNewPaymentMethod.NewPaypalPaymentDisplay;
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
-import GS1.App.SearchFriend.SearchUserDisplay;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
-import GS1.App.UserMainDisplay;
-import GS1.Model.Payments.BizumPaymentMethod;
-import GS1.Model.Payments.CreditCardPaymentMethod;
-import GS1.Model.Payments.PaymentMethod;
-import GS1.Model.Payments.PaypalPaymentMethod;
+import main.java.GS1.App.AddNewPaymentMethod.NewBizumPaymentDisplay;
+import main.java.GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
+import main.java.GS1.App.AddNewPaymentMethod.NewPaypalPaymentDisplay;
+import main.java.GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import main.java.GS1.App.SearchFriend.SearchUserDisplay;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import main.java.GS1.App.UserLoginAndSignUp.UserLoginDisplay;
+import main.java.GS1.App.UserMainDisplay;
+import main.java.GS1.Model.Payments.BizumPaymentMethod;
+import main.java.GS1.Model.Payments.CreditCardPaymentMethod;
+import main.java.GS1.Model.Payments.PaymentMethod;
+import main.java.GS1.Model.Payments.PaypalPaymentMethod;
 import GS1.Model.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -66,8 +66,8 @@ public class UserPaymentsControl {
             }
 
             @Override
-            public void openNewUserSearchWindow() {
-                searchFriendDisplay = new SearchUserDisplay();
+            public void openNewUserSearchWindow(User currentUser) {
+                searchFriendDisplay = new SearchUserDisplay(currentUser);
                 searchFriendDisplay.setVisible(true);
                 searchUserControl = new SearchUserControl(searchFriendDisplay);
                 

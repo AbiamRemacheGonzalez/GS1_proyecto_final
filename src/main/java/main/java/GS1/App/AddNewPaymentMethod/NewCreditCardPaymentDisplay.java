@@ -1,5 +1,5 @@
-package GS1.App.AddNewPaymentMethod;
-import GS1.Model.Payments.CreditCardPaymentMethod;
+package main.java.GS1.App.AddNewPaymentMethod;
+import main.java.GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;

@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.Control;
+package main.java.GS1.Control;
 
-import GS1.App.SearchFriend.SearchUserDisplay;
-import GS1.App.SearchFriend.SearchUserSeeker;
-import GS1.View.UserSearch;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import main.java.GS1.App.SearchFriend.SearchUserDisplay;
+import main.java.GS1.App.SearchFriend.SearchUserSeeker;
+import main.java.GS1.View.UserSearch;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Model.User;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -40,8 +42,8 @@ public class SearchUserControl {
         return new SearchUserDisplay.Events(){
            
             @Override
-            public String[] search(String search) {
-                return userSearch.search(search);
+            public ArrayList<String> search(String search,User currentUser) {
+                return userSearch.search(search,currentUser);
             }
             
             @Override

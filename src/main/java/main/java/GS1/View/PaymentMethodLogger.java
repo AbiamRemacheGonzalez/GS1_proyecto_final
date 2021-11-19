@@ -1,6 +1,6 @@
-package GS1.View;
+package main.java.GS1.View;
 
-import GS1.Model.Payments.PaymentMethod;
+import main.java.GS1.Model.Payments.PaymentMethod;
 
 public interface PaymentMethodLogger {
     public void save(int UserId, PaymentMethod paymentMethod);

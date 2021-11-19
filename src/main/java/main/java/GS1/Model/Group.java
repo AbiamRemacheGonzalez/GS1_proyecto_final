@@ -1,4 +1,4 @@
-package GS1.Model;
+package main.java.GS1.Model;
 
 public class Group {
 

@@ -1,10 +1,10 @@
-package GS1.App;
+package main.java.GS1.App;
 
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
-import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
-import GS1.Control.UserAccessControl;
+import main.java.GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
+import main.java.GS1.App.UserLoginAndSignUp.UserLoginDisplay;
+import main.java.GS1.Control.UserAccessControl;
 
 public class Main {
     UserLoginDisplay userLoginDisplay;

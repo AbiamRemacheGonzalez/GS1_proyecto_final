@@ -1,6 +1,6 @@
-package GS1.App.AddNewPaymentMethod;
+package main.java.GS1.App.AddNewPaymentMethod;
 
-import GS1.Model.Payments.PaypalPaymentMethod;
+import main.java.GS1.Model.Payments.PaypalPaymentMethod;
 
 public class NewPaypalPaymentDisplay extends javax.swing.JFrame {
     private Events event;

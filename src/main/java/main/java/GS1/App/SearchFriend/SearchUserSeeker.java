@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.App.SearchFriend;
+package main.java.GS1.App.SearchFriend;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.View.UserSearch;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Model.User;
+import main.java.GS1.View.UserSearch;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -38,16 +40,19 @@ public class SearchUserSeeker implements UserSearch{
     
 
     @Override
-    public String[] search(String search) {
-        String[] res = new String[50];
+    public ArrayList<String> search(String search,User currentUser) {
+        ArrayList<String> res = new ArrayList<String>();
         try {
         String sql = "SELECT firstname,userId FROM users WHERE email LIKE '"+search+"%'";
         st.execute(sql);
         ResultSet r = st.getResultSet();
-        int i = 0;
-        while(r.next() && i < res.length){
-            res[i] = r.getString("firstname")+"#"+r.getString("userId");
-            i++;
+        
+        while(r.next()){
+            if(!currentUser.getFirstname().equals(r.getString("firstname"))){
+                
+                res.add(r.getString("firstname")+"#"+r.getString("userId"));
+                
+            }
         }
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);

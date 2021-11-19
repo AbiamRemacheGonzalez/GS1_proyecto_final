@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.App.AddNewPaymentMethod;
+package main.java.GS1.App.AddNewPaymentMethod;
 
-import GS1.Model.Payments.BizumPaymentMethod;
+import main.java.GS1.Model.Payments.BizumPaymentMethod;
 import java.awt.event.KeyEvent;
 
 public class NewBizumPaymentDisplay extends javax.swing.JFrame {

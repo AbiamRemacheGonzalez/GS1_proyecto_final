@@ -1,4 +1,4 @@
-package GS1.App;
+package main.java.GS1.App;
 
 import GS1.Model.User;
 
@@ -158,7 +158,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void searchFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFriendsActionPerformed
         // TODO add your handling code here:
-        event.openNewUserSearchWindow();
+        event.openNewUserSearchWindow(loggedUser);
     }//GEN-LAST:event_searchFriendsActionPerformed
 
     private void friendRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestsActionPerformed
@@ -190,7 +190,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openNewCreditCardWindow();
         void openNewPaypalWindow();
         void openNewBizumWindow();
-        void openNewUserSearchWindow();
+        void openNewUserSearchWindow(User currentUser);
         //void openNewFriendRequestsWindow();
     }
 }

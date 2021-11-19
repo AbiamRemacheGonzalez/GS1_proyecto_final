@@ -1,13 +1,13 @@
-package GS1.Control;
+package main.java.GS1.Control;
 
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
-import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
-import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
-import GS1.App.UserMainDisplay;
-import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
-import GS1.Model.Payments.CreditCardPaymentMethod;
+import main.java.GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import main.java.GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
+import main.java.GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
+import main.java.GS1.App.UserLoginAndSignUp.UserLoginDisplay;
+import main.java.GS1.App.UserMainDisplay;
+import main.java.GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
+import main.java.GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;

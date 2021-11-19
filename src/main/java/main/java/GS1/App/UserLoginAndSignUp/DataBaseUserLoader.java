@@ -1,7 +1,7 @@
-package GS1.App.UserLoginAndSignUp;
+package main.java.GS1.App.UserLoginAndSignUp;
 
 import GS1.Model.User;
-import GS1.View.UserLoader;
+import main.java.GS1.View.UserLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

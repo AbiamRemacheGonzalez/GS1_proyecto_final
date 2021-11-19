@@ -1,4 +1,4 @@
-package GS1.App.UserLoginAndSignUp;
+package main.java.GS1.App.UserLoginAndSignUp;
 
 public class UserLoginDisplay extends javax.swing.JFrame {
     Events event;
