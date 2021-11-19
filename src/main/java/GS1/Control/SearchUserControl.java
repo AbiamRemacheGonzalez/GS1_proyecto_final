@@ -8,8 +8,6 @@ package GS1.Control;
 import GS1.App.SearchFriend.SearchUserDisplay;
 import GS1.App.SearchFriend.SearchUserSeeker;
 import GS1.View.UserSearch;
-import GS1.Control.UserAccessControl;
-import GS1.Model.User;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import java.sql.Statement;
 import java.sql.SQLException;

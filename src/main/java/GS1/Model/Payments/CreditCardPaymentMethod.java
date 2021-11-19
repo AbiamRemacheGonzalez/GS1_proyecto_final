@@ -1,6 +1,5 @@
 package GS1.Model.Payments;
 
-import GS1.Model.Payments.PaymentMethod;
 import java.util.Date;
 
 public class CreditCardPaymentMethod implements PaymentMethod{

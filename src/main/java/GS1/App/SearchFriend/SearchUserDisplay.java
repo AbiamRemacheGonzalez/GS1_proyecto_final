@@ -5,9 +5,6 @@
  */
 package GS1.App.SearchFriend;
 
-import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
-import GS1.Control.SearchUserControl;
-
 /**
  *
  * @author hugob

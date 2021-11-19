@@ -1,6 +1,5 @@
 package GS1.App;
 
-import GS1.App.SearchFriend.SearchUserDisplay;
 import GS1.Model.User;
 
 public class UserMainDisplay extends javax.swing.JFrame {
