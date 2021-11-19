@@ -17,7 +17,7 @@ import javax.swing.DefaultListModel;
 public class SearchUserDisplay extends javax.swing.JFrame {
 
     Events event;
-    //DefaultListModel model = new DefaultListModel();
+    
     User currentUser;
     DefaultListModel modelo;
     ArrayList<String> res;
@@ -28,8 +28,6 @@ public class SearchUserDisplay extends javax.swing.JFrame {
         modelo = new DefaultListModel();
         jList1.setModel(modelo);
         res = new ArrayList<String>();
-        //jList1.setModel(model);
-        //jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**

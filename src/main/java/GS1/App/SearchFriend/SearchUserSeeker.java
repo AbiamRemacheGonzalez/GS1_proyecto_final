@@ -62,10 +62,7 @@ public class SearchUserSeeker implements UserSearch {
     }
     
     @Override
-    public void addFriend(String friend){
-        
-        
-        
+    public void addFriend(String friend){ 
     }
     
 }

@@ -1,5 +1,6 @@
 package GS1.Control;
 
+import GS1.App.Requests.FriendRequestDisplay;
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.AddNewPaymentMethod.NewBizumPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
@@ -27,6 +28,7 @@ public class UserPaymentsControl {
     private NewPaypalPaymentDisplay newPaypalPaymentDisplay;
     private SearchUserDisplay searchFriendDisplay;
     private SearchUserControl searchUserControl;
+    private FriendRequestDisplay friendRequestDisplay;
     
     private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
@@ -72,6 +74,12 @@ public class UserPaymentsControl {
                 searchFriendDisplay.setVisible(true);
                 searchUserControl = new SearchUserControl(searchFriendDisplay);
                 
+            }
+
+            @Override
+            public void openNewFriendRequestsWindow() {
+                friendRequestDisplay = new FriendRequestDisplay(currentUser);
+                friendRequestDisplay.setVisible(true);
             }
         };
     }

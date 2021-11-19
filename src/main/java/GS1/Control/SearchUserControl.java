@@ -53,10 +53,10 @@ public class SearchUserControl {
                 int idUser1 = userLoader.loadUserId(UserAccessControl.loggedUser.getMail(), UserAccessControl.loggedUser.getPassword());
                 int idUser2 = Integer.parseInt(friend.substring(friend.indexOf("#")+1));
                 boolean confirmed = false;
-                String sql = "INSERT INTO friends(idUser1,idUser2,confirmed) VALUES('"+idUser1+"','"+idUser2+"',FALSE);";
+                String sql = "INSERT INTO friends(idUser1,firstname1,idUser2,confirmed) VALUES('"+idUser1+"','"+UserAccessControl.loggedUser.getFirstname()+"','"+idUser2+"',FALSE);";
                 try {
                     st.execute(sql);
-                    System.out.println("Hemos hecho algo");
+                    
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Not Connected 2");
                 }

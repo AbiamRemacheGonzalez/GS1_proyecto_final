@@ -163,7 +163,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void friendRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestsActionPerformed
         // TODO add your handling code here:
-        //event.openNewFriendRequestsWindow();
+        event.openNewFriendRequestsWindow();
     }//GEN-LAST:event_friendRequestsActionPerformed
 
 
@@ -191,6 +191,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openNewPaypalWindow();
         void openNewBizumWindow();
         void openNewUserSearchWindow(User currentUser);
-        //void openNewFriendRequestsWindow();
+        void openNewFriendRequestsWindow();
     }
 }
