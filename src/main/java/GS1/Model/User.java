@@ -1,4 +1,4 @@
-package main.java.GS1.Model;
+package GS1.Model;
 import main.java.GS1.Model.Payments.PaymentMethod;
 import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
@@ -6,7 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class User {
     
     private static final int LOG_ROUNDS = 12;
-    
+     
     private String firstname;
     private String lastname;
     private String mail;
@@ -19,7 +19,7 @@ public class User {
         this.lastname = lastname;
         this.mail = mail;
         this.password = hash(password);
-        payments = new ArrayList<>();
+        payments = new ArrayList<PaymentMethod>();
     }
 
     public String getFirstname() {
