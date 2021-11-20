@@ -12,6 +12,7 @@ public class User {
     private String mail;
     private String password;
     private ArrayList<PaymentMethod> payments;
+    private ArrayList<Group> groups;
     
 
     public User(String firstname, String lastname, String mail, String password) {
@@ -20,6 +21,7 @@ public class User {
         this.mail = mail;
         this.password = hash(password);
         payments = new ArrayList<PaymentMethod>();
+        groups = new ArrayList<Group>();
     }
 
     public String getFirstname() {
@@ -65,6 +67,14 @@ public class User {
     
     public void addPaymentMethod(PaymentMethod pm){
         payments.add(pm);
+    }
+    
+    public void addGroup(Group group){
+        groups.add(group);
+    }
+    
+    public ArrayList getGroups(){
+        return groups;
     }
     
 }

@@ -31,5 +31,4 @@ public class DataBaseUserLogger implements UserLogger{
             Logger.getLogger(DataBaseUserLogger.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

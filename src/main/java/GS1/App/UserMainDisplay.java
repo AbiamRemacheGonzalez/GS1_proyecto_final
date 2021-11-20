@@ -1,15 +1,21 @@
 package GS1.App;
 
+import GS1.Model.Group;
 import GS1.Model.User;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 public class UserMainDisplay extends javax.swing.JFrame {
 
     private Events event;
-    private final User loggedUser;
+    private User loggedUser;
+    private GroupEvents groupevent;
+    private DefaultListModel tableListModel = new DefaultListModel();
 
     public UserMainDisplay(User user) {
         loggedUser = user;
         initComponents();
+        groupList.setModel(tableListModel);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -18,8 +24,12 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        groupList = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         searchFriends = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -37,7 +47,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("User Main");
+        jLabel1.setText("My Groups");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -45,7 +55,22 @@ public class UserMainDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(jLabel1, gridBagConstraints);
 
+        groupList.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jScrollPane2.setViewportView(groupList);
+
         jMenu1.setText("My Account");
+
+        jMenuItem2.setText("Edit My Profile");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setText("Add New Group");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("My Friends");
@@ -118,9 +143,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,7 +155,9 @@ public class UserMainDisplay extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -166,25 +195,54 @@ public class UserMainDisplay extends javax.swing.JFrame {
         event.openNewFriendRequestsWindow();
     }//GEN-LAST:event_friendRequestsActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        groupevent.openAddNewGroupWindow();
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBizum;
     private javax.swing.JMenuItem addCreditCard;
     private javax.swing.JMenuItem addPaypal;
     private javax.swing.JMenuItem friendRequests;
+    private javax.swing.JList<String> groupList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem myPaymentsMethods;
     private javax.swing.JMenuItem searchFriends;
     // End of variables declaration//GEN-END:variables
+    public void setGroups(){
+        resetModelList();
+        ArrayList<Group> grupos = loggedUser.getGroups();
+        for (Group grupo : grupos) {
+            tableListModel.addElement(grupo.toString());
+        }
+    }
     public void on(Events ev) {
         this.event = ev;
+    }
+    public void on(GroupEvents ev) {
+        this.groupevent = ev;
+    }
+
+    public void setUser(User currentUser) {
+        loggedUser = currentUser;
+    }
+
+    private void resetModelList() {
+        tableListModel = new DefaultListModel();
+        groupList.setModel(tableListModel);
     }
     public interface Events{
         void openNewCreditCardWindow();
@@ -192,5 +250,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openNewBizumWindow();
         void openNewUserSearchWindow(User currentUser);
         void openNewFriendRequestsWindow();
+    }
+    
+    public interface GroupEvents{
+        void openAddNewGroupWindow();
+        void deleteGroup();
+        void openEditSelectedGroupWindow(Group group);
     }
 }

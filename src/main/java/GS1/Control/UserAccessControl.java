@@ -28,6 +28,7 @@ public class UserAccessControl {
     private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
     
     private UserPaymentsControl userPaymentControl;
+    private GroupUserControl groupUserControl;
 
     private final String mailPattern = "^(.+)@(.+)$";
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
@@ -46,8 +47,10 @@ public class UserAccessControl {
                 userLoader.initialize(mail, pass);
                 loggedUser = userLoader.load();
                 userMainDisplay = new UserMainDisplay(loggedUser);
+                groupUserControl = new GroupUserControl(userMainDisplay,loggedUser);
                 userPaymentControl = new UserPaymentsControl(userMainDisplay,loggedUser);
                 userMainDisplay.setVisible(true);
+                
             }
 
             @Override

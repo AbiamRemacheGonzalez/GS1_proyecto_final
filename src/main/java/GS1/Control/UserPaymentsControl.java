@@ -6,7 +6,6 @@ import GS1.App.AddNewPaymentMethod.NewBizumPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.NewPaypalPaymentDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Payments.BizumPaymentMethod;
 import GS1.Model.Payments.PaymentMethod;
@@ -21,7 +20,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserPaymentsControl {
-    private UserLoginDisplay userLoginDisplay;
     private final UserMainDisplay userMainDisplay;
     private NewBizumPaymentDisplay newBizumPaymentDisplay;
     private NewCreditCardPaymentDisplay newCreditCardDisplay;
