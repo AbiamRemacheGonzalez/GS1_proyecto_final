@@ -56,6 +56,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jPanel1.add(jLabel1, gridBagConstraints);
 
         groupList.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        groupList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(groupList);
 
         jMenu1.setText("My Account");

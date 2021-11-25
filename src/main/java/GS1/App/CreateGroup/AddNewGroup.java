@@ -152,6 +152,7 @@ public class AddNewGroup extends javax.swing.JFrame {
     private void canceltButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceltButtonActionPerformed
         // TODO add your handling code here:
         event.openUserMainDisplay();
+        this.dispose();
     }//GEN-LAST:event_canceltButtonActionPerformed
 
     private void addGroupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupButtonActionPerformed
@@ -159,7 +160,8 @@ public class AddNewGroup extends javax.swing.JFrame {
         if(event.checkNewGroupValues(nameField.getText(), descriptionField.getText())){
             Group g = new Group(nameField.getText(),descriptionField.getText());
             event.saveNewGroup(g);
-            event.openUserMainDisplay();
+            event.openGroupDisplay();
+            this.dispose();
         }
     }//GEN-LAST:event_addGroupButtonActionPerformed
 
@@ -192,6 +194,7 @@ public class AddNewGroup extends javax.swing.JFrame {
     
     public interface Events{
         void openUserMainDisplay();
+        void openGroupDisplay();
         boolean checkNewGroupValues(String name, String description);
         void saveNewGroup(Group group);
     }

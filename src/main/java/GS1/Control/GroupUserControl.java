@@ -3,6 +3,7 @@ package GS1.Control;
 import GS1.App.CreateGroup.AddNewGroup;
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.CreateGroup.DataBaseGroupLogger;
+import GS1.App.Group.GroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Group;
@@ -11,11 +12,13 @@ import GS1.Model.User;
 public class GroupUserControl {
     private final UserMainDisplay userMainDisplay;
     private AddNewGroup addNewGroup;
+    private GroupDisplay groupDisplay;
     
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
     private final User currentUser;
+    private Group currentGroup;
 
     public GroupUserControl(UserMainDisplay userMainDisplay, User currentUser) {
         this.userMainDisplay = userMainDisplay;
@@ -48,9 +51,10 @@ public class GroupUserControl {
             public void openUserMainDisplay() {
                 userMainDisplay.setVisible(true);
             }
-
+            
             @Override
             public void saveNewGroup(Group group) {
+                currentGroup = group;
                 int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
                 dataBaseGroupLogger.save(userId, group);
                 group.setIdGroup(dataBaseGroupLogger.getGroupId(userId, group.getName(), group.getDescription()));
@@ -71,6 +75,12 @@ public class GroupUserControl {
                     addNewGroup.printDescriptionError();
                 }
                 return res;
+            }
+
+            @Override
+            public void openGroupDisplay() {
+                groupDisplay = new GroupDisplay();
+                groupDisplay.setVisible(true);
             }
         };
     }
