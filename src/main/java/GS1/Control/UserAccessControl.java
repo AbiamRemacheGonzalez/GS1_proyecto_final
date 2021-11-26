@@ -39,7 +39,7 @@ public class UserAccessControl {
         this.userLoginDisplay.on(setUserLoginDisplayEvents());
     }
 
-    private UserLoginDisplay.Events setUserLoginDisplayEvents(){
+    public UserLoginDisplay.Events setUserLoginDisplayEvents(){
         return new UserLoginDisplay.Events() {
             @Override
             public void login(String mail, String pass) {
@@ -73,8 +73,6 @@ public class UserAccessControl {
                 }
                 return true;
             }
-            
-            
         };
     }
     private UserRegistrationDisplay.Events setUserRegistrationDisplayEvents(){

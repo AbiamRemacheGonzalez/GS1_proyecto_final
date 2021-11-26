@@ -30,6 +30,8 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        signOut = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         searchFriends = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -71,6 +73,15 @@ public class UserMainDisplay extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+        jMenu1.add(jSeparator2);
+
+        signOut.setText("Log Out");
+        signOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signOutActionPerformed(evt);
+            }
+        });
+        jMenu1.add(signOut);
 
         jMenuBar1.add(jMenu1);
 
@@ -202,6 +213,12 @@ public class UserMainDisplay extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutActionPerformed
+        // TODO add your handling code here:
+        groupevent.openLoginDisplay();
+        this.dispose();
+    }//GEN-LAST:event_signOutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBizum;
@@ -220,8 +237,10 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JMenuItem myPaymentsMethods;
     private javax.swing.JMenuItem searchFriends;
+    private javax.swing.JMenuItem signOut;
     // End of variables declaration//GEN-END:variables
     public void setGroups(){
         resetModelList();
@@ -257,5 +276,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openAddNewGroupWindow();
         void deleteGroup();
         void openEditSelectedGroupWindow(Group group);
+        void openLoginDisplay();
     }
 }

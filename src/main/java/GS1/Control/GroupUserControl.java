@@ -5,6 +5,8 @@ import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.CreateGroup.DataBaseGroupLogger;
 import GS1.App.Group.GroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
+import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Group;
 import GS1.Model.User;
@@ -41,6 +43,14 @@ public class GroupUserControl {
 
             public void openEditSelectedGroupWindow(Group group) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void openLoginDisplay() {
+                UserLoginDisplay userLoginDisplay = new UserLoginDisplay();
+                userLoginDisplay = new UserLoginDisplay();
+                userLoginDisplay.on(new UserAccessControl(userLoginDisplay).setUserLoginDisplayEvents());
+                userLoginDisplay.setVisible(true);
             }
         };
     }
@@ -99,5 +109,4 @@ public class GroupUserControl {
             }
         };
     }
-
 }

@@ -79,6 +79,7 @@ public class UserPaymentsControl {
                 friendRequestDisplay = new FriendRequestDisplay(currentUser);
                 friendRequestDisplay.setVisible(true);
             }
+
         };
     }
     
