@@ -92,6 +92,13 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
         jPanel2.add(jLabel3, gridBagConstraints);
 
+        expiryDateMonthField.setText("MM");
+        expiryDateMonthField.setToolTipText("Month");
+        expiryDateMonthField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                expiryDateMonthFieldFocusGained(evt);
+            }
+        });
         expiryDateMonthField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 expiryDateMonthFieldKeyPressed(evt);
@@ -108,6 +115,13 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 10);
         jPanel2.add(expiryDateMonthField, gridBagConstraints);
 
+        expiryDateYearField.setText("YY");
+        expiryDateYearField.setToolTipText("Year");
+        expiryDateYearField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                expiryDateYearFieldFocusGained(evt);
+            }
+        });
         expiryDateYearField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 expiryDateYearFieldKeyPressed(evt);
@@ -120,7 +134,7 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 30;
+        gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 5);
         jPanel2.add(expiryDateYearField, gridBagConstraints);
 
@@ -305,6 +319,16 @@ public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
             expiryDateMonthField.setText(value);
         }
     }//GEN-LAST:event_expiryDateMonthFieldKeyPressed
+
+    private void expiryDateYearFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expiryDateYearFieldFocusGained
+        // TODO add your handling code here:
+        expiryDateYearField.setText("");
+    }//GEN-LAST:event_expiryDateYearFieldFocusGained
+
+    private void expiryDateMonthFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_expiryDateMonthFieldFocusGained
+        // TODO add your handling code here:
+        expiryDateMonthField.setText("");
+    }//GEN-LAST:event_expiryDateMonthFieldFocusGained
     public void resetErrorPrints(){
         ownerError.setText("");
         creditNumberError.setText("");

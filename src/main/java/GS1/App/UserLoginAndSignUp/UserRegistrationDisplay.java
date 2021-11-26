@@ -119,7 +119,7 @@ public class UserRegistrationDisplay extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 105;
+        gridBagConstraints.ipadx = 130;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(passwordField, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();

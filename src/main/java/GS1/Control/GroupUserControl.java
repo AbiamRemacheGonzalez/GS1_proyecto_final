@@ -80,12 +80,24 @@ public class GroupUserControl {
             @Override
             public void openGroupDisplay() {
                 groupDisplay = new GroupDisplay();
+                groupDisplay.on(setOpenGroupDisplay());
+                groupDisplay.updateLabels();
                 groupDisplay.setVisible(true);
             }
         };
     }
-    
-    
-    
-    
+    private GroupDisplay.Events setOpenGroupDisplay() {
+        return new GroupDisplay.Events() {
+            @Override
+            public void openUserMainDisplay() {
+                userMainDisplay.setVisible(true);
+            }
+
+            @Override
+            public String getGroupName() {
+                return currentGroup.getName();
+            }
+        };
+    }
+
 }
