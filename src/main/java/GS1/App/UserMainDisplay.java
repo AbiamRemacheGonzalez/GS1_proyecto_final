@@ -29,12 +29,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         signOut = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         searchFriends = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         friendRequests = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         myPaymentsMethods = new javax.swing.JMenuItem();
@@ -42,10 +41,12 @@ public class UserMainDisplay extends javax.swing.JFrame {
         addPaypal = new javax.swing.JMenuItem();
         addBizum = new javax.swing.JMenuItem();
         addCreditCard = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -65,14 +66,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         jMenuItem2.setText("Edit My Profile");
         jMenu1.add(jMenuItem2);
-
-        jMenuItem1.setText("Add New Group");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
         jMenu1.add(jSeparator2);
 
         signOut.setText("Log Out");
@@ -94,10 +87,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
             }
         });
         jMenu2.add(searchFriends);
-
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("MyResquests");
+        jMenu2.add(jSeparator3);
 
         friendRequests.setText("FriendsRequests");
         friendRequests.addActionListener(new java.awt.event.ActionListener() {
@@ -105,9 +95,9 @@ public class UserMainDisplay extends javax.swing.JFrame {
                 friendRequestsActionPerformed(evt);
             }
         });
-        jMenu3.add(friendRequests);
+        jMenu2.add(friendRequests);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenu2);
 
         jMenu4.setText("My Payments Methods");
 
@@ -149,17 +139,29 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
+        jMenu3.setText("Manage Groups");
+
+        jMenuItem1.setText("Add New Group");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,7 +170,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -238,6 +240,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenuItem myPaymentsMethods;
     private javax.swing.JMenuItem searchFriends;
     private javax.swing.JMenuItem signOut;

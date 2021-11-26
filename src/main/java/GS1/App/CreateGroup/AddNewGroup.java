@@ -160,7 +160,7 @@ public class AddNewGroup extends javax.swing.JFrame {
         if(event.checkNewGroupValues(nameField.getText(), descriptionField.getText())){
             Group g = new Group(nameField.getText(),descriptionField.getText());
             event.saveNewGroup(g);
-            event.openGroupDisplay();
+            event.openNewEditGroupDisplay();
             this.dispose();
         }
     }//GEN-LAST:event_addGroupButtonActionPerformed
@@ -194,7 +194,7 @@ public class AddNewGroup extends javax.swing.JFrame {
     
     public interface Events{
         void openUserMainDisplay();
-        void openGroupDisplay();
+        void openNewEditGroupDisplay();
         boolean checkNewGroupValues(String name, String description);
         void saveNewGroup(Group group);
     }

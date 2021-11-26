@@ -3,10 +3,10 @@ package GS1.Control;
 import GS1.App.CreateGroup.AddNewGroup;
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.CreateGroup.DataBaseGroupLogger;
+import GS1.App.Group.EditGroupDisplay;
 import GS1.App.Group.GroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
-import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Group;
 import GS1.Model.User;
@@ -15,6 +15,7 @@ public class GroupUserControl {
     private final UserMainDisplay userMainDisplay;
     private AddNewGroup addNewGroup;
     private GroupDisplay groupDisplay;
+    private EditGroupDisplay editGroupDisplay;
     
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
@@ -88,16 +89,16 @@ public class GroupUserControl {
             }
 
             @Override
-            public void openGroupDisplay() {
-                groupDisplay = new GroupDisplay();
-                groupDisplay.on(setOpenGroupDisplay());
-                groupDisplay.updateLabels();
-                groupDisplay.setVisible(true);
+            public void openNewEditGroupDisplay() {
+                editGroupDisplay = new EditGroupDisplay();
+                editGroupDisplay.on(setOpenEditGroupDisplay());
+                editGroupDisplay.updateLabels();
+                editGroupDisplay.setVisible(true);
             }
         };
     }
-    private GroupDisplay.Events setOpenGroupDisplay() {
-        return new GroupDisplay.Events() {
+    private EditGroupDisplay.Events setOpenEditGroupDisplay() {
+        return new EditGroupDisplay.Events() {
             @Override
             public void openUserMainDisplay() {
                 userMainDisplay.setVisible(true);
@@ -106,6 +107,11 @@ public class GroupUserControl {
             @Override
             public String getGroupName() {
                 return currentGroup.getName();
+            }
+
+            @Override
+            public void openAddNewMemberDisplay() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }
