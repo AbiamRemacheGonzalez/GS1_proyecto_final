@@ -2,6 +2,7 @@ package GS1.App.Requests;
 
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.Control.UserAccessControl;
+import GS1.Model.Request;
 import GS1.Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -169,8 +170,8 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_DiscardActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ArrayList<String> users = event.getUserResquests();
-        for (String name : users) {
+        ArrayList<Request> users = event.getFriendRequests();
+        for (Request name : users) {
             modelo.addElement(name);
         }
     }//GEN-LAST:event_formWindowOpened
@@ -192,7 +193,8 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
 
     public interface Events {
 
-        ArrayList<String> getUserResquests();
+        ArrayList<Request> getFriendRequests();
+        ArrayList<Request> getGroupRequests();
 
         public void acceptRequest(int destinationUserId);
 

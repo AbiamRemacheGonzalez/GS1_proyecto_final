@@ -47,7 +47,7 @@ public class DataBaseRequestLoader implements RequestLoader{
         char requestType = request.getRequestType();
         if(requestType == 'F') acceptFriendRequest(request);
         if(requestType == 'G') acceptGroupRequest(request);
-        deleteRequest(request);
+        discardRequest(request);
     }
 
     @Override
@@ -71,12 +71,5 @@ public class DataBaseRequestLoader implements RequestLoader{
 
     private void acceptGroupRequest(Request request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void deleteRequest(Request request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    
+    }    
 }

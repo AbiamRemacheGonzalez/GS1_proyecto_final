@@ -4,6 +4,7 @@ import GS1.App.Requests.DataBaseRequestLoader;
 import GS1.App.Requests.UserRequestsDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
+import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
 
@@ -35,21 +36,31 @@ public class UserRequestsControl {
     private UserRequestsDisplay.Events setUserRequestsDisplayEvents() {
         return new UserRequestsDisplay.Events() {
             @Override
-            public ArrayList<String> getUserResquests() {
+            public ArrayList<Request> getFriendRequests() {
                 int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                return dataBaseRequestLoader.getResquests(userId);
+                return dataBaseRequestLoader.getRequests(userId, 'F');
             }
-
+            
+            @Override
+            public ArrayList<Request> getGroupRequests() {
+                int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                return dataBaseRequestLoader.getRequests(userId, 'G');
+            }
+            
+            //TODO
             @Override
             public void acceptRequest(int destinationUserId) {
                 int sourceUserId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                dataBaseRequestLoader.acceptRequest(sourceUserId, destinationUserId);
+                Request request = new Request(sourceUserId, destinationUserId, requestType);
+                dataBaseRequestLoader.acceptRequest(request);
             }
-
+            
+            //TODO
             @Override
             public void discardRequest(int destinationUserId) {
                 int sourceUserId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                dataBaseRequestLoader.discardRequest(sourceUserId, destinationUserId);
+                Request request = new Request(sourceUserId, destinationUserId, requestType);
+                dataBaseRequestLoader.discardRequest(request);
             }
         };
     }
