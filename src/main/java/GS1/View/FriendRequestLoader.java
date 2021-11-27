@@ -3,7 +3,7 @@ package GS1.View;
 import java.util.ArrayList;
 
 public interface FriendRequestLoader {
-    public ArrayList<String> showFriendResquests();
-    public void addFriend(String friend);
-    public void discardFriend(String user);
+    public ArrayList<String> getFriendsResquests(int sourceUserId);
+    public void acceptRequest(int sourceUserId,int destinationUserId);
+    public void discardRequest(int sourceUserId,int destinationUserId);
 }

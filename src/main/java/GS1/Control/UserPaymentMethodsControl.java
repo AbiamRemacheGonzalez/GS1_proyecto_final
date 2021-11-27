@@ -2,9 +2,9 @@ package GS1.Control;
 
 import GS1.App.Requests.FriendRequestDisplay;
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
-import GS1.App.AddNewPaymentMethod.NewBizumPaymentDisplay;
-import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
-import GS1.App.AddNewPaymentMethod.NewPaypalPaymentDisplay;
+import GS1.App.AddNewPaymentMethod.AddBizumPaymentDisplay;
+import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
+import GS1.App.AddNewPaymentMethod.AddPaypalPaymentDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Payments.BizumPaymentMethod;
@@ -19,13 +19,13 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UserPaymentsControl {
+public class UserPaymentMethodsControl {
     private final UserMainDisplay userMainDisplay;
-    private NewBizumPaymentDisplay newBizumPaymentDisplay;
-    private NewCreditCardPaymentDisplay newCreditCardDisplay;
-    private NewPaypalPaymentDisplay newPaypalPaymentDisplay;
+    private AddBizumPaymentDisplay newBizumPaymentDisplay;
+    private AddCreditCardPaymentDisplay newCreditCardDisplay;
+    private AddPaypalPaymentDisplay newPaypalPaymentDisplay;
     private SearchUserDisplay searchFriendDisplay;
-    private SearchUserControl searchUserControl;
+    private UserSearchControl searchUserControl;
     private FriendRequestDisplay friendRequestDisplay;
     
     private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
@@ -37,31 +37,31 @@ public class UserPaymentsControl {
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
     private final String expiryDatePattern = "(([0][1-9]|1[1-2])/([0-2][0-9]|3[0-1]))";
 
-    public UserPaymentsControl(UserMainDisplay userMainDisplay, User user) {
+    public UserPaymentMethodsControl(UserMainDisplay userMainDisplay, User user) {
         this.currentUser = user;
         this.userMainDisplay = userMainDisplay;
-        userMainDisplay.on(setUserMainDisplayEvents());
+        userMainDisplay.on(setUserMainPaymentEvents());
     }
 
-    private UserMainDisplay.Events setUserMainDisplayEvents() {
-        return new UserMainDisplay.Events() {
+    private UserMainDisplay.PaymentEvents setUserMainPaymentEvents() {
+        return new UserMainDisplay.PaymentEvents() {
             @Override
-            public void openNewCreditCardWindow() {
-                newCreditCardDisplay = new NewCreditCardPaymentDisplay(currentUser);
+            public void openAddCreditCardWindow() {
+                newCreditCardDisplay = new AddCreditCardPaymentDisplay(currentUser);
                 newCreditCardDisplay.on(setNewCreditCardDisplayEvents(), 1);
                 newCreditCardDisplay.setVisible(true);
             }
 
             @Override
-            public void openNewPaypalWindow() {
-                newPaypalPaymentDisplay = new NewPaypalPaymentDisplay();
+            public void openAddPaypalWindow() {
+                newPaypalPaymentDisplay = new AddPaypalPaymentDisplay();
                 newPaypalPaymentDisplay.on(setNewPaypalPaymentDisplayEvents());
                 newPaypalPaymentDisplay.setVisible(true);
             }
 
             @Override
-            public void openNewBizumWindow() {
-                newBizumPaymentDisplay = new NewBizumPaymentDisplay();
+            public void openAddBizumWindow() {
+                newBizumPaymentDisplay = new AddBizumPaymentDisplay();
                 newBizumPaymentDisplay.on(setNewBizumPaymentDisplayEvents());
                 newBizumPaymentDisplay.setVisible(true);
             }
@@ -70,7 +70,7 @@ public class UserPaymentsControl {
             public void openNewUserSearchWindow(User currentUser) {
                 searchFriendDisplay = new SearchUserDisplay(currentUser);
                 searchFriendDisplay.setVisible(true);
-                searchUserControl = new SearchUserControl(searchFriendDisplay);
+                searchUserControl = new UserSearchControl(searchFriendDisplay);
                 
             }
 
@@ -83,8 +83,8 @@ public class UserPaymentsControl {
         };
     }
     
-    private NewCreditCardPaymentDisplay.Events setNewCreditCardDisplayEvents() {
-        return new NewCreditCardPaymentDisplay.Events() {
+    private AddCreditCardPaymentDisplay.Events setNewCreditCardDisplayEvents() {
+        return new AddCreditCardPaymentDisplay.Events() {
             @Override
             public void signUp(User user, CreditCardPaymentMethod credit) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -132,8 +132,8 @@ public class UserPaymentsControl {
             }
         };
     }
-    private NewPaypalPaymentDisplay.Events setNewPaypalPaymentDisplayEvents() {
-        return new NewPaypalPaymentDisplay.Events() {
+    private AddPaypalPaymentDisplay.Events setNewPaypalPaymentDisplayEvents() {
+        return new AddPaypalPaymentDisplay.Events() {
             @Override
             public void addPayment(PaypalPaymentMethod paypal) {
                 internalAddPayment(paypal);
@@ -155,8 +155,8 @@ public class UserPaymentsControl {
             }
         };
     }
-    private NewBizumPaymentDisplay.Events setNewBizumPaymentDisplayEvents() {
-        return new NewBizumPaymentDisplay.Events() {
+    private AddBizumPaymentDisplay.Events setNewBizumPaymentDisplayEvents() {
+        return new AddBizumPaymentDisplay.Events() {
             @Override
             public void addPayment(BizumPaymentMethod bizum) {
                 internalAddPayment(bizum);

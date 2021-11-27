@@ -6,7 +6,7 @@ import GS1.Model.User;
 
 public class UserRegistrationDisplay extends javax.swing.JFrame {
 
-    private Events event;
+    private RegistrationEvents event;
 
     public UserRegistrationDisplay() {
         initComponents();
@@ -288,10 +288,10 @@ public class UserRegistrationDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel pError;
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
-    public void on(Events ev) {
+    public void on(RegistrationEvents ev) {
         this.event = ev;
     }
-    public interface Events{
+    public interface RegistrationEvents{
         void openNewCreditCardWindow(User user);
         void openUserLoginWindow();
         Boolean checkNewUserValues(String firstName, String lastName, String email, String password, String confirmPassword);

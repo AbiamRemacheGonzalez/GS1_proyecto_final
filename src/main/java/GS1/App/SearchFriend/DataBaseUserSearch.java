@@ -14,13 +14,12 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class SearchUserSeeker implements UserSearch {
+public class DataBaseUserSearch implements UserSearch {
     
     private Connection cn;
     private Statement st;
     
-    public SearchUserSeeker() {
-        
+    public DataBaseUserSearch() {
         try {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
@@ -28,9 +27,6 @@ public class SearchUserSeeker implements UserSearch {
             JOptionPane.showMessageDialog(null, "Not Connected");
         }
     }
-    
-    
-
     @Override
     public ArrayList<String> search(String search, User currentUser) {
         ArrayList<String> res = new ArrayList<String>();
@@ -41,19 +37,12 @@ public class SearchUserSeeker implements UserSearch {
         
         while(r.next()){
             if(!currentUser.getFirstname().equals(r.getString("firstname"))){
-                
                 res.add(r.getString("firstname")+"#"+r.getString("userId"));
-                
             }
         }
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
-    }
-    
-    @Override
-    public void addFriend(String friend){ 
-    }
-    
+    }    
 }

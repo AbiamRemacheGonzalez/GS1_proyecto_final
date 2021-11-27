@@ -2,11 +2,11 @@ package GS1.App.CreateGroup;
 
 import GS1.Model.Group;
 
-public class AddNewGroup extends javax.swing.JFrame {
+public class AddGroupDisplay extends javax.swing.JFrame {
 
     private Events event;
 
-    public AddNewGroup() {
+    public AddGroupDisplay() {
         initComponents();
     }
     public void resetPrintErrors(){

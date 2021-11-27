@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class SearchUserDisplay extends javax.swing.JFrame {
-
     Events event;
-    
     User currentUser;
     DefaultListModel modelo;
     ArrayList<String> res;
@@ -32,7 +30,7 @@ public class SearchUserDisplay extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jTextField1 = new javax.swing.JTextField();
+        searchField = new javax.swing.JTextField();
         addFriendButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -74,9 +72,9 @@ public class SearchUserDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jScrollPane1, gridBagConstraints);
 
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+                searchFieldKeyReleased(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -84,7 +82,7 @@ public class SearchUserDisplay extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(20, 10, 5, 10);
-        jPanel2.add(jTextField1, gridBagConstraints);
+        jPanel2.add(searchField, gridBagConstraints);
 
         addFriendButton.setText("Send friend request");
         addFriendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -125,21 +123,21 @@ public class SearchUserDisplay extends javax.swing.JFrame {
 
     private void addFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendButtonActionPerformed
         String friend = jList1.getSelectedValue();
-        event.addFriend(friend);
+        event.SendFriendRequest(friend);
     }//GEN-LAST:event_addFriendButtonActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+    private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
         // TODO add your handling code here:
         modelo.clear();
-        if(jTextField1.getText().equals("")){
+        if(searchField.getText().equals("")){
             modelo.clear();
         }else{
-            res = event.search(jTextField1.getText(),currentUser);
+            res = event.search(searchField.getText(),currentUser);
             for(String name : res){
                 modelo.addElement(name);
             }
         }
-    }//GEN-LAST:event_jTextField1KeyReleased
+    }//GEN-LAST:event_searchFieldKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addFriendButton;
@@ -149,7 +147,7 @@ public class SearchUserDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchField;
     // End of variables declaration//GEN-END:variables
     public void on(Events ev) {
         this.event = ev;
@@ -157,7 +155,7 @@ public class SearchUserDisplay extends javax.swing.JFrame {
     
     public interface Events{
         ArrayList<String> search(String search,User currentUser);
-        void addFriend(String friend);
+        void SendFriendRequest(String friend);
     }
     
 }

@@ -1,7 +1,7 @@
 package GS1.App.UserLoginAndSignUp;
 
 public class UserLoginDisplay extends javax.swing.JFrame {
-    Events event;
+    LoginEvents event;
     public UserLoginDisplay() {
         initComponents();        
     }
@@ -154,7 +154,6 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
-        // TODO add your handling code here:
         event.openSignUpWindow();
         this.dispose();
     }//GEN-LAST:event_signupButtonActionPerformed
@@ -198,10 +197,10 @@ public class UserLoginDisplay extends javax.swing.JFrame {
     private javax.swing.JButton signupButton;
     private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
-    public void on(Events ev) {
+    public void on(LoginEvents ev) {
         this.event = ev;
     }
-    public interface Events{
+    public interface LoginEvents{
         void login(String mail, String pass);
         boolean checkUser(String mail, String pass);
         void openSignUpWindow();

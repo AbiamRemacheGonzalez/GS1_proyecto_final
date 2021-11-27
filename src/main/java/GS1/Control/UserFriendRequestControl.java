@@ -13,14 +13,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class FriendRequestControl {
+public class UserFriendRequestControl {
     private Connection cn;
     private Statement st;
     
     private FriendRequestDisplay friendRequestDisplay;
     private FriendRequest friendRequest = new FriendRequest();
 
-    public FriendRequestControl(FriendRequestDisplay friendRequestDisplay) {
+    public UserFriendRequestControl(FriendRequestDisplay friendRequestDisplay) {
         this.friendRequestDisplay = friendRequestDisplay;
         this.friendRequestDisplay.on(setFriendRequestDisplay());
         

@@ -1,7 +1,7 @@
 package GS1.Control;
 
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
-import GS1.App.AddNewPaymentMethod.NewCreditCardPaymentDisplay;
+import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
@@ -9,7 +9,6 @@ import GS1.App.UserMainDisplay;
 import GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
 import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -21,14 +20,18 @@ public class UserAccessControl {
     private UserLoginDisplay userLoginDisplay;
     private UserRegistrationDisplay userRegistrationDisplay;
     private UserMainDisplay userMainDisplay;
-    private NewCreditCardPaymentDisplay newCreditCardDisplay;
+    private AddCreditCardPaymentDisplay newCreditCardDisplay;
     
-    private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
-    private final DataBaseUserLogger userLogger = new DataBaseUserLogger();
-    private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
+    private final DataBaseUserLoader databaseUserLoader = new DataBaseUserLoader();
+    private final DataBaseUserLogger databaseUserLogger = new DataBaseUserLogger();
+    private final DataBasePaymentMethodLogger databasePaymentMethodLogger = new DataBasePaymentMethodLogger();
     
-    private UserPaymentsControl userPaymentControl;
-    private GroupUserControl groupUserControl;
+    //Clases de control que gestionan los eventos del User Main
+    private UserPaymentMethodsControl userPaymentControl;
+    private UserGroupControl userGroupControl;
+    private UserSearchControl userSearchControl;
+    private UserFriendRequestControl userFriendRequestControl;
+    private UserGroupRequestControl userGroupRequestControl;
 
     private final String mailPattern = "^(.+)@(.+)$";
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
@@ -39,18 +42,14 @@ public class UserAccessControl {
         this.userLoginDisplay.on(setUserLoginDisplayEvents());
     }
 
-    public UserLoginDisplay.Events setUserLoginDisplayEvents(){
-        return new UserLoginDisplay.Events() {
+    public UserLoginDisplay.LoginEvents setUserLoginDisplayEvents(){
+        return new UserLoginDisplay.LoginEvents() {
             @Override
             public void login(String mail, String pass) {
                 userLoginDisplay.resetErrorPrints();
-                userLoader.initialize(mail, pass);
-                loggedUser = userLoader.load();
-                userMainDisplay = new UserMainDisplay(loggedUser);
-                groupUserControl = new GroupUserControl(userMainDisplay,loggedUser);
-                userPaymentControl = new UserPaymentsControl(userMainDisplay,loggedUser);
-                userMainDisplay.setVisible(true);
-                
+                databaseUserLoader.initialize(mail, pass);
+                loggedUser = databaseUserLoader.load();
+                enableUserMainDisplay();
             }
 
             @Override
@@ -63,23 +62,24 @@ public class UserAccessControl {
             @Override
             public boolean checkUser(String mail, String pass) {
                 userLoginDisplay.resetErrorPrints();
-                userLoader.initialize(mail, pass);
-                User loggedUser = userLoader.load();
+                databaseUserLoader.initialize(mail, pass);
+                User loggedUser = databaseUserLoader.load();
                 if(loggedUser == null){
-                    if(!userLoader.isEmailPatternCorrect())userLoginDisplay.printEmailPatternError();
-                    if(!userLoader.emailExists())userLoginDisplay.printEmailNotFoundError();
-                    if(!userLoader.isPasswordCorrect())userLoginDisplay.printPasswordError();
+                    if(!databaseUserLoader.isEmailPatternCorrect())userLoginDisplay.printEmailPatternError();
+                    if(!databaseUserLoader.emailExists())userLoginDisplay.printEmailNotFoundError();
+                    if(!databaseUserLoader.isPasswordCorrect())userLoginDisplay.printPasswordError();
                     return false;
                 }
                 return true;
             }
         };
     }
-    private UserRegistrationDisplay.Events setUserRegistrationDisplayEvents(){
-        return new UserRegistrationDisplay.Events(){
+    
+    private UserRegistrationDisplay.RegistrationEvents setUserRegistrationDisplayEvents(){
+        return new UserRegistrationDisplay.RegistrationEvents(){
             @Override
             public void openNewCreditCardWindow(User user) {
-                newCreditCardDisplay = new NewCreditCardPaymentDisplay(user);
+                newCreditCardDisplay = new AddCreditCardPaymentDisplay(user);
                 newCreditCardDisplay.on(setNewCreditCardDisplayEvents(),0);
                 newCreditCardDisplay.setVisible(true);
             }
@@ -107,7 +107,7 @@ public class UserAccessControl {
                     res = false;
                     userRegistrationDisplay.printEmailPatternError();
                 }
-                if(userLoader.emailUserExists(email)){
+                if(databaseUserLoader.emailUserExists(email)){
                     res = false;
                     userRegistrationDisplay.printExistEmailError();
                 }
@@ -121,22 +121,25 @@ public class UserAccessControl {
                 }
                 return res;
             }
+            private boolean emailPatternCheck(String mail){
+                Pattern pattern = Pattern.compile(mailPattern);
+                Matcher matcher = pattern.matcher(mail);
+                return matcher.matches();
+            }
             
         };
     }
     
-    private NewCreditCardPaymentDisplay.Events setNewCreditCardDisplayEvents(){
-        return new NewCreditCardPaymentDisplay.Events(){
+    private AddCreditCardPaymentDisplay.Events setNewCreditCardDisplayEvents(){
+        return new AddCreditCardPaymentDisplay.Events(){
             @Override
             public void signUp(User user, CreditCardPaymentMethod credit) {
-                userLogger.save(user);
-                int userId = userLoader.loadUserId(user.getMail(), user.getPassword());
-                paymentMethodLogger.save(userId, credit);
+                databaseUserLogger.save(user);
+                int userId = databaseUserLoader.loadUserId(user.getMail(), user.getPassword());
+                databasePaymentMethodLogger.save(userId, credit);
                 user.addPaymentMethod(credit);
-                
-                userMainDisplay = new UserMainDisplay(user);
-                userPaymentControl = new UserPaymentsControl(userMainDisplay,user);
-                userMainDisplay.setVisible(true);
+                loggedUser = user;
+                enableUserMainDisplay();
             }
 
             @Override
@@ -169,6 +172,18 @@ public class UserAccessControl {
                 }
                 return res;
             }
+            
+            private boolean isCorrectCreditNumber(long creditNumber){
+                Pattern pattern = Pattern.compile(creditNumberPattern);
+                Matcher matcher = pattern.matcher(Long.toString(creditNumber));
+                return matcher.matches();
+            }
+            
+            private boolean isCorrectExpiryDate(String expiryDate){
+                Pattern pattern = Pattern.compile(expiryDatePattern);
+                Matcher matcher = pattern.matcher(expiryDate);
+                return matcher.matches();
+            }
 
             @Override
             public void addPayment(CreditCardPaymentMethod credit) {
@@ -182,20 +197,16 @@ public class UserAccessControl {
         };
     }
     
-    private boolean emailPatternCheck(String mail){
-        Pattern pattern = Pattern.compile(mailPattern);
-        Matcher matcher = pattern.matcher(mail);
-        return matcher.matches();
-    }
-    
-    private boolean isCorrectCreditNumber(long creditNumber){
-        Pattern pattern = Pattern.compile(creditNumberPattern);
-        Matcher matcher = pattern.matcher(Long.toString(creditNumber));
-        return matcher.matches();
-    }
-    private boolean isCorrectExpiryDate(String expiryDate){
-        Pattern pattern = Pattern.compile(expiryDatePattern);
-        Matcher matcher = pattern.matcher(expiryDate);
-        return matcher.matches();
+    private void enableUserMainDisplay() {
+        if(loggedUser != null){
+            userMainDisplay = new UserMainDisplay();
+            //Delegamos la gestión de eventos del userMainDisplay a sus ficheros de control correspondiente.
+            userGroupControl = new UserGroupControl(userMainDisplay,loggedUser);
+            userPaymentControl = new UserPaymentMethodsControl(userMainDisplay,loggedUser);
+            userSearchControl = new UserSearchControl(userMainDisplay,loggedUser);
+            userFriendRequestControl = new UserFriendRequestControl(userMainDisplay,loggedUser);
+            userGroupRequestControl = new UserGroupRequestControl(userMainDisplay,loggedUser);
+            userMainDisplay.setVisible(true);
+        }
     }
 }

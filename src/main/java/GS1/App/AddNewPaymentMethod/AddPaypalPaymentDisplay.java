@@ -2,9 +2,9 @@ package GS1.App.AddNewPaymentMethod;
 
 import GS1.Model.Payments.PaypalPaymentMethod;
 
-public class NewPaypalPaymentDisplay extends javax.swing.JFrame {
+public class AddPaypalPaymentDisplay extends javax.swing.JFrame {
     private Events event;
-    public NewPaypalPaymentDisplay() {
+    public AddPaypalPaymentDisplay() {
         initComponents();
     }
     @SuppressWarnings("unchecked")

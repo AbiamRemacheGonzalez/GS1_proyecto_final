@@ -8,10 +8,10 @@ package GS1.App.AddNewPaymentMethod;
 import GS1.Model.Payments.BizumPaymentMethod;
 import java.awt.event.KeyEvent;
 
-public class NewBizumPaymentDisplay extends javax.swing.JFrame {
+public class AddBizumPaymentDisplay extends javax.swing.JFrame {
     private Events event;
     private final int TELEPHONE_LENGHT = 9;
-    public NewBizumPaymentDisplay() {
+    public AddBizumPaymentDisplay() {
         initComponents();
     }
     @SuppressWarnings("unchecked")

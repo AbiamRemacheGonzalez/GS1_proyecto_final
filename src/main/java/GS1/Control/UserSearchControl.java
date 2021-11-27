@@ -4,7 +4,7 @@ import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.Model.User;
 import GS1.View.UserSearch;
 import GS1.App.SearchFriend.SearchUserDisplay;
-import GS1.App.SearchFriend.SearchUserSeeker;
+import GS1.App.SearchFriend.DataBaseUserSearch;
 
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -14,15 +14,15 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
-public class SearchUserControl {
+public class UserSearchControl {
     
     private Connection cn;
     private Statement st;
     
     private SearchUserDisplay searchUserDisplay;
-    private UserSearch userSearch = new SearchUserSeeker();
+    private UserSearch userSearch = new DataBaseUserSearch();
 
-    public SearchUserControl(SearchUserDisplay searchUserDisplay) {
+    public UserSearchControl(SearchUserDisplay searchUserDisplay) {
         this.searchUserDisplay = searchUserDisplay;
         this.searchUserDisplay.on(setFriendSearchDisplay());
         
@@ -43,12 +43,11 @@ public class SearchUserControl {
             }
             
             @Override
-            public void addFriend(String friend) {
+            public void SendFriendRequest(String friend) {
                 DataBaseUserLoader userLoader = new DataBaseUserLoader();
-                int idUser1 = userLoader.loadUserId(UserAccessControl.loggedUser.getMail(), UserAccessControl.loggedUser.getPassword());
-                int idUser2 = Integer.parseInt(friend.substring(friend.indexOf("#")+1));
-                boolean confirmed = false;
-                String sql = "INSERT INTO friends(idUser1,firstname1,idUser2,confirmed) VALUES('"+idUser1+"','"+UserAccessControl.loggedUser.getFirstname()+"','"+idUser2+"',FALSE);";
+                int sourceUserId = userLoader.loadUserId(UserAccessControl.loggedUser.getMail(), UserAccessControl.loggedUser.getPassword());
+                int destionationUserId = Integer.parseInt(friend.substring(friend.indexOf("#")+1));
+                String sql = "INSERT INTO requests(sourceUserId,destionationUserId,requestType) VALUES('"+sourceUserId+"','"+destionationUserId+"','F');";
                 try {
                     st.execute(sql);
                     
@@ -56,15 +55,7 @@ public class SearchUserControl {
                     JOptionPane.showMessageDialog(null, "Not Connected 2");
                 }
                 
-            }
-            
-            /*
-            @Override
-            public void openNewFriendRequestsWindow(){
-                System.out.println("Hola");
-            } 
-            */
-           
+            }           
         };
     }
     

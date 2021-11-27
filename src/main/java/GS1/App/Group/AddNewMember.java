@@ -1,10 +1,13 @@
 package GS1.App.Group;
 
 import GS1.Model.User;
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class AddNewMember extends javax.swing.JFrame {
     private DefaultListModel friendListModel = new DefaultListModel();
+    private Events event;
     public AddNewMember() {
         friendList.setModel(friendListModel);
         initComponents();
@@ -100,9 +103,9 @@ public class AddNewMember extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,7 +116,9 @@ public class AddNewMember extends javax.swing.JFrame {
 
     private void sendGroupRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendGroupRequestActionPerformed
         // TODO add your handling code here:
+        List<String> friends = friendList.getSelectedValuesList();
         
+        event.sendGroupRequest();
     }//GEN-LAST:event_sendGroupRequestActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -127,12 +132,14 @@ public class AddNewMember extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sendGroupRequest;
     // End of variables declaration//GEN-END:variables
-    private void setFriendsList(String[] friendList){
+    public void setFriendsList(ArrayList<String> friendList){
         for (String friend : friendList) {
             friendListModel.addElement(friend);
         }
     }
-    
+    public void on(Events event){
+        this.event = event;
+    }
     public interface Events{
         void sendGroupRequest();
     }

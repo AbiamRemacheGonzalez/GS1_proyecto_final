@@ -1,21 +1,19 @@
 package GS1.App;
 
-import GS1.Model.Group;
-import GS1.Model.User;
-import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class UserMainDisplay extends javax.swing.JFrame {
-
-    private Events event;
-    private User loggedUser;
+    private PaymentEvents paymentEvent;
     private GroupEvents groupevent;
-    private DefaultListModel tableListModel = new DefaultListModel();
+    private MainEvents mainevent;
+    private SearchEvents searchEvent;
+    private RequestEvents requestEvent;
+    
+    private DefaultListModel groupListModel = new DefaultListModel();
 
-    public UserMainDisplay(User user) {
-        loggedUser = user;
+    public UserMainDisplay() {
         initComponents();
-        groupList.setModel(tableListModel);
+        groupList.setModel(groupListModel);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -179,7 +177,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void addBizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBizumActionPerformed
         // TODO add your handling code here:
-        event.openNewBizumWindow();
+        paymentEvent.openAddBizumWindow();
         this.dispose();
     }//GEN-LAST:event_addBizumActionPerformed
 
@@ -189,24 +187,24 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void addCreditCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCreditCardActionPerformed
         // TODO add your handling code here:
-        event.openNewCreditCardWindow();
+        paymentEvent.openAddCreditCardWindow();
         this.dispose();
     }//GEN-LAST:event_addCreditCardActionPerformed
 
     private void addPaypalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPaypalActionPerformed
         // TODO add your handling code here:
-        event.openNewPaypalWindow();
+        paymentEvent.openAddPaypalWindow();
         this.dispose();
     }//GEN-LAST:event_addPaypalActionPerformed
 
     private void searchFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFriendsActionPerformed
         // TODO add your handling code here:
-        event.openNewUserSearchWindow(loggedUser);
+        searchEvent.openUserSearchWindow();
     }//GEN-LAST:event_searchFriendsActionPerformed
 
     private void friendRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestsActionPerformed
         // TODO add your handling code here:
-        event.openNewFriendRequestsWindow();
+        requestEvent.openNewFriendRequestsWindow();
     }//GEN-LAST:event_friendRequestsActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -217,7 +215,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutActionPerformed
         // TODO add your handling code here:
-        groupevent.openLoginDisplay();
+        mainevent.openLoginDisplay();
         this.dispose();
     }//GEN-LAST:event_signOutActionPerformed
 
@@ -245,40 +243,47 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JMenuItem searchFriends;
     private javax.swing.JMenuItem signOut;
     // End of variables declaration//GEN-END:variables
-    public void setGroups(){
-        resetModelList();
-        ArrayList<Group> grupos = loggedUser.getGroups();
-        for (Group grupo : grupos) {
-            tableListModel.addElement(grupo.toString());
-        }
-    }
-    public void on(Events ev) {
-        this.event = ev;
+
+    public void on(PaymentEvents ev) {
+        this.paymentEvent = ev;
     }
     public void on(GroupEvents ev) {
         this.groupevent = ev;
     }
-
-    public void setUser(User currentUser) {
-        loggedUser = currentUser;
+    public void on(MainEvents ev) {
+        this.mainevent = ev;
+    }
+    public void on(SearchEvents ev) {
+        this.searchEvent = ev;
+    }
+    public void on(RequestEvents ev) {
+        this.requestEvent = ev;
     }
 
     private void resetModelList() {
-        tableListModel = new DefaultListModel();
-        groupList.setModel(tableListModel);
+        groupListModel = new DefaultListModel();
+        groupList.setModel(groupListModel);
     }
-    public interface Events{
-        void openNewCreditCardWindow();
-        void openNewPaypalWindow();
-        void openNewBizumWindow();
-        void openNewUserSearchWindow(User currentUser);
+    
+    public interface SearchEvents{
+        void openUserSearchWindow();
+    }
+    public interface RequestEvents{
         void openNewFriendRequestsWindow();
+    }
+    
+    public interface PaymentEvents{
+        void openAddCreditCardWindow();
+        void openAddPaypalWindow();
+        void openAddBizumWindow();
     }
     
     public interface GroupEvents{
         void openAddNewGroupWindow();
-        void deleteGroup();
-        void openEditSelectedGroupWindow(Group group);
+        void openEditSelectedGroupWindow();
+    }
+    
+    public interface MainEvents{
         void openLoginDisplay();
     }
 }

@@ -7,14 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class NewCreditCardPaymentDisplay extends javax.swing.JFrame {
+public class AddCreditCardPaymentDisplay extends javax.swing.JFrame {
     private Events event;
     private User newUser;
     private int intent;
     private final int MONTHSIZE = 2;
     private final int YEARSIZE = 2;
     private final int CREDITNUMBERSIZE = 16;
-    public NewCreditCardPaymentDisplay(User user) {
+    public AddCreditCardPaymentDisplay(User user) {
         newUser = user;
         initComponents();
     }
