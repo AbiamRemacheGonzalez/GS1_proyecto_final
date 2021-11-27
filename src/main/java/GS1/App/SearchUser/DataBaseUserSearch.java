@@ -1,6 +1,7 @@
-package GS1.App.SearchFriend;
+package GS1.App.SearchUser;
 
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Model.Request;
 import GS1.Model.User;
 import GS1.View.UserSearch;
 
@@ -28,16 +29,19 @@ public class DataBaseUserSearch implements UserSearch {
     }
     
     @Override
-    public ArrayList<String> search(String search, User currentUser) {
-        ArrayList<String> res = new ArrayList<String>();
+    public ArrayList<User> search(String search, User currentUser) {
+        ArrayList<User> res = new ArrayList<>();
         try {
-        String sql = "SELECT firstname,userId FROM users WHERE email LIKE '"+search+"%'";
+        String sql = "SELECT * FROM users WHERE email LIKE '"+search+"%'";
         st.execute(sql);
         ResultSet r = st.getResultSet();
-        
         while(r.next()){
-            if(!currentUser.getFirstname().equals(r.getString("firstname"))){
-                res.add(r.getString("firstname")+"#"+r.getString("userId"));
+            User current = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+            //!= currentUser    s(YES)
+            //!= friends        (NO)
+            //!= requested      (NO)
+            if(currentUser.getMail() != current.getMail()){
+                res.add(current);
             }
         }
         } catch (SQLException ex) {
@@ -47,8 +51,8 @@ public class DataBaseUserSearch implements UserSearch {
     }
     
     @Override
-    public void sendFriendRequest(int sourceUserId, int destinationUserId) {
-        String sql = "INSERT INTO requests(sourceUserId,destionationUserId,requestType) VALUES('"+sourceUserId+"','"+destinationUserId+"','F');";
+    public void sendFriendRequest(Request request) {
+        String sql = "INSERT INTO requests(sourceId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','F');";
         try {
             st.execute(sql);
         } catch (SQLException ex) {

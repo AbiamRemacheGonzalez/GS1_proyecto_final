@@ -11,7 +11,7 @@ import GS1.Model.Payments.BizumPaymentMethod;
 import GS1.Model.Payments.PaymentMethod;
 import GS1.Model.Payments.PaypalPaymentMethod;
 import GS1.Model.User;
-import GS1.App.SearchFriend.SearchUsersDisplay;
+import GS1.App.SearchUser.SearchUsersDisplay;
 import GS1.Model.Payments.CreditCardPaymentMethod;
 
 import java.text.SimpleDateFormat;

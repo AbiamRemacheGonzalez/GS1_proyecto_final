@@ -70,6 +70,11 @@ public class DataBaseRequestLoader implements RequestLoader{
     }
 
     private void acceptGroupRequest(Request request) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sql = "INSERT INTO members(groupId,userId) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"')";
+            st.execute(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseRequestLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 }

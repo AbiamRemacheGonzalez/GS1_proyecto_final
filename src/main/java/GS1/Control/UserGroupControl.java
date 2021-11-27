@@ -106,7 +106,7 @@ public class UserGroupControl {
             public void openAddNewMemberDisplay() {
                 addMemberDisplay = new AddMemberDisplay();
                 addMemberDisplay.on(setEventsNewMemberDisplay());
-                ArrayList<String> friendList = friendsLoader.search("", currentUser);
+                ArrayList<User> friendList = friendsLoader.search("", currentUser);
                 addMemberDisplay.setFriendsList(friendList);
                 addMemberDisplay.setVisible(true);
             }
@@ -116,6 +116,11 @@ public class UserGroupControl {
         return new AddMemberDisplay.Events(){
             @Override
             public void sendGroupRequest() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public String getUserId(User friend) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         

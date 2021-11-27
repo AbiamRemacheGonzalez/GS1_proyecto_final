@@ -199,6 +199,7 @@ public class UserAccessControl {
     private void enableUserMainDisplay() {
         if(loggedUser != null){
             userMainDisplay = new UserMainDisplay();
+            userMainDisplay.on(setUserMainDisplayMainEvents());
             //Delegamos la gestión de eventos del userMainDisplay a sus ficheros de control correspondiente.
             userGroupControl = new UserGroupControl(userMainDisplay,loggedUser);
             userPaymentControl = new UserPaymentMethodsControl(userMainDisplay,loggedUser);
@@ -207,5 +208,16 @@ public class UserAccessControl {
             
             userMainDisplay.setVisible(true);
         }
+    }
+
+    private UserMainDisplay.MainEvents setUserMainDisplayMainEvents() {
+        return new UserMainDisplay.MainEvents(){
+            @Override
+            public void openLoginDisplay() {
+                userLoginDisplay = new UserLoginDisplay();
+                userLoginDisplay.on(setUserLoginDisplayEvents());
+                userLoginDisplay.setVisible(true);
+            }
+        };
     }
 }

@@ -4,6 +4,7 @@ import GS1.App.Requests.DataBaseRequestLoader;
 import GS1.App.Requests.UserRequestsDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
+import GS1.Model.Group;
 import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class UserRequestsControl {
             public void openRequestsWindow() {
                 userRequestsDisplay = new UserRequestsDisplay();
                 userRequestsDisplay.on(setUserRequestsDisplayEvents());
+                userRequestsDisplay.initLists();
                 userRequestsDisplay.setVisible(true);
             }
         };
@@ -36,31 +38,29 @@ public class UserRequestsControl {
     private UserRequestsDisplay.Events setUserRequestsDisplayEvents() {
         return new UserRequestsDisplay.Events() {
             @Override
-            public ArrayList<Request> getFriendRequests() {
+            public ArrayList<Request> getRequests(char requestType) {
                 int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                return dataBaseRequestLoader.getRequests(userId, 'F');
+                return dataBaseRequestLoader.getRequests(userId, requestType);
             }
-            
+
             @Override
-            public ArrayList<Request> getGroupRequests() {
-                int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                return dataBaseRequestLoader.getRequests(userId, 'G');
-            }
-            
-            //TODO
-            @Override
-            public void acceptRequest(int destinationUserId) {
-                int sourceUserId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                Request request = new Request(sourceUserId, destinationUserId, requestType);
+            public void acceptRequest(Request request) {
                 dataBaseRequestLoader.acceptRequest(request);
             }
-            
-            //TODO
+
             @Override
-            public void discardRequest(int destinationUserId) {
-                int sourceUserId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                Request request = new Request(sourceUserId, destinationUserId, requestType);
+            public void discardRequest(Request request) {
                 dataBaseRequestLoader.discardRequest(request);
+            }
+
+            @Override
+            public User getUser(int userId) {
+                return dataBaseUserLoader.loadUser(userId);
+            }
+
+            @Override
+            public Group getGroup(int groupId) {
+                return null;
             }
         };
     }

@@ -132,9 +132,9 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton sendGroupRequest;
     // End of variables declaration//GEN-END:variables
-    public void setFriendsList(ArrayList<String> friendList){
-        for (String friend : friendList) {
-            friendListModel.addElement(friend);
+    public void setFriendsList(ArrayList<User> friendList){
+        for (User friend : friendList) {
+            friendListModel.addElement(friend.getFirstname()+"#"+event.getUserId(friend));
         }
     }
     public void on(Events event){
@@ -142,5 +142,6 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     }
     public interface Events{
         void sendGroupRequest();
+        public String getUserId(User friend);
     }
 }

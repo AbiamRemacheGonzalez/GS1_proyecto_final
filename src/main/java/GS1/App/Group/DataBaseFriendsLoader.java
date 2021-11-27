@@ -1,6 +1,7 @@
 package GS1.App.Group;
 
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Model.Request;
 import GS1.Model.User;
 import GS1.View.UserSearch;
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-//CLASE PENDIENTE DE REVISAR
+
 public class DataBaseFriendsLoader implements UserSearch{
     private Connection cn;
     private Statement st;
@@ -26,42 +27,15 @@ public class DataBaseFriendsLoader implements UserSearch{
             JOptionPane.showMessageDialog(null, "Not Connected");
         }
     }
-    @Override
-    public ArrayList<String> search(String search, User currentUser) {
-        ArrayList<String> friends = new ArrayList<String>();
-        try {
-            int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-            ArrayList<Integer> friendIds = getFriendsId(userId);
-            for (Integer friendId : friendIds){ 
-                String sql="";
-                if (search.isEmpty()){
-                    sql = "SELECT firstname,userId FROM users WHERE userId = friendId";
-                }else{
-                    sql = "SELECT firstname,userId FROM users WHERE userId = friendId and email LIKE '"+search+"%'";
-                }
-                st.execute(sql);
-                ResultSet r = st.getResultSet();
-                while(r.next()){
-                    if(!currentUser.getFirstname().equals(r.getString("firstname"))){
-                        friends.add(r.getString("firstname")+"#"+r.getString("userId"));
-                    }
-                }
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return friends;
-    }
     
     private ArrayList<Integer> getFriendsId(int userId) {
         ArrayList<Integer> friendsId = new ArrayList<>();
         try {
-            String sql = "SELECT idUser2 FROM friends WHERE idUser1 = '"+userId+"'";
+            String sql = "SELECT destinationUserId FROM friends WHERE sourceUserId = '"+userId+"'";
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while(r.next()){
-                friendsId.add(Integer.parseInt(r.getString("idUser2")));
+                friendsId.add(Integer.parseInt(r.getString("destinationUserId")));
             }
             
         } catch (SQLException ex) {
@@ -71,7 +45,35 @@ public class DataBaseFriendsLoader implements UserSearch{
     }
 
     @Override
-    public void sendFriendRequest(int sourceUserId, int destinationUserId) {
+    public ArrayList<User> search(String search, User currentUser) {
+        ArrayList<User> friends = new ArrayList<>();
+        try {
+            int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+            ArrayList<Integer> friendIds = getFriendsId(userId);
+            for (Integer friendId : friendIds){ 
+                String sql="";
+                if (search.isEmpty()){
+                    sql = "SELECT * FROM users WHERE userId = friendId";
+                }else{
+                    sql = "SELECT * FROM users WHERE userId = friendId and email LIKE '"+search+"%'";
+                }
+                st.execute(sql);
+                ResultSet r = st.getResultSet();
+                while(r.next()){
+                    User loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+                    if(currentUser.getMail() != loadUser.getMail()){
+                        friends.add(loadUser);
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return friends;
+    }
+    @Override
+    public void sendFriendRequest(Request request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
