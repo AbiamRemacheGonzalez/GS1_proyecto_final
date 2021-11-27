@@ -35,19 +35,21 @@ public class UserRequestsControl {
     private UserRequestsDisplay.Events setUserRequestsDisplayEvents() {
         return new UserRequestsDisplay.Events() {
             @Override
-            public ArrayList<String> showFriendResquests() {
+            public ArrayList<String> getUserResquests() {
                 int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
                 return dataBaseRequestLoader.getResquests(userId);
             }
 
             @Override
-            public void addFriend(String friend) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public void acceptRequest(int destinationUserId) {
+                int sourceUserId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                dataBaseRequestLoader.acceptRequest(sourceUserId, destinationUserId);
             }
 
             @Override
-            public void discardFriend(String user) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public void discardRequest(int destinationUserId) {
+                int sourceUserId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                dataBaseRequestLoader.discardRequest(sourceUserId, destinationUserId);
             }
         };
     }

@@ -73,6 +73,21 @@ public class DataBaseUserLoader implements UserLoader{
         }
         return res;
     }
+    public User loadUser(int userId){
+        User resUser = null;
+        String sql = "SELECT * FROM users WHERE userId='"+userId+"'";
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while(r.next()){
+                resUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resUser;
+    }
     private void emailPatternCheck(){
         Pattern pattern = Pattern.compile(mailPattern);
         Matcher matcher = pattern.matcher(mail);

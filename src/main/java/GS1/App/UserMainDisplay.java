@@ -281,9 +281,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
     public interface GroupEvents{
         void openAddNewGroupWindow();
         void openEditSelectedGroupWindow();
+        //void openAddGroupPayment();
     }
     
     public interface MainEvents{
         void openLoginDisplay();
     }
+   
 }

@@ -169,20 +169,7 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_DiscardActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        try {
-
-            DataBaseUserLoader userLoader = new DataBaseUserLoader();
-            int userId = userLoader.loadUserId(UserAccessControl.loggedUser.getMail(), UserAccessControl.loggedUser.getPassword());
-            String sql = "SELECT * FROM friends WHERE idUser2='" + userId + "' AND confirmed=FALSE";
-            st.execute(sql);
-            ResultSet r = st.getResultSet();
-            while (r.next()) {
-                users.add(r.getString("firstname1") + "#" + r.getString("idUser1"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        ArrayList<String> users = event.getUserResquests();
         for (String name : users) {
             modelo.addElement(name);
         }
@@ -205,10 +192,10 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
 
     public interface Events {
 
-        ArrayList<String> showFriendResquests();
+        ArrayList<String> getUserResquests();
 
-        public void addFriend(String friend);
+        public void acceptRequest(int destinationUserId);
 
-        public void discardFriend(String user);
+        public void discardRequest(int destinationUserId);
     }
 }

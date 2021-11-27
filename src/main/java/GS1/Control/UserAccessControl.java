@@ -30,8 +30,7 @@ public class UserAccessControl {
     private UserPaymentMethodsControl userPaymentControl;
     private UserGroupControl userGroupControl;
     private UserSearchControl userSearchControl;
-    private UserRequestsControl userFriendRequestControl;
-    private UserGroupRequestControl userGroupRequestControl;
+    private UserRequestsControl userRequestControl;
 
     private final String mailPattern = "^(.+)@(.+)$";
     private final String creditNumberPattern = "(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})";
@@ -204,8 +203,8 @@ public class UserAccessControl {
             userGroupControl = new UserGroupControl(userMainDisplay,loggedUser);
             userPaymentControl = new UserPaymentMethodsControl(userMainDisplay,loggedUser);
             userSearchControl = new UserSearchControl(userMainDisplay,loggedUser);
-            userFriendRequestControl = new UserRequestsControl(userMainDisplay,loggedUser);
-            userGroupRequestControl = new UserGroupRequestControl(userMainDisplay,loggedUser);
+            userRequestControl = new UserRequestsControl(userMainDisplay,loggedUser);
+            
             userMainDisplay.setVisible(true);
         }
     }

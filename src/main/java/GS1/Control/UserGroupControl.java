@@ -8,7 +8,6 @@ import GS1.App.Group.DataBaseFriendsLoader;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.Group.GroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Group;
 import GS1.Model.User;
@@ -32,10 +31,10 @@ public class UserGroupControl {
     public UserGroupControl(UserMainDisplay userMainDisplay, User currentUser) {
         this.userMainDisplay = userMainDisplay;
         this.currentUser = currentUser;
-        userMainDisplay.on(setUserMainDisplayEvents());
+        userMainDisplay.on(setUserMainDisplayGroupEvents());
     }
 
-    private UserMainDisplay.GroupEvents setUserMainDisplayEvents() {
+    private UserMainDisplay.GroupEvents setUserMainDisplayGroupEvents() {
         return new UserMainDisplay.GroupEvents() {
             @Override
             public void openAddNewGroupWindow() {
