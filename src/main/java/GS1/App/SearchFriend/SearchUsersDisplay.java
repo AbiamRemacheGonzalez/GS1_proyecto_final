@@ -5,15 +5,13 @@ import GS1.Model.User;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
-public class SearchUserDisplay extends javax.swing.JFrame {
+public class SearchUsersDisplay extends javax.swing.JFrame {
     Events event;
-    User currentUser;
     DefaultListModel modelo;
     ArrayList<String> res;
     
-    public SearchUserDisplay(User currentUser) {
+    public SearchUsersDisplay() {
         initComponents();
-        this.currentUser = currentUser;
         modelo = new DefaultListModel();
         jList1.setModel(modelo);
         res = new ArrayList<String>();
@@ -132,7 +130,7 @@ public class SearchUserDisplay extends javax.swing.JFrame {
         if(searchField.getText().equals("")){
             modelo.clear();
         }else{
-            res = event.search(searchField.getText(),currentUser);
+            res = event.search(searchField.getText());
             for(String name : res){
                 modelo.addElement(name);
             }
@@ -154,7 +152,7 @@ public class SearchUserDisplay extends javax.swing.JFrame {
     }
     
     public interface Events{
-        ArrayList<String> search(String search,User currentUser);
+        ArrayList<String> search(String search);
         void SendFriendRequest(String friend);
     }
     

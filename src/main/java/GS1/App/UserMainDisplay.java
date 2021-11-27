@@ -204,7 +204,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void friendRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestsActionPerformed
         // TODO add your handling code here:
-        requestEvent.openNewFriendRequestsWindow();
+        requestEvent.openRequestsWindow();
     }//GEN-LAST:event_friendRequestsActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -269,7 +269,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         void openUserSearchWindow();
     }
     public interface RequestEvents{
-        void openNewFriendRequestsWindow();
+        void openRequestsWindow();
     }
     
     public interface PaymentEvents{

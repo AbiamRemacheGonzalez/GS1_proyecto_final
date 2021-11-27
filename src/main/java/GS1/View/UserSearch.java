@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface UserSearch {
     public ArrayList<String> search(String search, User currentUser);
+    public void sendFriendRequest(int sourceUserId, int destinationUserId);
 }

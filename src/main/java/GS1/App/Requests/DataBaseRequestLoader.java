@@ -1,16 +1,16 @@
 package GS1.App.Requests;
 
-import GS1.View.FriendRequestLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import GS1.View.RequestLoader;
 
-public class DataBaseFriendRequestLoader implements FriendRequestLoader{
+public class DataBaseRequestLoader implements RequestLoader{
     private Connection cn;
     private Statement st;
-    public DataBaseFriendRequestLoader() {
+    public DataBaseRequestLoader() {
         try {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
@@ -19,9 +19,8 @@ public class DataBaseFriendRequestLoader implements FriendRequestLoader{
         }
     }
     
-
     @Override
-    public ArrayList<String> getFriendsResquests(int sourceUserId) {
+    public ArrayList<String> getResquests(int sourceUserId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

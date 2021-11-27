@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
-public class AddNewMember extends javax.swing.JFrame {
+public class AddMemberDisplay extends javax.swing.JFrame {
     private DefaultListModel friendListModel = new DefaultListModel();
     private Events event;
-    public AddNewMember() {
+    public AddMemberDisplay() {
         friendList.setModel(friendListModel);
         initComponents();
     }

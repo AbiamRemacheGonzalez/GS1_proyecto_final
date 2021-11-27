@@ -3,7 +3,7 @@ package GS1.Control;
 import GS1.App.CreateGroup.AddGroupDisplay;
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.CreateGroup.DataBaseGroupLogger;
-import GS1.App.Group.AddNewMember;
+import GS1.App.Group.AddMemberDisplay;
 import GS1.App.Group.DataBaseFriendsLoader;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.Group.GroupDisplay;
@@ -19,7 +19,7 @@ public class UserGroupControl {
     private AddGroupDisplay addNewGroupDisplay;
     private GroupDisplay groupDisplay;
     private EditGroupDisplay editGroupDisplay;
-    private AddNewMember addNewMember;
+    private AddMemberDisplay addMemberDisplay;
     
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
@@ -39,9 +39,9 @@ public class UserGroupControl {
         return new UserMainDisplay.GroupEvents() {
             @Override
             public void openAddNewGroupWindow() {
-                addNewGroup = new AddGroupDisplay();
-                addNewGroup.on(setAddNewGroupEvents());
-                addNewGroup.setVisible(true);
+                addNewGroupDisplay = new AddGroupDisplay();
+                addNewGroupDisplay.on(setAddNewGroupEvents());
+                addNewGroupDisplay.setVisible(true);
             }
 
             @Override
@@ -65,20 +65,19 @@ public class UserGroupControl {
                 dataBaseGroupLogger.save(userId, group);
                 group.setIdGroup(dataBaseGroupLogger.getGroupId(userId, group.getName(), group.getDescription()));
                 currentUser.addGroup(group);
-                userMainDisplay.setUser(currentUser);
             }
 
             @Override
             public boolean checkNewGroupValues(String name, String description) {
                 Boolean res = true;
-                addNewGroup.resetPrintErrors();
+                addNewGroupDisplay.resetPrintErrors();
                 if(name.isEmpty()){
                     res = false;
-                    addNewGroup.printNameError();
+                    addNewGroupDisplay.printNameError();
                 }
                 if(description.isEmpty()){
                     res = false;
-                    addNewGroup.printDescriptionError();
+                    addNewGroupDisplay.printDescriptionError();
                 }
                 return res;
             }
@@ -106,16 +105,16 @@ public class UserGroupControl {
 
             @Override
             public void openAddNewMemberDisplay() {
-                addNewMember = new AddNewMember();
-                addNewMember.on(setEventsNewMemberDisplay());
+                addMemberDisplay = new AddMemberDisplay();
+                addMemberDisplay.on(setEventsNewMemberDisplay());
                 ArrayList<String> friendList = friendsLoader.search("", currentUser);
-                addNewMember.setFriendsList(friendList);
-                addNewMember.setVisible(true);
+                addMemberDisplay.setFriendsList(friendList);
+                addMemberDisplay.setVisible(true);
             }
         };
     }
-    private AddNewMember.Events setEventsNewMemberDisplay() {
-        return new AddNewMember.Events(){
+    private AddMemberDisplay.Events setEventsNewMemberDisplay() {
+        return new AddMemberDisplay.Events(){
             @Override
             public void sendGroupRequest() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

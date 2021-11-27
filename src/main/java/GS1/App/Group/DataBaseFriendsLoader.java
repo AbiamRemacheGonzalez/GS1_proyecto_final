@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+//CLASE PENDIENTE DE REVISAR
 public class DataBaseFriendsLoader implements UserSearch{
     private Connection cn;
     private Statement st;
@@ -53,7 +53,7 @@ public class DataBaseFriendsLoader implements UserSearch{
         }
         return friends;
     }
-
+    
     private ArrayList<Integer> getFriendsId(int userId) {
         ArrayList<Integer> friendsId = new ArrayList<>();
         try {
@@ -68,6 +68,11 @@ public class DataBaseFriendsLoader implements UserSearch{
             Logger.getLogger(DataBaseFriendsLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return friendsId;
+    }
+
+    @Override
+    public void sendFriendRequest(int sourceUserId, int destinationUserId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

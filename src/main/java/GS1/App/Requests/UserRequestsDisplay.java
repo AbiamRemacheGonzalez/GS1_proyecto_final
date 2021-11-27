@@ -14,11 +14,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-public class FriendRequestDisplay extends javax.swing.JFrame {
+public class UserRequestsDisplay extends javax.swing.JFrame {
 
     Events event;
-
-    User currentUser;
     ArrayList<String> users;
 
     DefaultListModel modelo;
@@ -26,9 +24,8 @@ public class FriendRequestDisplay extends javax.swing.JFrame {
     private Connection cn;
     private Statement st;
 
-    public FriendRequestDisplay(User currentUser) {
+    public UserRequestsDisplay() {
         initComponents();
-        this.currentUser = currentUser;
         modelo = new DefaultListModel();
         friendRequestList.setModel(modelo);
         users = new ArrayList<String>();
@@ -64,7 +61,7 @@ public class FriendRequestDisplay extends javax.swing.JFrame {
         Title.setLayout(new java.awt.GridBagLayout());
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Friend Requests");
+        jLabel4.setText("Requests");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

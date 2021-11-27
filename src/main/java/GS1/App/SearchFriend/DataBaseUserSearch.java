@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class DataBaseUserSearch implements UserSearch {
-    
     private Connection cn;
     private Statement st;
     
@@ -27,6 +26,7 @@ public class DataBaseUserSearch implements UserSearch {
             JOptionPane.showMessageDialog(null, "Not Connected");
         }
     }
+    
     @Override
     public ArrayList<String> search(String search, User currentUser) {
         ArrayList<String> res = new ArrayList<String>();
@@ -44,5 +44,15 @@ public class DataBaseUserSearch implements UserSearch {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
-    }    
+    }
+    
+    @Override
+    public void sendFriendRequest(int sourceUserId, int destinationUserId) {
+        String sql = "INSERT INTO requests(sourceUserId,destionationUserId,requestType) VALUES('"+sourceUserId+"','"+destinationUserId+"','F');";
+        try {
+            st.execute(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseUserSearch.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

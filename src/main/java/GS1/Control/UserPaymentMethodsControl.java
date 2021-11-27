@@ -1,6 +1,6 @@
 package GS1.Control;
 
-import GS1.App.Requests.FriendRequestDisplay;
+import GS1.App.Requests.UserRequestsDisplay;
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.AddNewPaymentMethod.AddBizumPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
@@ -11,7 +11,7 @@ import GS1.Model.Payments.BizumPaymentMethod;
 import GS1.Model.Payments.PaymentMethod;
 import GS1.Model.Payments.PaypalPaymentMethod;
 import GS1.Model.User;
-import GS1.App.SearchFriend.SearchUserDisplay;
+import GS1.App.SearchFriend.SearchUsersDisplay;
 import GS1.Model.Payments.CreditCardPaymentMethod;
 
 import java.text.SimpleDateFormat;
@@ -24,9 +24,9 @@ public class UserPaymentMethodsControl {
     private AddBizumPaymentDisplay newBizumPaymentDisplay;
     private AddCreditCardPaymentDisplay newCreditCardDisplay;
     private AddPaypalPaymentDisplay newPaypalPaymentDisplay;
-    private SearchUserDisplay searchFriendDisplay;
+    private SearchUsersDisplay searchFriendDisplay;
     private UserSearchControl searchUserControl;
-    private FriendRequestDisplay friendRequestDisplay;
+    private UserRequestsDisplay friendRequestDisplay;
     
     private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
@@ -65,21 +65,6 @@ public class UserPaymentMethodsControl {
                 newBizumPaymentDisplay.on(setNewBizumPaymentDisplayEvents());
                 newBizumPaymentDisplay.setVisible(true);
             }
-
-            @Override
-            public void openNewUserSearchWindow(User currentUser) {
-                searchFriendDisplay = new SearchUserDisplay(currentUser);
-                searchFriendDisplay.setVisible(true);
-                searchUserControl = new UserSearchControl(searchFriendDisplay);
-                
-            }
-
-            @Override
-            public void openNewFriendRequestsWindow() {
-                friendRequestDisplay = new FriendRequestDisplay(currentUser);
-                friendRequestDisplay.setVisible(true);
-            }
-
         };
     }
     

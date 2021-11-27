@@ -30,7 +30,7 @@ public class UserAccessControl {
     private UserPaymentMethodsControl userPaymentControl;
     private UserGroupControl userGroupControl;
     private UserSearchControl userSearchControl;
-    private UserFriendRequestControl userFriendRequestControl;
+    private UserRequestsControl userFriendRequestControl;
     private UserGroupRequestControl userGroupRequestControl;
 
     private final String mailPattern = "^(.+)@(.+)$";
@@ -80,7 +80,7 @@ public class UserAccessControl {
             @Override
             public void openNewCreditCardWindow(User user) {
                 newCreditCardDisplay = new AddCreditCardPaymentDisplay(user);
-                newCreditCardDisplay.on(setNewCreditCardDisplayEvents(),0);
+                newCreditCardDisplay.on(setAddCreditCardDisplayEvents(),0);
                 newCreditCardDisplay.setVisible(true);
             }
 
@@ -130,7 +130,7 @@ public class UserAccessControl {
         };
     }
     
-    private AddCreditCardPaymentDisplay.Events setNewCreditCardDisplayEvents(){
+    private AddCreditCardPaymentDisplay.Events setAddCreditCardDisplayEvents(){
         return new AddCreditCardPaymentDisplay.Events(){
             @Override
             public void signUp(User user, CreditCardPaymentMethod credit) {
@@ -204,7 +204,7 @@ public class UserAccessControl {
             userGroupControl = new UserGroupControl(userMainDisplay,loggedUser);
             userPaymentControl = new UserPaymentMethodsControl(userMainDisplay,loggedUser);
             userSearchControl = new UserSearchControl(userMainDisplay,loggedUser);
-            userFriendRequestControl = new UserFriendRequestControl(userMainDisplay,loggedUser);
+            userFriendRequestControl = new UserRequestsControl(userMainDisplay,loggedUser);
             userGroupRequestControl = new UserGroupRequestControl(userMainDisplay,loggedUser);
             userMainDisplay.setVisible(true);
         }
