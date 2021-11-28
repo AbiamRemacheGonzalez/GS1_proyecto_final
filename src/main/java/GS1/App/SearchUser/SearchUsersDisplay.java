@@ -150,7 +150,6 @@ public class SearchUsersDisplay extends javax.swing.JFrame {
     public void on(Events ev) {
         this.event = ev;
     }
-    
     public interface Events{
         ArrayList<User> search(String search);
         void SendFriendRequest(String friend);

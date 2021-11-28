@@ -2,6 +2,7 @@ package GS1.Control;
 
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
+import GS1.App.CreateGroup.DataBaseGroupLogger;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
@@ -9,7 +10,9 @@ import GS1.App.UserMainDisplay;
 import GS1.Model.Payments.CreditCardPaymentMethod;
 import GS1.Model.User;
 import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
+import GS1.Model.Group;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +27,7 @@ public class UserAccessControl {
     
     private final DataBaseUserLoader databaseUserLoader = new DataBaseUserLoader();
     private final DataBaseUserLogger databaseUserLogger = new DataBaseUserLogger();
+    private final DataBaseGroupLogger databaseGroupLogger = new DataBaseGroupLogger();
     private final DataBasePaymentMethodLogger databasePaymentMethodLogger = new DataBasePaymentMethodLogger();
     
     //Clases de control que gestionan los eventos del User Main
@@ -217,6 +221,12 @@ public class UserAccessControl {
                 userLoginDisplay = new UserLoginDisplay();
                 userLoginDisplay.on(setUserLoginDisplayEvents());
                 userLoginDisplay.setVisible(true);
+            }
+
+            @Override
+            public ArrayList<Group> getGroups() {
+                //return databaseGroupLogger.getGRoups();
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }

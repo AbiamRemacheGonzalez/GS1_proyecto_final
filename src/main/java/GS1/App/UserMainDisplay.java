@@ -1,5 +1,7 @@
 package GS1.App;
 
+import GS1.Model.Group;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class UserMainDisplay extends javax.swing.JFrame {
@@ -14,12 +16,14 @@ public class UserMainDisplay extends javax.swing.JFrame {
     public UserMainDisplay() {
         initComponents();
         groupList.setModel(groupListModel);
+        setGroupList();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jMenuItem3 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -41,6 +45,8 @@ public class UserMainDisplay extends javax.swing.JFrame {
         addCreditCard = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -234,6 +240,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -264,6 +271,10 @@ public class UserMainDisplay extends javax.swing.JFrame {
         groupListModel = new DefaultListModel();
         groupList.setModel(groupListModel);
     }
+
+    private void setGroupList() {
+        ArrayList<Group> groups = mainevent.getGroups();        
+    }
     
     public interface SearchEvents{
         void openUserSearchWindow();
@@ -286,6 +297,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     
     public interface MainEvents{
         void openLoginDisplay();
+        public ArrayList<Group> getGroups();
     }
    
 }

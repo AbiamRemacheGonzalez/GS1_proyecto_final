@@ -23,7 +23,7 @@ public class DataBaseGroupLoader implements GroupLoader {
     
     
     @Override
-    public Group load(String name) {
+    public Group load(int userId) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
