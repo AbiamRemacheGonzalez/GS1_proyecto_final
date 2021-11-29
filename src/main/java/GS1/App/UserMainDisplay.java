@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
 public class UserMainDisplay extends javax.swing.JFrame {
+
     private PaymentEvents paymentEvent;
     private GroupEvents groupevent;
     private MainEvents mainevent;
     private SearchEvents searchEvent;
     private RequestEvents requestEvent;
-    
+
     private DefaultListModel groupListModel = new DefaultListModel();
 
     public UserMainDisplay() {
@@ -18,6 +19,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         groupList.setModel(groupListModel);
         setGroupList();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -254,15 +256,19 @@ public class UserMainDisplay extends javax.swing.JFrame {
     public void on(PaymentEvents ev) {
         this.paymentEvent = ev;
     }
+
     public void on(GroupEvents ev) {
         this.groupevent = ev;
     }
+
     public void on(MainEvents ev) {
         this.mainevent = ev;
     }
+
     public void on(SearchEvents ev) {
         this.searchEvent = ev;
     }
+
     public void on(RequestEvents ev) {
         this.requestEvent = ev;
     }
@@ -273,31 +279,41 @@ public class UserMainDisplay extends javax.swing.JFrame {
     }
 
     private void setGroupList() {
-        ArrayList<Group> groups = mainevent.getGroups();        
+        ArrayList<Group> groups = mainevent.getGroups();
     }
-    
-    public interface SearchEvents{
+
+    public interface SearchEvents {
+
         void openUserSearchWindow();
     }
-    public interface RequestEvents{
+
+    public interface RequestEvents {
+
         void openRequestsWindow();
     }
-    
-    public interface PaymentEvents{
+
+    public interface PaymentEvents {
+
         void openAddCreditCardWindow();
+
         void openAddPaypalWindow();
+
         void openAddBizumWindow();
     }
-    
-    public interface GroupEvents{
+
+    public interface GroupEvents {
+
         void openAddNewGroupWindow();
+
         void openEditSelectedGroupWindow();
         //void openAddGroupPayment();
     }
-    
-    public interface MainEvents{
+
+    public interface MainEvents {
+
         void openLoginDisplay();
-        public ArrayList<Group> getGroups();
+
+        public ArrayList<Group> getGroups(); //COMO COÑO FUNCIONA ESTO
     }
-   
+
 }
