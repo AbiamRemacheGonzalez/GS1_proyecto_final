@@ -97,6 +97,7 @@ public class UserGroupControl {
         return new EditGroupDisplay.Events() {
             @Override
             public void openUserMainDisplay() {
+                userMainDisplay.setGroupList();
                 userMainDisplay.setVisible(true);
             }
 

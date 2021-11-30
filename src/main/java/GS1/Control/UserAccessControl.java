@@ -217,7 +217,8 @@ public class UserAccessControl {
             userPaymentControl = new UserPaymentMethodsControl(userMainDisplay, loggedUser);
             userSearchControl = new UserSearchControl(userMainDisplay, loggedUser);
             userRequestControl = new UserRequestsControl(userMainDisplay, loggedUser);
-
+            
+            userMainDisplay.setGroupList();
             userMainDisplay.setVisible(true);
         }
     }
