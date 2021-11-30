@@ -73,7 +73,7 @@ public class DataBaseFriendsLoader implements UserSearch{
         return friends;
     }
     @Override
-    public void sendFriendRequest(Request request) {
+    public void sendRequest(Request request) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

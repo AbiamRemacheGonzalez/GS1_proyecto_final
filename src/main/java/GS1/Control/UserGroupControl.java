@@ -7,9 +7,11 @@ import GS1.App.Group.AddMemberDisplay;
 import GS1.App.Group.DataBaseFriendsLoader;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.Group.GroupDisplay;
+import GS1.App.SearchUser.DataBaseUserSearch;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Group;
+import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class UserGroupControl {
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
+    private final DataBaseUserSearch userSearch = new DataBaseUserSearch();
     private final DataBaseFriendsLoader friendsLoader = new DataBaseFriendsLoader();
     
     private final User currentUser;
@@ -115,8 +118,9 @@ public class UserGroupControl {
     private AddMemberDisplay.Events setEventsNewMemberDisplay() {
         return new AddMemberDisplay.Events(){
             @Override
-            public void sendGroupRequest() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public void sendGroupRequest(int userId) {
+                Request request = new Request(currentGroup.getIdGroup(), userId, 'G');
+                userSearch.sendRequest(request);
             }
 
             @Override

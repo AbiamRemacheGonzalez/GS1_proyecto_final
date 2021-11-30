@@ -1,5 +1,6 @@
 package GS1.App.Group;
 
+import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.List;
 import java.util.ArrayList;
@@ -118,7 +119,10 @@ public class AddMemberDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
         List<String> friends = friendList.getSelectedValuesList();
         
-        event.sendGroupRequest();
+        for (String friend : friends) {
+            String[] part = friend.split("#");
+            event.sendGroupRequest(Integer.valueOf(part[1]));
+        }
     }//GEN-LAST:event_sendGroupRequestActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -141,7 +145,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
         this.event = event;
     }
     public interface Events{
-        void sendGroupRequest();
+        void sendGroupRequest(int userId);
         public String getUserId(User friend);
     }
 }

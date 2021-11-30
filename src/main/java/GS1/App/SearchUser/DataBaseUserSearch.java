@@ -51,8 +51,8 @@ public class DataBaseUserSearch implements UserSearch {
     }
     
     @Override
-    public void sendFriendRequest(Request request) {
-        String sql = "INSERT INTO requests(sourceId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','F');";
+    public void sendRequest(Request request) {
+        String sql = "INSERT INTO requests(sourceId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"',"+request.getRequestType()+");";
         try {
             st.execute(sql);
         } catch (SQLException ex) {

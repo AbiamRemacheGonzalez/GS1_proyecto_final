@@ -47,7 +47,7 @@ public class UserSearchControl {
                 int sourceUserId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
                 int destinationUserId = Integer.parseInt(friend.substring(friend.indexOf("#")+1));
                 Request request = new Request(sourceUserId,destinationUserId,'F');
-                databaseUserSearch.sendFriendRequest(request);
+                databaseUserSearch.sendRequest(request);
             }
 
             @Override
