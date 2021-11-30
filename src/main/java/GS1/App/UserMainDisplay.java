@@ -278,6 +278,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     }
 
     public void setGroupList() {
+        resetModelList();
         ArrayList<Group> groups = mainevent.getGroups();
         for (Group group : groups) {
             groupListModel.addElement(group.getName()+"#"+group.getIdGroup());

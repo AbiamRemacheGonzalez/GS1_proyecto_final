@@ -89,7 +89,9 @@ public class DataBaseGroupLogger implements GroupLogger {
                 ResultSet r = st.getResultSet();
 
                 while (r.next()) {
-                    groupsIBelongIn.add(new Group(r.getString("name"), r.getString("description")));
+                    Group newG = new Group(r.getString("name"), r.getString("description"));
+                    newG.setIdGroup(id);
+                    groupsIBelongIn.add(newG);
                     break;
                 }
 
@@ -97,11 +99,6 @@ public class DataBaseGroupLogger implements GroupLogger {
                 Logger.getLogger(DataBaseGroupLogger.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        /*
-        for (Group g : groupsIBelongIn) {
-            System.out.println(g.getName() + " " + g.getDescription());
-        }
-        */
         return groupsIBelongIn;
     }
 }
