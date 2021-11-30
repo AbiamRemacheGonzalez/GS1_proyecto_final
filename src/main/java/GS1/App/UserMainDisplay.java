@@ -17,7 +17,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
     public UserMainDisplay() {
         initComponents();
         groupList.setModel(groupListModel);
-        setGroupList();
     }
 
     @SuppressWarnings("unchecked")
@@ -278,8 +277,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
         groupList.setModel(groupListModel);
     }
 
-    private void setGroupList() {
+    public void setGroupList() {
         ArrayList<Group> groups = mainevent.getGroups();
+        for (Group group : groups) {
+            groupListModel.addElement(group.getName()+"#"+group.getIdGroup());
+        }
     }
 
     public interface SearchEvents {
@@ -313,7 +315,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         void openLoginDisplay();
 
-        public ArrayList<Group> getGroups(); //COMO COÑO FUNCIONA ESTO
+        public ArrayList<Group> getGroups(); //COMO COÑO FUNCIONA ESTO (BUENA PREGUNTA)
     }
 
 }
