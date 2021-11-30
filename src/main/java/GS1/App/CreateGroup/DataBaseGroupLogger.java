@@ -70,18 +70,9 @@ public class DataBaseGroupLogger implements GroupLogger {
     }
 
     public ArrayList<Group> getGroups(int UserId) {
-        ArrayList<Integer> groupIds = new ArrayList();
+        ArrayList<Integer> groupIds = getIdGroups(UserId);
         ArrayList<Group> groupsIBelongIn = new ArrayList();
-        try {
-            String sql = "SELECT groupId FROM members WHERE userId='" + UserId + "'";
-            st.execute(sql);
-            ResultSet r = st.getResultSet();
-            while (r.next()) {
-                groupIds.add(Integer.parseInt(r.getString("groupId")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBaseGroupLogger.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         for (Integer id : groupIds) {
             try {
                 String sql = "SELECT * FROM groups WHERE groupId='" + id + "'";
@@ -100,5 +91,21 @@ public class DataBaseGroupLogger implements GroupLogger {
             }
         }
         return groupsIBelongIn;
+    }
+
+    private ArrayList<Integer> getIdGroups(int UserId) {
+        ArrayList<Integer> groupIds = new ArrayList();
+
+        try {
+            String sql = "SELECT groupId FROM members WHERE userId='" + UserId + "'";
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while (r.next()) {
+                groupIds.add(Integer.parseInt(r.getString("groupId")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseGroupLogger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groupIds;
     }
 }
