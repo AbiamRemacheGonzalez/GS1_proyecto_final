@@ -28,12 +28,12 @@ public class DataBaseRequestLoader implements RequestLoader{
     @Override
     public ArrayList<Request> getRequests(int userId, char requestType) {
         ArrayList<Request> requests = new ArrayList<>();
-        String sql = "SELECT sourceId FROM requests WHERE destinationUserId='" + userId + "' and requestType='"+requestType+"'";
+        String sql = "SELECT sourceUserId FROM requests WHERE destinationUserId='" + userId + "' and requestType='"+requestType+"'";
         try {
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while (r.next()) {
-                int sourceUserId = Integer.parseInt(r.getString("sourceId"));
+                int sourceUserId = Integer.parseInt(r.getString("sourceUserId"));
                 requests.add(new Request(sourceUserId,userId,requestType));
             }
         } catch (SQLException ex) {
@@ -53,7 +53,7 @@ public class DataBaseRequestLoader implements RequestLoader{
     @Override
     public void discardRequest(Request request) {
         try {
-            String sql = "DELETE FROM requests WHERE sourceId = '"+request.getSourceId()+"' and destinationUserId ='"+request.getUserDestinationId()+"' and requestType = '"+request.getRequestType()+"'";
+            String sql = "DELETE FROM requests WHERE sourceUserId = '"+request.getSourceId()+"' and destinationUserId ='"+request.getUserDestinationId()+"' and requestType = '"+request.getRequestType()+"'";
             st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseRequestLoader.class.getName()).log(Level.SEVERE, null, ex);
