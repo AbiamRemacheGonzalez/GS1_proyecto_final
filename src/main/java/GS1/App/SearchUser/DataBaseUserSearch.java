@@ -52,7 +52,7 @@ public class DataBaseUserSearch implements UserSearch {
     
     @Override
     public void sendRequest(Request request) {
-        String sql = "INSERT INTO requests(sourceUserId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"',"+request.getRequestType()+");";
+        String sql = "INSERT INTO requests(sourceUserId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','"+request.getRequestType()+"');";
         try {
             st.execute(sql);
         } catch (SQLException ex) {
