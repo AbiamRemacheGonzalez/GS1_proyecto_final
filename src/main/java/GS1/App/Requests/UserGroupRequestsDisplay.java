@@ -6,18 +6,14 @@ import GS1.Model.User;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
-public class UserRequestsDisplay extends javax.swing.JFrame {
+public class UserGroupRequestsDisplay extends javax.swing.JFrame {
     Events event;
-    DefaultListModel friendModel;
     DefaultListModel groupModel;
-    private ArrayList<Request> friendRequests;
     private ArrayList<Request> groupRequests;
     
-    public UserRequestsDisplay() {
+    public UserGroupRequestsDisplay() {
         initComponents();
-        friendModel = new DefaultListModel();
         groupModel = new DefaultListModel();
-        friendRequestList.setModel(friendModel);
         groupRequestList.setModel(groupModel);
     }
     @SuppressWarnings("unchecked")
@@ -27,12 +23,6 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
 
         Title = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        RequestList = new javax.swing.JScrollPane();
-        friendRequestList = new javax.swing.JList<>();
-        declineFriendRequestButton = new javax.swing.JButton();
-        acceptFriendRequestButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         panel1 = new java.awt.Panel();
         jScrollPane1 = new javax.swing.JScrollPane();
         groupRequestList = new javax.swing.JList<>();
@@ -54,58 +44,6 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         Title.add(jLabel4, gridBagConstraints);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        friendRequestList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        friendRequestList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        RequestList.setViewportView(friendRequestList);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(RequestList, gridBagConstraints);
-
-        declineFriendRequestButton.setText("Decline");
-        declineFriendRequestButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                declineFriendRequestButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(declineFriendRequestButton, gridBagConstraints);
-
-        acceptFriendRequestButton.setText("Accept");
-        acceptFriendRequestButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptFriendRequestButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(acceptFriendRequestButton, gridBagConstraints);
-
-        jLabel1.setText("Friend Requests");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
-        jPanel1.add(jLabel1, gridBagConstraints);
-
         panel1.setBackground(new java.awt.Color(204, 204, 204));
         panel1.setLayout(new java.awt.GridBagLayout());
 
@@ -122,6 +60,7 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panel1.add(jScrollPane1, gridBagConstraints);
@@ -143,6 +82,7 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panel1.add(acceptGroupRequestButton, gridBagConstraints);
 
@@ -155,6 +95,7 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panel1.add(declineGroupRequestButton, gridBagConstraints);
 
@@ -162,14 +103,11 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -178,29 +116,13 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                    .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void acceptFriendRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptFriendRequestButtonActionPerformed
-        event.acceptRequest(friendRequests.get(friendRequestList.getSelectedIndex()));
-    }//GEN-LAST:event_acceptFriendRequestButtonActionPerformed
-
-    private void declineFriendRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declineFriendRequestButtonActionPerformed
-        event.discardRequest(friendRequests.get(friendRequestList.getSelectedIndex()));
-    }//GEN-LAST:event_declineFriendRequestButtonActionPerformed
     public void initLists(){
-        friendRequests = event.getRequests('F');
-        for (Request request : friendRequests) {
-            int userId = request.getSourceId();
-            User sourceUser = event.getUser(userId);
-            friendModel.addElement(sourceUser.getFirstname()+"#"+userId+" quiere ser tu amigo.");
-        }
         groupRequests = event.getRequests('G');
         for (Request request : groupRequests) {
             int groupId = request.getSourceId();
@@ -219,24 +141,19 @@ public class UserRequestsDisplay extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane RequestList;
     private javax.swing.JPanel Title;
-    private javax.swing.JButton acceptFriendRequestButton;
     private javax.swing.JButton acceptGroupRequestButton;
-    private javax.swing.JButton declineFriendRequestButton;
     private javax.swing.JButton declineGroupRequestButton;
-    private javax.swing.JList<String> friendRequestList;
     private javax.swing.JList<String> groupRequestList;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Panel panel1;
     // End of variables declaration//GEN-END:variables
 
     public void on(Events ev) {
         this.event = ev;
+        initLists();
     }
 
     public interface Events {

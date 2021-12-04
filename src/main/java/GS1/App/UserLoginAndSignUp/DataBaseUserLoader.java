@@ -73,6 +73,23 @@ public class DataBaseUserLoader implements UserLoader{
         }
         return res;
     }
+    public int loadUserId(String email){
+        int res = -1;
+        try {
+            this.mail = email;
+            String sql = "SELECT userId FROM users WHERE email='"+email+"'";
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while(r.next()){
+                res = Integer.parseInt(r.getString("userId"));
+            }
+            passwordIsCorrect = (loadUser==null)?Boolean.FALSE:Boolean.TRUE;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
     public User loadUser(int userId){
         User resUser = null;
         String sql = "SELECT * FROM users WHERE userId='"+userId+"'";

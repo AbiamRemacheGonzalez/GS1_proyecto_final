@@ -28,13 +28,20 @@ public class DataBaseRequestLoader implements RequestLoader{
     @Override
     public ArrayList<Request> getRequests(int userId, char requestType) {
         ArrayList<Request> requests = new ArrayList<>();
-        String sql = "SELECT sourceUserId FROM requests WHERE destinationUserId='" + userId + "' and requestType='"+requestType+"'";
+        String sql = "SELECT * FROM requests WHERE destinationUserId='" + userId + "' and requestType='"+requestType+"'";
         try {
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while (r.next()) {
-                int sourceUserId = Integer.parseInt(r.getString("sourceUserId"));
-                requests.add(new Request(sourceUserId,userId,requestType));
+                if(requestType == 'F'){
+                    int sourceUserId = Integer.parseInt(r.getString("sourceUserId"));
+                    requests.add(new Request(sourceUserId,userId,requestType));
+                }else{
+                    String g = r.getString("groupId");
+                    int groupId = 1;//Integer.parseInt(r.getString("groupId"));
+                    requests.add(new Request(groupId,userId,requestType));
+                }
+                
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseRequestLoader.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,6 +61,9 @@ public class DataBaseRequestLoader implements RequestLoader{
     public void discardRequest(Request request) {
         try {
             String sql = "DELETE FROM requests WHERE sourceUserId = '"+request.getSourceId()+"' and destinationUserId ='"+request.getUserDestinationId()+"' and requestType = '"+request.getRequestType()+"'";
+            if(request.getRequestType()=='G'){
+                sql = "DELETE FROM requests WHERE groupId = '"+request.getSourceId()+"' and destinationUserId ='"+request.getUserDestinationId()+"' and requestType = '"+request.getRequestType()+"'";
+            }
             st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseRequestLoader.class.getName()).log(Level.SEVERE, null, ex);

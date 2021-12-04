@@ -40,7 +40,8 @@ public class DataBaseUserSearch implements UserSearch {
             //!= currentUser    s(YES)
             //!= friends        (NO)
             //!= requested      (NO)
-            if(currentUser.getMail() != current.getMail()){
+            System.out.println(current.getMail()+" == "+currentUser.getMail());
+            if(!currentUser.getMail().equals(current.getMail())){
                 res.add(current);
             }
         }
@@ -53,6 +54,9 @@ public class DataBaseUserSearch implements UserSearch {
     @Override
     public void sendRequest(Request request) {
         String sql = "INSERT INTO requests(sourceUserId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','"+request.getRequestType()+"');";
+        if(request.getRequestType()=='G'){
+            sql = "INSERT INTO requests(groupId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','"+request.getRequestType()+"');";
+        }
         try {
             st.execute(sql);
         } catch (SQLException ex) {
