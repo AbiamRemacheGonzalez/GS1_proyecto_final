@@ -29,7 +29,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        managePayments = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,8 +130,13 @@ public class EditGroupDisplay extends javax.swing.JFrame {
 
         jMenu2.setText("Payments");
 
-        jMenuItem3.setText("Manage Payments");
-        jMenu2.add(jMenuItem3);
+        managePayments.setText("Manage Payments");
+        managePayments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managePaymentsActionPerformed(evt);
+            }
+        });
+        jMenu2.add(managePayments);
 
         jMenuBar1.add(jMenu2);
 
@@ -182,6 +187,11 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         event.openAddNewMemberDisplay();
     }//GEN-LAST:event_addNewMemberActionPerformed
 
+    private void managePaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePaymentsActionPerformed
+        // TODO add your handling code here:
+        event.openManagePaymentDisplay();
+    }//GEN-LAST:event_managePaymentsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewMember;
     private javax.swing.JLabel jLabel1;
@@ -194,7 +204,6 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -202,6 +211,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelName;
+    private javax.swing.JMenuItem managePayments;
     // End of variables declaration//GEN-END:variables
     public void on(EditGroupDisplay.Events event){
         this.event = event;
@@ -213,5 +223,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         void openUserMainDisplay();
         void openAddNewMemberDisplay();
         public String getGroupName();
+        void openManagePaymentDisplay();
+        
     }
 }

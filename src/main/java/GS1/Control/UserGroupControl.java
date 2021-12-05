@@ -10,6 +10,7 @@ import GS1.App.Group.GroupDisplay;
 import GS1.App.SearchUser.DataBaseUserSearch;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
+import GS1.ManagePayments.ManagePaymentsDisplay;
 import GS1.Model.Group;
 import GS1.Model.Request;
 import GS1.Model.User;
@@ -21,6 +22,7 @@ public class UserGroupControl {
     private GroupDisplay groupDisplay;
     private EditGroupDisplay editGroupDisplay;
     private AddMemberDisplay addMemberDisplay;
+    private ManagePaymentsDisplay managePaymentsDisplay;
     
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
@@ -113,6 +115,12 @@ public class UserGroupControl {
                 ArrayList<User> friendList = friendsLoader.search("", currentUser);
                 addMemberDisplay.setFriendsList(friendList);
                 addMemberDisplay.setVisible(true);
+            }
+
+            @Override
+            public void openManagePaymentDisplay() {
+                managePaymentsDisplay = new ManagePaymentsDisplay(currentGroup,currentUser);
+                managePaymentsDisplay.setVisible(true);
             }
         };
     }
