@@ -53,17 +53,15 @@ public class DataBaseFriendsLoader implements UserSearch{
             for (Integer friendId : friendIds){ 
                 String sql="";
                 if (search.isEmpty()){
-                    sql = "SELECT * FROM users WHERE userId = friendId";
+                    sql = "SELECT * FROM users WHERE userId = '"+friendId+"'";
                 }else{
-                    sql = "SELECT * FROM users WHERE userId = friendId and email LIKE '"+search+"%'";
+                    sql = "SELECT * FROM users WHERE userId = '"+friendId+"' and email LIKE '"+search+"%'";
                 }
                 st.execute(sql);
                 ResultSet r = st.getResultSet();
                 while(r.next()){
                     User loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
-                    if(currentUser.getMail() != loadUser.getMail()){
-                        friends.add(loadUser);
-                    }
+                    friends.add(loadUser);
                 }
             }
             

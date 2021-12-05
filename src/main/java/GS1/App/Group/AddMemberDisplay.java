@@ -10,8 +10,8 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     private DefaultListModel friendListModel = new DefaultListModel();
     private Events event;
     public AddMemberDisplay() {
-        friendList.setModel(friendListModel);
         initComponents();
+        friendLis.setModel(friendListModel);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -24,7 +24,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        friendList = new javax.swing.JList<>();
+        friendLis = new javax.swing.JList<>();
         jPanel4 = new javax.swing.JPanel();
         sendGroupRequest = new javax.swing.JButton();
 
@@ -57,7 +57,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane1.setViewportView(friendList);
+        jScrollPane1.setViewportView(friendLis);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -117,7 +117,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
 
     private void sendGroupRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendGroupRequestActionPerformed
         // TODO add your handling code here:
-        List<String> friends = friendList.getSelectedValuesList();
+        List<String> friends = friendLis.getSelectedValuesList();
         
         for (String friend : friends) {
             String[] part = friend.split("#");
@@ -126,7 +126,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_sendGroupRequestActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> friendList;
+    private javax.swing.JList<String> friendLis;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -146,6 +146,6 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     }
     public interface Events{
         void sendGroupRequest(int userId);
-        public String getUserId(User friend);
+        public int getUserId(User friend);
     }
 }

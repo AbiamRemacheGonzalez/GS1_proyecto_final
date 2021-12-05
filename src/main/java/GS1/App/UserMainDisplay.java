@@ -46,6 +46,8 @@ public class UserMainDisplay extends javax.swing.JFrame {
         addCreditCard = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        groupRequest = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -94,7 +96,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
         jMenu2.add(searchFriends);
         jMenu2.add(jSeparator3);
 
-        friendRequests.setText("FriendsRequests");
+        friendRequests.setText("Friend Requests");
         friendRequests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 friendRequestsActionPerformed(evt);
@@ -153,6 +155,15 @@ public class UserMainDisplay extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem1);
+        jMenu3.add(jSeparator4);
+
+        groupRequest.setText("Group Requests");
+        groupRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                groupRequestActionPerformed(evt);
+            }
+        });
+        jMenu3.add(groupRequest);
 
         jMenuBar1.add(jMenu3);
 
@@ -185,7 +196,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private void addBizumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBizumActionPerformed
         // TODO add your handling code here:
         paymentEvent.openAddBizumWindow();
-        this.dispose();
     }//GEN-LAST:event_addBizumActionPerformed
 
     private void myPaymentsMethodsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myPaymentsMethodsActionPerformed
@@ -195,13 +205,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private void addCreditCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCreditCardActionPerformed
         // TODO add your handling code here:
         paymentEvent.openAddCreditCardWindow();
-        this.dispose();
     }//GEN-LAST:event_addCreditCardActionPerformed
 
     private void addPaypalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPaypalActionPerformed
         // TODO add your handling code here:
         paymentEvent.openAddPaypalWindow();
-        this.dispose();
     }//GEN-LAST:event_addPaypalActionPerformed
 
     private void searchFriendsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFriendsActionPerformed
@@ -211,13 +219,12 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     private void friendRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendRequestsActionPerformed
         // TODO add your handling code here:
-        requestEvent.openRequestsWindow();
+        requestEvent.openFriendRequestsWindow();
     }//GEN-LAST:event_friendRequestsActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         groupevent.openAddNewGroupWindow();
-        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void signOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signOutActionPerformed
@@ -226,6 +233,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_signOutActionPerformed
 
+    private void groupRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupRequestActionPerformed
+        // TODO add your handling code here:
+        requestEvent.openGroupRequestsWindow();
+    }//GEN-LAST:event_groupRequestActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBizum;
@@ -233,6 +245,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JMenuItem addPaypal;
     private javax.swing.JMenuItem friendRequests;
     private javax.swing.JList<String> groupList;
+    private javax.swing.JMenuItem groupRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -247,6 +260,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JMenuItem myPaymentsMethods;
     private javax.swing.JMenuItem searchFriends;
     private javax.swing.JMenuItem signOut;
@@ -292,7 +306,8 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
     public interface RequestEvents {
 
-        void openRequestsWindow();
+        void openFriendRequestsWindow();
+        void openGroupRequestsWindow();
     }
 
     public interface PaymentEvents {

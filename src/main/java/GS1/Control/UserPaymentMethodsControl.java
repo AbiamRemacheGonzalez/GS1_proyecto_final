@@ -1,6 +1,6 @@
 package GS1.Control;
 
-import GS1.App.Requests.UserRequestsDisplay;
+import GS1.App.Requests.UserFriendRequestsDisplay;
 import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.AddNewPaymentMethod.AddBizumPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
@@ -26,7 +26,7 @@ public class UserPaymentMethodsControl {
     private AddPaypalPaymentDisplay newPaypalPaymentDisplay;
     private SearchUsersDisplay searchFriendDisplay;
     private UserSearchControl searchUserControl;
-    private UserRequestsDisplay friendRequestDisplay;
+    private UserFriendRequestsDisplay friendRequestDisplay;
     
     private final DataBasePaymentMethodLogger paymentMethodLogger = new DataBasePaymentMethodLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();

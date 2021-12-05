@@ -48,7 +48,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="friendRequests">
               <Properties>
-                <Property name="text" type="java.lang.String" value="FriendsRequests"/>
+                <Property name="text" type="java.lang.String" value="Friend Requests"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="friendRequestsActionPerformed"/>
@@ -117,6 +117,16 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="groupRequest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Group Requests"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="groupRequestActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

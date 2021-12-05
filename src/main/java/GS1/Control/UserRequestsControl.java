@@ -1,7 +1,9 @@
 package GS1.Control;
 
+import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.Requests.DataBaseRequestLoader;
-import GS1.App.Requests.UserRequestsDisplay;
+import GS1.App.Requests.UserFriendRequestsDisplay;
+import GS1.App.Requests.UserGroupRequestsDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Group;
@@ -11,12 +13,15 @@ import java.util.ArrayList;
 
 public class UserRequestsControl {
     private final UserMainDisplay userMainDisplay;
-    private UserRequestsDisplay userRequestsDisplay;
+    private UserFriendRequestsDisplay userFriendRequestsDisplay;
+    private UserGroupRequestsDisplay userGroupRequestsDisplay;
     
-    private final User currentUser;    
+    private final User currentUser;
+    private int userId;
     
     private final DataBaseRequestLoader dataBaseRequestLoader = new DataBaseRequestLoader();
     private final DataBaseUserLoader dataBaseUserLoader = new DataBaseUserLoader();
+    private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
 
     UserRequestsControl(UserMainDisplay userMainDisplay, User loggedUser) {
         this.currentUser = loggedUser;
@@ -26,17 +31,25 @@ public class UserRequestsControl {
 
     private UserMainDisplay.RequestEvents setUserMainDisplayRequestsEvents() {
         return new UserMainDisplay.RequestEvents() {
+
             @Override
-            public void openRequestsWindow() {
-                userRequestsDisplay = new UserRequestsDisplay();
-                userRequestsDisplay.on(setUserRequestsDisplayEvents());
-                userRequestsDisplay.initLists();
-                userRequestsDisplay.setVisible(true);
+            public void openFriendRequestsWindow() {
+                userFriendRequestsDisplay = new UserFriendRequestsDisplay();
+                userFriendRequestsDisplay.on(setUserFriendRequestsDisplayEvents());
+                userFriendRequestsDisplay.initLists();
+                userFriendRequestsDisplay.setVisible(true);
+            }
+
+            @Override
+            public void openGroupRequestsWindow() {
+                userGroupRequestsDisplay = new UserGroupRequestsDisplay();
+                userGroupRequestsDisplay.on(setUserGroupRequestsDisplayEvents());
+                userGroupRequestsDisplay.setVisible(true);
             }
         };
     }
-    private UserRequestsDisplay.Events setUserRequestsDisplayEvents() {
-        return new UserRequestsDisplay.Events() {
+    private UserFriendRequestsDisplay.Events setUserFriendRequestsDisplayEvents() {
+        return new UserFriendRequestsDisplay.Events() {
             @Override
             public ArrayList<Request> getRequests(char requestType) {
                 int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
@@ -61,6 +74,39 @@ public class UserRequestsControl {
             @Override
             public Group getGroup(int groupId) {
                 return null;
+            }
+        };
+    }
+    private UserGroupRequestsDisplay.Events setUserGroupRequestsDisplayEvents() {
+        return new UserGroupRequestsDisplay.Events() {
+            
+            @Override
+            public ArrayList<Request> getRequests(char requestType) {
+                userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                return dataBaseRequestLoader.getRequests(userId, requestType);
+            }
+
+            @Override
+            public void acceptRequest(Request request) {
+                dataBaseRequestLoader.acceptRequest(request);
+            }
+
+            @Override
+            public void discardRequest(Request request) {
+                dataBaseRequestLoader.discardRequest(request);
+            }
+
+            @Override
+            public User getUser(int userId) {
+                return dataBaseUserLoader.loadUser(userId);
+            }
+
+            @Override
+            public Group getGroup(int groupId) {
+                Group g = dataBaseGroupLoader.load(groupId);
+                userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                g.setIdAdmin(userId);
+                return g;
             }
         };
     }

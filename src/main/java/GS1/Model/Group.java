@@ -11,6 +11,10 @@ public class Group {
         this.description = description;
     }
 
+    public void setIdAdmin(int idAdmin) {
+        this.idAdmin = idAdmin;
+    }
+
     public String getName() {
         return name;
     }

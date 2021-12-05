@@ -133,8 +133,8 @@ public class UserGroupControl {
             }
 
             @Override
-            public String getUserId(User friend) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public int getUserId(User friend) {
+                return userLoader.loadUserId(friend.getMail());
             }
         
         };
