@@ -38,7 +38,7 @@ public class DataBaseRequestLoader implements RequestLoader{
                     requests.add(new Request(sourceUserId,userId,requestType));
                 }else{
                     String g = r.getString("groupId");
-                    int groupId = 1;//Integer.parseInt(r.getString("groupId"));
+                    int groupId = Integer.parseInt(r.getString("groupId"));
                     requests.add(new Request(groupId,userId,requestType));
                 }
                 

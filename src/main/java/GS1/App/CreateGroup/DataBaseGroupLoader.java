@@ -35,6 +35,7 @@ public class DataBaseGroupLoader implements GroupLoader {
             ResultSet r = st.getResultSet();
             while(r.next()){
                 newgroup = new Group(r.getString("name"),r.getString("description"));
+                newgroup.setIdAdmin(Integer.parseInt(r.getString("userId")));
                 newgroup.setIdGroup(groupId);
             }
         } catch (SQLException ex) {

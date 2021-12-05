@@ -103,10 +103,7 @@ public class UserRequestsControl {
 
             @Override
             public Group getGroup(int groupId) {
-                Group g = dataBaseGroupLoader.load(groupId);
-                userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                g.setIdAdmin(userId);
-                return g;
+                return dataBaseGroupLoader.load(groupId);
             }
         };
     }

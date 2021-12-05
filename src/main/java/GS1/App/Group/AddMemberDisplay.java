@@ -28,7 +28,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         sendGroupRequest = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -118,7 +118,6 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     private void sendGroupRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendGroupRequestActionPerformed
         // TODO add your handling code here:
         List<String> friends = friendLis.getSelectedValuesList();
-        
         for (String friend : friends) {
             String[] part = friend.split("#");
             event.sendGroupRequest(Integer.valueOf(part[1]));
