@@ -32,7 +32,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         managePayments = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setToolTipText("");
