@@ -3,6 +3,7 @@ package GS1.App.Group;
 public class EditGroupDisplay extends javax.swing.JFrame {
 
     private EditGroupDisplay.Events event;
+    private EditGroupDisplay.PaymentsEvents paymentEvent;
     public EditGroupDisplay() {
         initComponents();
     }
@@ -189,7 +190,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
 
     private void managePaymentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managePaymentsActionPerformed
         // TODO add your handling code here:
-        event.openManagePaymentDisplay();
+        paymentEvent.openManagePaymentDisplay();
     }//GEN-LAST:event_managePaymentsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -216,6 +217,10 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     public void on(EditGroupDisplay.Events event){
         this.event = event;
     }
+    
+    public void on(EditGroupDisplay.PaymentsEvents event){
+        this.paymentEvent = event;
+    }
     public void updateLabels(){
         labelName.setText(event.getGroupName());
     }
@@ -223,7 +228,10 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         void openUserMainDisplay();
         void openAddNewMemberDisplay();
         public String getGroupName();
-        void openManagePaymentDisplay();
         
+    }
+    
+    public interface PaymentsEvents{
+        void openManagePaymentDisplay();
     }
 }

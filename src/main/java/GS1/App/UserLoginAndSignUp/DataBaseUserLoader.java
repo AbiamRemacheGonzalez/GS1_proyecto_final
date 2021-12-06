@@ -90,6 +90,7 @@ public class DataBaseUserLoader implements UserLoader{
         }
         return res;
     }
+    
     public User loadUser(int userId){
         User resUser = null;
         String sql = "SELECT * FROM users WHERE userId='"+userId+"'";
@@ -105,6 +106,7 @@ public class DataBaseUserLoader implements UserLoader{
         
         return resUser;
     }
+    
     private void emailPatternCheck(){
         Pattern pattern = Pattern.compile(mailPattern);
         Matcher matcher = pattern.matcher(mail);

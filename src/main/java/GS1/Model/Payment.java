@@ -13,13 +13,32 @@ public class Payment {
     
     private String title;
     private double amount;
-    private User destination;
+    private int userDestinationID;
+    private int groupID;
 
-    public Payment(String title, double amount, User destination) {
+    public Payment(String title, double amount, int userDestinationID, int groupID) {
         this.title = title;
         this.amount = amount;
-        this.destination = destination;
+        this.userDestinationID = userDestinationID;
+        this.groupID = groupID;
     }
+
+    public int getUserDestinationID() {
+        return userDestinationID;
+    }
+
+    public void setUserDestinationID(int userDestinationID) {
+        this.userDestinationID = userDestinationID;
+    }
+
+    public int getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
+    }
+
 
     public String getTitle() {
         return title;
@@ -35,14 +54,6 @@ public class Payment {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public User getDestination() {
-        return destination;
-    }
-
-    public void setDestination(User destination) {
-        this.destination = destination;
     }
     
     

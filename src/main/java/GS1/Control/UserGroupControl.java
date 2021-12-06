@@ -69,6 +69,7 @@ public class UserGroupControl {
                 dataBaseGroupLogger.save(userId, group);
                 group.setIdGroup(dataBaseGroupLogger.getGroupId(userId, group.getName(), group.getDescription()));
                 currentUser.addGroup(group);
+                
             }
 
             @Override
@@ -92,6 +93,7 @@ public class UserGroupControl {
                 editGroupDisplay.on(setOpenEditGroupDisplay());
                 editGroupDisplay.updateLabels();
                 editGroupDisplay.setVisible(true);
+                UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
             }
         };
     }
@@ -117,11 +119,9 @@ public class UserGroupControl {
                 addMemberDisplay.setVisible(true);
             }
 
-            @Override
-            public void openManagePaymentDisplay() {
-                managePaymentsDisplay = new ManagePaymentsDisplay(currentGroup,currentUser);
-                managePaymentsDisplay.setVisible(true);
-            }
+            
+
+            
         };
     }
     private AddMemberDisplay.Events setEventsNewMemberDisplay() {
