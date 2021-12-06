@@ -1,5 +1,5 @@
 
-package GS1.ManagePayments;
+package GS1.App.ManagePayments;
 
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.Model.Payment;

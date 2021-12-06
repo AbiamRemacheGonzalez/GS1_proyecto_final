@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.ManagePayments;
+package GS1.App.ManagePayments;
 
 import GS1.Model.Group;
 import GS1.Model.Payment;

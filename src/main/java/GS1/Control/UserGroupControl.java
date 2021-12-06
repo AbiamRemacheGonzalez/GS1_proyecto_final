@@ -10,7 +10,7 @@ import GS1.App.Group.GroupDisplay;
 import GS1.App.SearchUser.DataBaseUserSearch;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
-import GS1.ManagePayments.ManagePaymentsDisplay;
+import GS1.App.ManagePayments.ManagePaymentsDisplay;
 import GS1.Model.Group;
 import GS1.Model.Request;
 import GS1.Model.User;

@@ -7,8 +7,8 @@ package GS1.Control;
 
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.ManagePayments.ManagePaymentsDisplay;
-import GS1.ManagePayments.PaymentsLoader;
+import GS1.App.ManagePayments.ManagePaymentsDisplay;
+import GS1.App.ManagePayments.PaymentsLoader;
 import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.User;
