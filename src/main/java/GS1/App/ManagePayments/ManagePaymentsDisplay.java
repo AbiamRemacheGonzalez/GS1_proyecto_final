@@ -8,6 +8,7 @@ package GS1.App.ManagePayments;
 import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.User;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -46,7 +47,7 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        amount = new javax.swing.JTextField();
+        amountText = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         paidBy = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -67,17 +68,17 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         Title.setLayout(TitleLayout);
         TitleLayout.setHorizontalGroup(
             TitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TitleLayout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+            .addGroup(TitleLayout.createSequentialGroup()
+                .addGap(77, 77, 77)
                 .addComponent(jLabel1)
-                .addGap(72, 72, 72))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         TitleLayout.setVerticalGroup(
             TitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TitleLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(21, 21, 21))
         );
 
         jLabel2.setText("Name");
@@ -94,6 +95,12 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Amount");
+
+        amountText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                amountTextKeyPressed(evt);
+            }
+        });
 
         jLabel4.setText("Paid by");
 
@@ -123,30 +130,29 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         bodyLayout.setHorizontalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bodyLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
                             .addGroup(bodyLayout.createSequentialGroup()
                                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addGap(48, 48, 48)
-                                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(name)
-                                    .addComponent(amount)
-                                    .addComponent(paidBy, 0, 134, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameError)
-                                    .addComponent(amountError)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(bodyLayout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(addPayment)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                                    .addComponent(paidBy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(amountText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                        .addComponent(name, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(addPayment, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameError)
+                            .addComponent(amountError))))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         bodyLayout.setVerticalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,7 +165,7 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(amountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(amountError))
                 .addGap(18, 18, 18)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -169,9 +175,9 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(addPayment)
-                .addGap(25, 25, 25))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,12 +205,18 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
 
     private void addPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPaymentActionPerformed
         // TODO add your handling code here:
-        event.checkNewPaymentValues(name.getText(), amount.getText());
-        double auxAmount = Double.parseDouble(amount.getText());
-        User destination = event.loadUserByName((String) paidBy.getSelectedItem());
-        Payment payment = new Payment(name.getText(),auxAmount,event.getUserID(destination),currentGroup.getIdGroup()); //Por defecto usuario logged
-        event.savePayment(payment);
-        this.dispose();
+        this.resetLabels();
+        if(amountText.getText().isEmpty()){
+            this.printAmountEmpty();
+        }else{
+            double amount = Double.parseDouble(amountText.getText());
+            if(event.checkNewPaymentValues(name.getText(), amount)){
+                User destination = event.loadUserByName((String) paidBy.getSelectedItem());
+                Payment payment = new Payment(name.getText(),amount,event.getUserID(destination),currentGroup.getIdGroup()); 
+                event.savePayment(payment);
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_addPaymentActionPerformed
 
     private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
@@ -215,13 +227,24 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameKeyPressed
 
+    private void amountTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_amountTextKeyPressed
+        // TODO add your handling code here:
+        String value = amountText.getText();
+        if ((evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
+            amountText.setEditable(true);
+        } else{
+            amountText.setEditable(false);
+            amountText.setText(value);
+        }
+    }//GEN-LAST:event_amountTextKeyPressed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Title;
     private javax.swing.JButton addPayment;
-    private javax.swing.JTextField amount;
     private javax.swing.JLabel amountError;
+    private javax.swing.JTextField amountText;
     private javax.swing.JPanel body;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -244,7 +267,11 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
     }
     
     public void printAmountError(){
-        amountError.setText("The amaount have to be higher than 0");
+        amountError.setText("The amount must to be higher than 0");
+    }
+    
+    public void printAmountEmpty(){
+        amountError.setText("The amount should not be empty");
     }
     
     public void resetLabels(){
@@ -265,8 +292,9 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
        int getUserID(User user);
        User loadUserByName(String firstname);
        void savePayment(Payment p);
-       boolean checkNewPaymentValues(String title, String amount);
+       boolean checkNewPaymentValues(String title, double amount);
        ArrayList<Integer> getMembersId();
        String getUserbyID(int id);
+       
     }
 }

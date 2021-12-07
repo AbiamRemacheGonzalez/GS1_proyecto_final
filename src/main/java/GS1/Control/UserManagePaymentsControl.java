@@ -61,19 +61,18 @@ public class UserManagePaymentsControl {
             
 
             @Override
-            public boolean checkNewPaymentValues(String title, String amount) {
+            public boolean checkNewPaymentValues(String title, double amount) {
                 managePaymentsDisplay.resetLabels();
                 boolean res = true;
-                if(title.equals("")){
+                if(title.isEmpty()){
+                    res=false;
                     managePaymentsDisplay.printErrorTitle();
-                    res=false;
                 }
-                double a = Double.parseDouble(amount);
-                if(a < 0){
+                if(amount <= 0){
+                    res=false;
                     managePaymentsDisplay.printAmountError();
-                    res=false;
                 }
-                return false;
+                return res;
             }
 
             @Override
@@ -90,6 +89,8 @@ public class UserManagePaymentsControl {
             public User loadUserByName(String firstname) {
                 return paymentLoader.getUserByName(firstname);
             }
+
+            
 
             
             
