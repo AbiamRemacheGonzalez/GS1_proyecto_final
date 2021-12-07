@@ -2,8 +2,8 @@ package GS1.App.Group;
 
 public class EditGroupDisplay extends javax.swing.JFrame {
 
-    private EditGroupDisplay.Events event;
-    private EditGroupDisplay.PaymentsEvents paymentEvent;
+    private Events event;
+    private PaymentsEvents paymentEvent;
     public EditGroupDisplay() {
         initComponents();
     }
@@ -214,11 +214,11 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel labelName;
     private javax.swing.JMenuItem managePayments;
     // End of variables declaration//GEN-END:variables
-    public void on(EditGroupDisplay.Events event){
+    public void on(Events event){
         this.event = event;
     }
     
-    public void on(EditGroupDisplay.PaymentsEvents event){
+    public void on(PaymentsEvents event){
         this.paymentEvent = event;
     }
     public void updateLabels(){

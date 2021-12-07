@@ -94,6 +94,11 @@ public class GroupDisplay extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Edit Mode");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
@@ -130,6 +135,10 @@ public class GroupDisplay extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
@@ -146,7 +155,7 @@ public class GroupDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel labelName;
     // End of variables declaration//GEN-END:variables
     
-    public void on(GroupDisplay.Events event){
+    public void on(Events event){
         this.event = event;
     }
     public void updateLabels(){

@@ -49,8 +49,12 @@ public class UserGroupControl {
             }
 
             @Override
-            public void openEditSelectedGroupWindow() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public void openSelectedGroupWindow(Group g) {
+                currentGroup = g;
+                groupDisplay = new GroupDisplay();
+                groupDisplay.on(setOpenGroupDisplay());
+                groupDisplay.updateLabels();
+                groupDisplay.setVisible(true);
             }
         };
     }
@@ -97,6 +101,22 @@ public class UserGroupControl {
             }
         };
     }
+    
+    private GroupDisplay.Events setOpenGroupDisplay() {
+        return new GroupDisplay.Events() {
+            @Override
+            public void openUserMainDisplay() {
+                userMainDisplay.setGroupList();
+                userMainDisplay.setVisible(true);
+            }
+
+            @Override
+            public String getGroupName() {
+                return currentGroup.getName();
+            }
+        };
+    }
+    
     private EditGroupDisplay.Events setOpenEditGroupDisplay() {
         return new EditGroupDisplay.Events() {
             @Override
@@ -117,13 +137,10 @@ public class UserGroupControl {
                 ArrayList<User> friendList = friendsLoader.search("", currentUser);
                 addMemberDisplay.setFriendsList(friendList);
                 addMemberDisplay.setVisible(true);
-            }
-
-            
-
-            
+            }            
         };
     }
+    
     private AddMemberDisplay.Events setEventsNewMemberDisplay() {
         return new AddMemberDisplay.Events(){
             @Override

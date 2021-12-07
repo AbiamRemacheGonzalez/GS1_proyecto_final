@@ -1,5 +1,6 @@
 package GS1.App;
 
+import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.Model.Group;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -67,6 +68,11 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         groupList.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         groupList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        groupList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                groupListMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(groupList);
 
         jMenu1.setText("My Account");
@@ -238,6 +244,18 @@ public class UserMainDisplay extends javax.swing.JFrame {
         requestEvent.openGroupRequestsWindow();
     }//GEN-LAST:event_groupRequestActionPerformed
 
+    private void groupListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_groupListMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount()==2){
+            String groupSelected = groupList.getSelectedValue();
+            String parts[] = groupSelected.split("#");
+            DataBaseGroupLoader groupLoader = new DataBaseGroupLoader();
+            Group g = groupLoader.load(Integer.parseInt(parts[1]));
+            groupevent.openSelectedGroupWindow(g);
+            this.dispose();
+        }
+    }//GEN-LAST:event_groupListMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addBizum;
@@ -323,7 +341,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         void openAddNewGroupWindow();
 
-        void openEditSelectedGroupWindow();
+        void openSelectedGroupWindow(Group g);
         //void openAddGroupPayment();
     }
 
