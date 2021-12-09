@@ -145,12 +145,12 @@ public class UserAccessControl {
         return new AddCreditCardPaymentDisplay.Events() {
             @Override
             public void signUp(User user, CreditCardPaymentMethod credit) {
-                databaseUserLogger.save(user);
-                int userId = databaseUserLoader.loadUserId(user.getMail(), user.getPassword());
-                databasePaymentMethodLogger.save(userId, credit);
-                user.addPaymentMethod(credit);
-                loggedUser = user;
-                enableUserMainDisplay();
+                //int userId = databaseUserLoader.loadUserId(user.getMail(), user.getPassword());
+                if(databaseUserLogger.save(user) && databasePaymentMethodLogger.save(databaseUserLoader.loadUserId(user.getMail()), credit)){
+                    user.addPaymentMethod(credit);
+                    loggedUser = user;
+                    enableUserMainDisplay();
+                }
             }
 
             @Override
@@ -234,7 +234,7 @@ public class UserAccessControl {
 
             @Override
             public ArrayList<Group> getGroups() {
-                return databaseGroupLogger.getGroups(databaseUserLoader.loadUserId(loggedUser.getMail(), loggedUser.getPassword()));
+                return databaseGroupLogger.getGroups(loggedUser.getId());
             }
         };
     }

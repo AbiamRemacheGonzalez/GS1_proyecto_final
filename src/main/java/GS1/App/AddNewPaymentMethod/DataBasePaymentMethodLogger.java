@@ -26,7 +26,7 @@ public class DataBasePaymentMethodLogger implements PaymentMethodLogger{
     }
     
     @Override
-    public void save(int UserId, PaymentMethod paymentMethod) {
+    public boolean save(int UserId, PaymentMethod paymentMethod) {
         if(paymentMethod instanceof CreditCardPaymentMethod){
             CreditCardPaymentMethod credit = (CreditCardPaymentMethod)paymentMethod;
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -35,6 +35,7 @@ public class DataBasePaymentMethodLogger implements PaymentMethodLogger{
                 st.execute(sql);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Database Error: CreditCard not saved");
+                return false;
             }
         }
         if(paymentMethod instanceof PaypalPaymentMethod){
@@ -44,6 +45,7 @@ public class DataBasePaymentMethodLogger implements PaymentMethodLogger{
                 st.execute(sql);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Database Error: Paypal account not saved");
+                return false;
             }
         }
         if(paymentMethod instanceof BizumPaymentMethod){
@@ -53,8 +55,10 @@ public class DataBasePaymentMethodLogger implements PaymentMethodLogger{
                 st.execute(sql);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Database Error: Bizum account not saved");
+                return false;
             }
         }
+        return true;
     }
     
 }

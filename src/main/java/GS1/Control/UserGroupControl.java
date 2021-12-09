@@ -69,9 +69,9 @@ public class UserGroupControl {
             @Override
             public void saveNewGroup(Group group) {
                 currentGroup = group;
-                int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                dataBaseGroupLogger.save(userId, group);
-                group.setIdGroup(dataBaseGroupLogger.getGroupId(userId, group.getName(), group.getDescription()));
+                //int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                dataBaseGroupLogger.save(currentUser.getId(), group);
+                group.setIdGroup(dataBaseGroupLogger.getGroupId(currentUser.getId(), group.getName(), group.getDescription()));
                 currentUser.addGroup(group);
                 
             }
@@ -151,7 +151,7 @@ public class UserGroupControl {
 
             @Override
             public int getUserId(User friend) {
-                return userLoader.loadUserId(friend.getMail());
+                return currentUser.getId();//userLoader.loadUserId(friend.getMail());
             }
         
         };

@@ -48,8 +48,8 @@ public class DataBaseFriendsLoader implements UserSearch{
     public ArrayList<User> search(String search, User currentUser) {
         ArrayList<User> friends = new ArrayList<>();
         try {
-            int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-            ArrayList<Integer> friendIds = getFriendsId(userId);
+            //int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+            ArrayList<Integer> friendIds = getFriendsId(currentUser.getId());
             for (Integer friendId : friendIds){ 
                 String sql="";
                 if (search.isEmpty()){

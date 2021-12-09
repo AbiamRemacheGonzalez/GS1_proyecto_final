@@ -23,12 +23,14 @@ public class DataBaseUserLogger implements UserLogger{
         }
     }
     @Override
-    public void save(User user) {
+    public boolean save(User user) {
         String sql = "INSERT INTO users(firstname,lastname,email,password) VALUES('"+user.getFirstname()+"','"+user.getLastname()+"','"+user.getMail()+"','"+user.getPassword()+"');";
         try {
             boolean res = st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLogger.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

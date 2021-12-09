@@ -56,7 +56,7 @@ public class DataBaseUserLoader implements UserLoader{
         return null;
     }
     
-    public int loadUserId(String email, String password){
+    /*public int loadUserId(String email, String password){
         int res = -1;
         try {
             this.mail = email;
@@ -72,7 +72,7 @@ public class DataBaseUserLoader implements UserLoader{
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
-    }
+    }*/
     public int loadUserId(String email){
         int res = -1;
         try {
@@ -160,6 +160,7 @@ public class DataBaseUserLoader implements UserLoader{
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        loadUser.setId(loadUserId(loadUser.getMail()));
     }
 
     public Boolean isEmailPatternCorrect() {
@@ -182,7 +183,6 @@ public class DataBaseUserLoader implements UserLoader{
         return BCrypt.hashpw(plainString, salt);
     }
     public boolean matches(String plainString) {
-        //return true;
         return BCrypt.checkpw(plainString, loadedPassword);
     }
 

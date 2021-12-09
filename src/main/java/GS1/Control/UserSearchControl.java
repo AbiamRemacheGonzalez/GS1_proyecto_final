@@ -44,7 +44,7 @@ public class UserSearchControl {
 
             @Override
             public void SendFriendRequest(String friend) {
-                int sourceUserId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                int sourceUserId = currentUser.getId();//userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
                 int destinationUserId = Integer.parseInt(friend.substring(friend.indexOf("#")+1));
                 Request request = new Request(sourceUserId,destinationUserId,'F');
                 databaseUserSearch.sendRequest(request);
@@ -52,7 +52,7 @@ public class UserSearchControl {
 
             @Override
             public int getUserId(User user) {
-                return dataBaseUserLoader.loadUserId(user.getMail(), user.getPassword());
+                return currentUser.getId();//dataBaseUserLoader.loadUserId(user.getMail(), user.getPassword());
             }
         };
     }

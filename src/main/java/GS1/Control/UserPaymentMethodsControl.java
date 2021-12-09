@@ -184,8 +184,8 @@ public class UserPaymentMethodsControl {
         return matcher.matches();
     }
     private void internalAddPayment(PaymentMethod payment){
-        int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-        paymentMethodLogger.save(userId, payment);
+        //int userId = userLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+        paymentMethodLogger.save(currentUser.getId(), payment);
         currentUser.addPaymentMethod(payment);
     }
     

@@ -52,8 +52,8 @@ public class UserRequestsControl {
         return new UserFriendRequestsDisplay.Events() {
             @Override
             public ArrayList<Request> getRequests(char requestType) {
-                int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
-                return dataBaseRequestLoader.getRequests(userId, requestType);
+                //int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                return dataBaseRequestLoader.getRequests(currentUser.getId(), requestType);
             }
 
             @Override
@@ -82,7 +82,7 @@ public class UserRequestsControl {
             
             @Override
             public ArrayList<Request> getRequests(char requestType) {
-                userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                userId = currentUser.getId();//dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
                 return dataBaseRequestLoader.getRequests(userId, requestType);
             }
 

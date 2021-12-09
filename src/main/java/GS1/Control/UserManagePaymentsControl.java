@@ -50,7 +50,7 @@ public class UserManagePaymentsControl {
             
             @Override
             public int getUserID(User user) {
-                return userLoader.loadUserId(user.getMail());
+                return currentUser.getId();//userLoader.loadUserId(user.getMail());
             }
 
             @Override

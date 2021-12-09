@@ -6,7 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 public class User {
     
     private static final int LOG_ROUNDS = 12;
-     
+    private int id;
     private String firstname;
     private String lastname;
     private String mail;
@@ -24,6 +24,14 @@ public class User {
         groups = new ArrayList<Group>();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getFirstname() {
         return firstname;
     }
