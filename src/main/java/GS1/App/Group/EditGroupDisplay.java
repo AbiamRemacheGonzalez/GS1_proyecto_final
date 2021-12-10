@@ -1,11 +1,16 @@
 package GS1.App.Group;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
 public class EditGroupDisplay extends javax.swing.JFrame {
 
     private Events event;
     private PaymentsEvents paymentEvent;
+    private DefaultListModel membersListModel = new DefaultListModel();
     public EditGroupDisplay() {
         initComponents();
+        listMembers.setModel(membersListModel);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -17,7 +22,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listMembers = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -58,7 +63,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listMembers);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -197,7 +202,6 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JButton addNewMember;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -212,6 +216,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelName;
+    private javax.swing.JList<String> listMembers;
     private javax.swing.JMenuItem managePayments;
     // End of variables declaration//GEN-END:variables
     public void on(Events event){
@@ -224,10 +229,22 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     public void updateLabels(){
         labelName.setText(event.getGroupName());
     }
+    
+    public void setMembersList(){
+        ArrayList<Integer> members = event.getMembers();
+        for(int id : members){
+            System.out.println(id);
+            System.out.println(event.getNameUser(id));
+            membersListModel.addElement(event.getNameUser(id));
+        }
+    }
+    
     public interface Events{
         void openUserMainDisplay();
         void openAddNewMemberDisplay();
         public String getGroupName();
+        ArrayList<Integer> getMembers();
+        String getNameUser(int id);
         
     }
     

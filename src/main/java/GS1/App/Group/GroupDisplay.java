@@ -137,6 +137,7 @@ public class GroupDisplay extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
+        event.openEditGroupDisplay();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
 
@@ -164,5 +165,6 @@ public class GroupDisplay extends javax.swing.JFrame {
     public interface Events{
         void openUserMainDisplay();
         public String getGroupName();
+        void openEditGroupDisplay();
     }
 }

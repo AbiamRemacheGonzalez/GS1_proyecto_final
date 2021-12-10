@@ -7,6 +7,7 @@ import GS1.App.Group.AddMemberDisplay;
 import GS1.App.Group.DataBaseFriendsLoader;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.Group.GroupDisplay;
+import GS1.App.ManagePayments.DatabasePaymentsLoader;
 import GS1.App.SearchUser.DataBaseUserSearch;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
@@ -29,6 +30,7 @@ public class UserGroupControl {
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
     private final DataBaseUserSearch userSearch = new DataBaseUserSearch();
     private final DataBaseFriendsLoader friendsLoader = new DataBaseFriendsLoader();
+    private final DatabasePaymentsLoader databasePaymentLoader = new DatabasePaymentsLoader();
     
     private final User currentUser;
     private Group currentGroup;
@@ -98,6 +100,7 @@ public class UserGroupControl {
                 editGroupDisplay.updateLabels();
                 editGroupDisplay.setVisible(true);
                 UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
+                editGroupDisplay.setMembersList();
             }
         };
     }
@@ -113,6 +116,16 @@ public class UserGroupControl {
             @Override
             public String getGroupName() {
                 return currentGroup.getName();
+            }
+
+            @Override
+            public void openEditGroupDisplay() {
+                editGroupDisplay = new EditGroupDisplay();
+                editGroupDisplay.on(setOpenEditGroupDisplay());
+                editGroupDisplay.updateLabels();
+                editGroupDisplay.setVisible(true);
+                UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
+                editGroupDisplay.setMembersList();
             }
         };
     }
@@ -138,6 +151,16 @@ public class UserGroupControl {
                 addMemberDisplay.setFriendsList(friendList);
                 addMemberDisplay.setVisible(true);
             }            
+
+            @Override
+            public ArrayList<Integer> getMembers() {
+                return databasePaymentLoader.getMembersId(currentGroup.getIdGroup());
+            }
+
+            @Override
+            public String getNameUser(int id) {
+                return databasePaymentLoader.getUserByID(id);
+            }
         };
     }
     
