@@ -13,7 +13,7 @@ public class BizumPaymentMethod implements PaymentMethod{
     }
     
     @Override
-    public void pay() {
+    public boolean pay() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

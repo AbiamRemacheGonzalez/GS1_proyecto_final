@@ -8,7 +8,7 @@ package GS1.Control;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
-import GS1.App.ManagePayments.PaymentsLoader;
+import GS1.App.ManagePayments.DatabasePaymentsLoader;
 import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.User;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class UserManagePaymentsControl {
     private ManagePaymentsDisplay managePaymentsDisplay;
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
-    private PaymentsLoader paymentLoader = new PaymentsLoader();
+    private DatabasePaymentsLoader paymentLoader = new DatabasePaymentsLoader();
     
     private User currentUser;
     private Group currentGroup;
@@ -55,11 +55,8 @@ public class UserManagePaymentsControl {
 
             @Override
             public void savePayment(Payment p) {
-                paymentLoader.addPayment(p);
+                paymentLoader.save(p);
             }
-
-            
-
             @Override
             public boolean checkNewPaymentValues(String title, double amount) {
                 managePaymentsDisplay.resetLabels();
@@ -89,11 +86,6 @@ public class UserManagePaymentsControl {
             public User loadUserByName(String firstname) {
                 return paymentLoader.getUserByName(firstname);
             }
-
-            
-
-            
-            
         };
     }
     

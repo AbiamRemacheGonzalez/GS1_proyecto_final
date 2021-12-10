@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GS1.Model;
 
-/**
- *
- * @author hugob
- */
 public class Payment {
-    
+    private int paymentId;
     private String title;
     private double amount;
     private int userDestinationID;
@@ -23,6 +14,14 @@ public class Payment {
         this.groupID = groupID;
     }
 
+    public int getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
+    
     public int getUserDestinationID() {
         return userDestinationID;
     }

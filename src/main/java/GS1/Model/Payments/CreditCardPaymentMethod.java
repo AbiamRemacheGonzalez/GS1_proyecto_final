@@ -26,7 +26,7 @@ public class CreditCardPaymentMethod implements PaymentMethod{
     }
 
     @Override
-    public void pay() {
+    public boolean pay() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
