@@ -17,7 +17,7 @@ public class GroupDisplay extends javax.swing.JFrame {
         labelName = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        myPaymentsChuncksList = new javax.swing.JList<>();
         buttonPay = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -43,12 +43,12 @@ public class GroupDisplay extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        myPaymentsChuncksList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(myPaymentsChuncksList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -145,7 +145,6 @@ public class GroupDisplay extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JButton buttonPay;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
@@ -154,6 +153,7 @@ public class GroupDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelName;
+    private javax.swing.JList<String> myPaymentsChuncksList;
     // End of variables declaration//GEN-END:variables
     
     public void on(Events event){
@@ -161,6 +161,7 @@ public class GroupDisplay extends javax.swing.JFrame {
     }
     public void updateLabels(){
         labelName.setText(event.getGroupName());
+        
     }
     public interface Events{
         void openUserMainDisplay();

@@ -1,14 +1,18 @@
 package GS1.Model;
 
+import java.util.ArrayList;
+
 public class Group {
     private int idGroup;
     private String name;
     private String description;
     private int idAdmin;
+    private ArrayList<Payment> payments;
 
     public Group(String name, String description) {
         this.name = name;
         this.description = description;
+        payments = new ArrayList<>();
     }
 
     public void setIdAdmin(int idAdmin) {

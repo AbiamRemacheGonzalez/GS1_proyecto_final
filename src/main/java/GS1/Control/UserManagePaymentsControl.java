@@ -1,27 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GS1.Control;
 
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
-import GS1.App.ManagePayments.DatabasePaymentsLoader;
+import GS1.App.ManagePayments.DatabasePaymentLogger;
 import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.User;
 import java.util.ArrayList;
 
-/**
- *
- * @author hugob
- */
 public class UserManagePaymentsControl {
     private ManagePaymentsDisplay managePaymentsDisplay;
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
-    private DatabasePaymentsLoader paymentLoader = new DatabasePaymentsLoader();
+    private DatabasePaymentLogger paymentLoader = new DatabasePaymentLogger();
     
     private User currentUser;
     private Group currentGroup;
@@ -85,6 +76,11 @@ public class UserManagePaymentsControl {
             @Override
             public User loadUserByName(String firstname) {
                 return paymentLoader.getUserByName(firstname);
+            }
+
+            @Override
+            public ArrayList<User> getMembers() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }

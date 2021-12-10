@@ -15,11 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class DatabasePaymentsLoader implements PaymentLogger{
+public class DatabasePaymentLogger implements PaymentLogger{
     private Connection cn;
     private Statement st;
     
-    public DatabasePaymentsLoader() {
+    public DatabasePaymentLogger() {
          try {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
@@ -33,7 +33,7 @@ public class DatabasePaymentsLoader implements PaymentLogger{
         try {
             st.execute(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(DatabasePaymentsLoader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
@@ -49,7 +49,7 @@ public class DatabasePaymentsLoader implements PaymentLogger{
                 res.add(Integer.parseInt(r.getString("userId")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DatabasePaymentsLoader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
     }
@@ -64,7 +64,7 @@ public class DatabasePaymentsLoader implements PaymentLogger{
                 res=r.getString("firstname");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DatabasePaymentsLoader.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);
         }
         return res;
     }
