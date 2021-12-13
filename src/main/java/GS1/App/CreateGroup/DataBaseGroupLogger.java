@@ -95,7 +95,6 @@ public class DataBaseGroupLogger implements GroupLogger {
 
     private ArrayList<Integer> getIdGroups(int UserId) {
         ArrayList<Integer> groupIds = new ArrayList();
-
         try {
             String sql = "SELECT groupId FROM members WHERE userId='" + UserId + "'";
             st.execute(sql);
@@ -107,5 +106,22 @@ public class DataBaseGroupLogger implements GroupLogger {
             Logger.getLogger(DataBaseGroupLogger.class.getName()).log(Level.SEVERE, null, ex);
         }
         return groupIds;
+    }
+    
+    public boolean isAdminOfCurrentGroup(int userId, int groupId){
+        String sql = "SELECT userId FROM groups WHERE groupId='"+groupId+"'";
+        int adminId = 0;
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while (r.next()) {
+                adminId = Integer.parseInt(r.getString("userId"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseGroupLogger.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        if(adminId == userId)return true;
+        return false;
     }
 }

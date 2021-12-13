@@ -1,5 +1,5 @@
 
-package GS1.Model.Payments;
+package GS1.Model.PaymentsMethods;
 
 public class BizumPaymentMethod implements PaymentMethod{
     private final int phoneNumber;

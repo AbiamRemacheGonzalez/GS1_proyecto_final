@@ -28,13 +28,11 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         addNewMember = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        editGroupDetailsMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        manageMembersMenu = new javax.swing.JMenuItem();
+        managePaymentsMenu = new javax.swing.JMenu();
         managePayments = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -103,38 +101,26 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel4.add(addNewMember, gridBagConstraints);
 
-        jMenu4.setText("Main");
-
-        jMenuItem4.setText("Home");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem4);
-
-        jMenuBar1.add(jMenu4);
-
-        jMenu3.setText("Group");
+        editGroupDetailsMenu.setText("Group");
 
         jMenuItem1.setText("Edit Group Details");
-        jMenu3.add(jMenuItem1);
+        editGroupDetailsMenu.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(editGroupDetailsMenu);
 
         jMenu1.setText("Members");
 
-        jMenuItem2.setText("Manage Members");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        manageMembersMenu.setText("Manage Members");
+        manageMembersMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                manageMembersMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(manageMembersMenu);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Payments");
+        managePaymentsMenu.setText("Payments");
 
         managePayments.setText("Manage Payments");
         managePayments.addActionListener(new java.awt.event.ActionListener() {
@@ -142,9 +128,9 @@ public class EditGroupDisplay extends javax.swing.JFrame {
                 managePaymentsActionPerformed(evt);
             }
         });
-        jMenu2.add(managePayments);
+        managePaymentsMenu.add(managePayments);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(managePaymentsMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -178,15 +164,9 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void manageMembersMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageMembersMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-        event.openUserMainDisplay();
-        this.dispose();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_manageMembersMenuActionPerformed
 
     private void addNewMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewMemberActionPerformed
         // TODO add your handling code here:
@@ -200,16 +180,12 @@ public class EditGroupDisplay extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewMember;
+    private javax.swing.JMenu editGroupDetailsMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -217,7 +193,9 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelName;
     private javax.swing.JList<String> listMembers;
+    private javax.swing.JMenuItem manageMembersMenu;
     private javax.swing.JMenuItem managePayments;
+    private javax.swing.JMenu managePaymentsMenu;
     // End of variables declaration//GEN-END:variables
     public void on(Events event){
         this.event = event;

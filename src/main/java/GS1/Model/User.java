@@ -1,5 +1,5 @@
 package GS1.Model;
-import GS1.Model.Payments.PaymentMethod;
+import GS1.Model.PaymentsMethods.PaymentMethod;
 import java.util.ArrayList;
 import org.mindrot.jbcrypt.BCrypt;
 

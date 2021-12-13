@@ -61,6 +61,8 @@ public class DataBaseFriendsLoader implements UserSearch{
                 ResultSet r = st.getResultSet();
                 while(r.next()){
                     User loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+                    int idUser = Integer.parseInt(r.getString("userId"));
+                    loadUser.setId(idUser);
                     friends.add(loadUser);
                 }
             }

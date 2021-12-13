@@ -5,7 +5,7 @@
  */
 package GS1.App.AddNewPaymentMethod;
 
-import GS1.Model.Payments.BizumPaymentMethod;
+import GS1.Model.PaymentsMethods.BizumPaymentMethod;
 import java.awt.event.KeyEvent;
 
 public class AddBizumPaymentDisplay extends javax.swing.JFrame {

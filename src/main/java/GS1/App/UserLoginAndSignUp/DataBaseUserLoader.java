@@ -55,24 +55,7 @@ public class DataBaseUserLoader implements UserLoader{
         if(isEmailPatternCorrect()&&emailExists()&&isPasswordCorrect()) return loadUser;
         return null;
     }
-    
-    /*public int loadUserId(String email, String password){
-        int res = -1;
-        try {
-            this.mail = email;
-            String sql = "SELECT userId FROM users WHERE email='"+email+"' and password='"+getHashedPassword()+"'";
-            st.execute(sql);
-            ResultSet r = st.getResultSet();
-            while(r.next()){
-                res = Integer.parseInt(r.getString("userId"));
-            }
-            passwordIsCorrect = (loadUser==null)?Boolean.FALSE:Boolean.TRUE;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return res;
-    }*/
     public int loadUserId(String email){
         int res = -1;
         try {

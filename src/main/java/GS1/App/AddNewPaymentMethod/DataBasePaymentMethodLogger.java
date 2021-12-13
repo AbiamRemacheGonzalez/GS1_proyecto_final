@@ -1,9 +1,9 @@
 package GS1.App.AddNewPaymentMethod;
 
-import GS1.Model.Payments.BizumPaymentMethod;
-import GS1.Model.Payments.CreditCardPaymentMethod;
-import GS1.Model.Payments.PaymentMethod;
-import GS1.Model.Payments.PaypalPaymentMethod;
+import GS1.Model.PaymentsMethods.BizumPaymentMethod;
+import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
+import GS1.Model.PaymentsMethods.PaymentMethod;
+import GS1.Model.PaymentsMethods.PaypalPaymentMethod;
 import GS1.View.PaymentMethodLogger;
 import java.sql.Connection;
 import java.sql.DriverManager;

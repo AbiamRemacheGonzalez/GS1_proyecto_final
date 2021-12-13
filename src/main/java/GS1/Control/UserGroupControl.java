@@ -96,7 +96,7 @@ public class UserGroupControl {
             @Override
             public void openNewEditGroupDisplay() {
                 editGroupDisplay = new EditGroupDisplay();
-                editGroupDisplay.on(setOpenEditGroupDisplay());
+                editGroupDisplay.on(setOpenEditGroupDisplayEvents());
                 editGroupDisplay.updateLabels();
                 editGroupDisplay.setVisible(true);
                 UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
@@ -119,18 +119,21 @@ public class UserGroupControl {
             }
 
             @Override
-            public void openEditGroupDisplay() {
+            public void openEditGroupDisplayEvents() {
                 editGroupDisplay = new EditGroupDisplay();
-                editGroupDisplay.on(setOpenEditGroupDisplay());
+                editGroupDisplay.on(setOpenEditGroupDisplayEvents());
                 editGroupDisplay.updateLabels();
                 editGroupDisplay.setVisible(true);
                 UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
                 editGroupDisplay.setMembersList();
             }
+
+            @Override
+            public boolean isCurrentUserAdminOfCurrentGroup() {return dataBaseGroupLogger.isAdminOfCurrentGroup(currentUser.getId(), currentGroup.getIdGroup());}
         };
     }
     
-    private EditGroupDisplay.Events setOpenEditGroupDisplay() {
+    private EditGroupDisplay.Events setOpenEditGroupDisplayEvents() {
         return new EditGroupDisplay.Events() {
             @Override
             public void openUserMainDisplay() {

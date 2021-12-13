@@ -7,12 +7,12 @@ import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.AddPaypalPaymentDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
-import GS1.Model.Payments.BizumPaymentMethod;
-import GS1.Model.Payments.PaymentMethod;
-import GS1.Model.Payments.PaypalPaymentMethod;
+import GS1.Model.PaymentsMethods.BizumPaymentMethod;
+import GS1.Model.PaymentsMethods.PaymentMethod;
+import GS1.Model.PaymentsMethods.PaypalPaymentMethod;
 import GS1.Model.User;
 import GS1.App.SearchUser.SearchUsersDisplay;
-import GS1.Model.Payments.CreditCardPaymentMethod;
+import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

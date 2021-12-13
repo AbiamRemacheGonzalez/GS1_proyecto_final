@@ -7,7 +7,7 @@ import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
 import GS1.App.UserMainDisplay;
-import GS1.Model.Payments.CreditCardPaymentMethod;
+import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
 import GS1.Model.User;
 import GS1.App.UserLoginAndSignUp.UserRegistrationDisplay;
 import GS1.Model.Group;
