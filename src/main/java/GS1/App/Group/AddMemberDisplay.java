@@ -137,7 +137,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     public void setFriendsList(ArrayList<User> friendList){
         for (User friend : friendList) {
-            friendListModel.addElement(friend.getFirstname()+"#"+event.getUserId(friend));
+            friendListModel.addElement(friend.getFirstname()+"#"+friend.getId());
         }
     }
     public void on(Events event){
