@@ -12,6 +12,7 @@ import GS1.App.SearchUser.DataBaseUserSearch;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
+import GS1.App.Requests.DatabaseUserBalanceLogger;
 import GS1.Model.Balance;
 import GS1.Model.Group;
 import GS1.Model.Request;
@@ -32,6 +33,7 @@ public class UserGroupControl {
     private final DataBaseUserSearch userSearch = new DataBaseUserSearch();
     private final DataBaseFriendsLoader friendsLoader = new DataBaseFriendsLoader();
     private final DatabasePaymentLogger databasePaymentLoader = new DatabasePaymentLogger();
+    private final DatabaseUserBalanceLogger dataBaseUserBalanceLogger = new DatabaseUserBalanceLogger();
     
     private final User currentUser;
     private Group currentGroup;
@@ -77,7 +79,8 @@ public class UserGroupControl {
                 group.setIdGroup(dataBaseGroupLogger.getGroupId(currentUser.getId(), group.getName(), group.getDescription()));
                 currentUser.addGroup(group);
                 Balance balance = new Balance(currentUser.getId(), currentGroup.getIdGroup());
-                
+                dataBaseUserBalanceLogger.save(balance);
+                userMainDisplay.setGroupList();
             }
 
             @Override
@@ -167,9 +170,9 @@ public class UserGroupControl {
     private AddMemberDisplay.Events setEventsNewMemberDisplay() {
         return new AddMemberDisplay.Events(){
             @Override
-            public void sendGroupRequest(int userId) {
+            public boolean sendGroupRequest(int userId) {
                 Request request = new Request(currentGroup.getIdGroup(), userId, 'G');
-                userSearch.sendRequest(request);
+                return userSearch.sendRequest(request);
             }
 
             @Override

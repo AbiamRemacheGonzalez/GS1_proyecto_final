@@ -16,6 +16,10 @@ public class Balance {
         chunckPayments = new ArrayList<>();
     }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public double getBalance() {
         return balance;
     }

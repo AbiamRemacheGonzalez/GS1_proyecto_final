@@ -38,7 +38,7 @@ public class UserLoginDisplay extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        titlePanel.setBackground(new java.awt.Color(204, 255, 204));
+        titlePanel.setBackground(new java.awt.Color(153, 153, 153));
         titlePanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setBackground(new java.awt.Color(204, 255, 204));
@@ -54,7 +54,7 @@ public class UserLoginDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         titlePanel.add(jLabel1, gridBagConstraints);
 
-        registrationPanel.setBackground(new java.awt.Color(204, 255, 204));
+        registrationPanel.setBackground(new java.awt.Color(204, 204, 204));
         registrationPanel.setLayout(new java.awt.GridBagLayout());
 
         jLabel3.setText("Email");
@@ -110,7 +110,7 @@ public class UserLoginDisplay extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         registrationPanel.add(passError, gridBagConstraints);
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         signupButton.setText("Sign up");

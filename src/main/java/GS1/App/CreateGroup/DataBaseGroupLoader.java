@@ -52,13 +52,15 @@ public class DataBaseGroupLoader implements GroupLoader {
     
     public ArrayList<User> getGroupMembers(int groupID){
         ArrayList<User> res = new ArrayList<>();
-        String sql = "SELECT udserId FROM members WHERE groupId='"+groupID+"'";
+        String sql = "SELECT userId FROM members WHERE groupId='"+groupID+"'";
         try {
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while(r.next()){
                 int userId = Integer.parseInt(r.getString("userId"));
-                res.add(databaseUserLoader.loadUser(userId));
+                User user = databaseUserLoader.loadUser(userId);
+                user.setId(userId);
+                res.add(user);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);

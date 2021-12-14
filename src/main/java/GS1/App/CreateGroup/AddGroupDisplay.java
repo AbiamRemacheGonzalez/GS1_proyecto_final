@@ -31,7 +31,7 @@ public class AddGroupDisplay extends javax.swing.JFrame {
         canceltButton = new javax.swing.JButton();
         addGroupButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -151,7 +151,6 @@ public class AddGroupDisplay extends javax.swing.JFrame {
 
     private void canceltButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_canceltButtonActionPerformed
         // TODO add your handling code here:
-        event.openUserMainDisplay();
         this.dispose();
     }//GEN-LAST:event_canceltButtonActionPerformed
 

@@ -31,7 +31,7 @@ public class GroupDisplay extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         editModeMenu = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -139,6 +139,7 @@ public class GroupDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(event.isCurrentUserAdminOfCurrentGroup()){
             event.openEditGroupDisplayEvents();
+            this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Usted no es el administrador de este grupo");
         }
@@ -166,7 +167,6 @@ public class GroupDisplay extends javax.swing.JFrame {
     }
     public void updateLabels(){
         labelName.setText(event.getGroupName());
-        
     }
     public interface Events{
         void openUserMainDisplay();

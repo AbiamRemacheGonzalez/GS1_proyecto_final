@@ -52,7 +52,7 @@ public class DataBaseUserSearch implements UserSearch {
     }
     
     @Override
-    public void sendRequest(Request request) {
+    public boolean sendRequest(Request request) {
         String sql = "INSERT INTO requests(sourceUserId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','"+request.getRequestType()+"');";
         if(request.getRequestType()=='G'){
             sql = "INSERT INTO requests(groupId,destinationUserId,requestType) VALUES('"+request.getSourceId()+"','"+request.getUserDestinationId()+"','"+request.getRequestType()+"');";
@@ -61,6 +61,8 @@ public class DataBaseUserSearch implements UserSearch {
             st.execute(sql);
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserSearch.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

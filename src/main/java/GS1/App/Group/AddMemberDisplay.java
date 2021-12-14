@@ -5,6 +5,7 @@ import GS1.Model.User;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class AddMemberDisplay extends javax.swing.JFrame {
     private DefaultListModel friendListModel = new DefaultListModel();
@@ -118,10 +119,12 @@ public class AddMemberDisplay extends javax.swing.JFrame {
     private void sendGroupRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendGroupRequestActionPerformed
         // TODO add your handling code here:
         List<String> friends = friendLis.getSelectedValuesList();
+        String message ="Se ha enviado una petición de grupo a:";
         for (String friend : friends) {
             String[] part = friend.split("#");
-            event.sendGroupRequest(Integer.valueOf(part[1]));
+            if(event.sendGroupRequest(Integer.valueOf(part[1]))) message = message +friend+" - ";
         }
+        JOptionPane.showMessageDialog(null, message);
     }//GEN-LAST:event_sendGroupRequestActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -144,7 +147,7 @@ public class AddMemberDisplay extends javax.swing.JFrame {
         this.event = event;
     }
     public interface Events{
-        void sendGroupRequest(int userId);
+        boolean sendGroupRequest(int userId);
         public int getUserId(User friend);
     }
 }

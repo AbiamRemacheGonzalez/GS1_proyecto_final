@@ -2,6 +2,7 @@ package GS1.Control;
 
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.Group.EditGroupDisplay;
+import GS1.App.ManagePayments.DatabaseBalanceLoader;
 import GS1.App.ManagePayments.DatabaseChunkLogger;
 import GS1.App.ManagePayments.DatabasePaymentLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
@@ -22,7 +23,7 @@ public class UserManagePaymentsControl {
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     
     private DatabaseChunkLogger databaseChunkLogger = new DatabaseChunkLogger();
-    //private DatabaseBalanceLoader databaseBalanceLoader = new DatabaseBalanceLoader();
+    private DatabaseBalanceLoader databaseBalanceLoader = new DatabaseBalanceLoader();
     
     private User currentUser;
     private Group currentGroup;
@@ -41,7 +42,7 @@ public class UserManagePaymentsControl {
         return new EditGroupDisplay.PaymentsEvents() {
             @Override
             public void openManagePaymentDisplay() {
-                managePaymentsDisplay = new ManagePaymentsDisplay(currentUser,currentGroup);
+                managePaymentsDisplay = new ManagePaymentsDisplay();
                 managePaymentsDisplay.on(setManagePaymentsDisplayEvents());
                 managePaymentsDisplay.setVisible(true);
                 managePaymentsDisplay.setMembersList();
@@ -84,15 +85,18 @@ public class UserManagePaymentsControl {
             public User getUser(int userId) {
                 return databaseUserLoader.loadUser(userId);
             }
+
+            @Override
+            public int getIdGroup() {
+                return currentGroup.getIdGroup();
+            }
         };
     }
     private void generateChunckPayments() {
         Double chunckAmount = currentPayment.getAmount()/currentGroupMembers.size();
         for (User currentGroupMember : currentGroupMembers) {
-            
-            //int idBalance = getBalanceId(currentGroupMember.getId());
-            
-            ChunckPayment chunk = new ChunckPayment(currentPayment.getPaymentId(), 0, chunckAmount);
+            Balance userBalance = databaseBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentUser.getId());
+            ChunckPayment chunk = new ChunckPayment(currentPayment.getPaymentId(), userBalance.getBalanceId(), chunckAmount);
             databaseChunkLogger.save(chunk);
         }
         

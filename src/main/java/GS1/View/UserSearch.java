@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface UserSearch {
     public ArrayList<User> search(String search, User currentUser);
-    public void sendRequest(Request request);
+    public boolean sendRequest(Request request);
 }
