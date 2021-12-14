@@ -14,6 +14,14 @@ public class Group {
         this.description = description;
         payments = new ArrayList<>();
     }
+    
+    public void addPayment(Payment payment){
+        payments.add(payment);
+    }
+    
+    public void removePayment(Payment payment){
+        payments.remove(payment);
+    }
 
     public void setIdAdmin(int idAdmin) {
         this.idAdmin = idAdmin;
