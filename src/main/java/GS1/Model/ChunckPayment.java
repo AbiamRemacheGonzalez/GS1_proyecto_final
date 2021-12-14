@@ -6,7 +6,7 @@ public class ChunckPayment {
     private final int balanceId;
     private double chunckAmount;
 
-    public ChunckPayment(int paymentId, int balanceId, int chunckAmount) {
+    public ChunckPayment(int paymentId, int balanceId, double chunckAmount) {
         this.paymentId = paymentId;
         this.balanceId = balanceId;
         this.chunckAmount = chunckAmount;

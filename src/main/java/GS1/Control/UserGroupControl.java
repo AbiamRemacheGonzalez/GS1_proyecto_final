@@ -12,6 +12,7 @@ import GS1.App.SearchUser.DataBaseUserSearch;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
+import GS1.Model.Balance;
 import GS1.Model.Group;
 import GS1.Model.Request;
 import GS1.Model.User;
@@ -75,6 +76,7 @@ public class UserGroupControl {
                 dataBaseGroupLogger.save(currentUser.getId(), group);
                 group.setIdGroup(dataBaseGroupLogger.getGroupId(currentUser.getId(), group.getName(), group.getDescription()));
                 currentUser.addGroup(group);
+                Balance balance = new Balance(currentUser.getId(), currentGroup.getIdGroup());
                 
             }
 

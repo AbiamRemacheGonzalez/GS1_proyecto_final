@@ -2,10 +2,13 @@ package GS1.Control;
 
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.Group.EditGroupDisplay;
+import GS1.App.ManagePayments.DatabaseChunkLogger;
 import GS1.App.ManagePayments.DatabasePaymentLoader;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
 import GS1.App.ManagePayments.DatabasePaymentLogger;
+import GS1.Model.Balance;
+import GS1.Model.ChunckPayment;
 import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.User;
@@ -17,6 +20,9 @@ public class UserManagePaymentsControl {
     private DatabasePaymentLogger databasePaymentLogger = new DatabasePaymentLogger();
     private DatabasePaymentLoader databasePaymentLoader = new DatabasePaymentLoader();
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
+    
+    private DatabaseChunkLogger databaseChunkLogger = new DatabaseChunkLogger();
+    //private DatabaseBalanceLoader databaseBalanceLoader = new DatabaseBalanceLoader();
     
     private User currentUser;
     private Group currentGroup;
@@ -84,6 +90,10 @@ public class UserManagePaymentsControl {
         Double chunckAmount = currentPayment.getAmount()/currentGroupMembers.size();
         for (User currentGroupMember : currentGroupMembers) {
             
+            //int idBalance = getBalanceId(currentGroupMember.getId());
+            
+            ChunckPayment chunk = new ChunckPayment(currentPayment.getPaymentId(), 0, chunckAmount);
+            databaseChunkLogger.save(chunk);
         }
         
     }
