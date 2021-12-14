@@ -1,5 +1,6 @@
 package GS1.App.Group;
 
+import GS1.Model.User;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -141,7 +142,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -209,11 +210,9 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     }
     
     public void setMembersList(){
-        ArrayList<Integer> members = event.getMembers();
-        for(int id : members){
-            System.out.println(id);
-            System.out.println(event.getNameUser(id));
-            membersListModel.addElement(event.getNameUser(id));
+        ArrayList<User> members = event.getMembers();
+        for (User member : members) {
+            membersListModel.addElement(member.getFirstname()+"#"+member.getId());
         }
     }
     
@@ -221,9 +220,7 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         void openUserMainDisplay();
         void openAddNewMemberDisplay();
         public String getGroupName();
-        ArrayList<Integer> getMembers();
-        String getNameUser(int id);
-        
+        ArrayList<User> getMembers();
     }
     
     public interface PaymentsEvents{

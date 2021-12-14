@@ -252,7 +252,6 @@ public class UserMainDisplay extends javax.swing.JFrame {
             DataBaseGroupLoader groupLoader = new DataBaseGroupLoader();
             Group g = groupLoader.load(Integer.parseInt(parts[1]));
             groupevent.openSelectedGroupWindow(g);
-            this.dispose();
         }
     }//GEN-LAST:event_groupListMouseClicked
 

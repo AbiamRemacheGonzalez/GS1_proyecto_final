@@ -156,13 +156,8 @@ public class UserGroupControl {
             }            
 
             @Override
-            public ArrayList<Integer> getMembers() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public String getNameUser(int id) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public ArrayList<User> getMembers() {
+                return dataBaseGroupLoader.getGroupMembers(currentGroup.getIdGroup());
             }
         };
     }
