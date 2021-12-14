@@ -2,10 +2,12 @@ package GS1.Control;
 
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.Requests.DataBaseRequestLoader;
+import GS1.App.Requests.DatabaseUserBalanceLogger;
 import GS1.App.Requests.UserFriendRequestsDisplay;
 import GS1.App.Requests.UserGroupRequestsDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
+import GS1.Model.Balance;
 import GS1.Model.Group;
 import GS1.Model.Request;
 import GS1.Model.User;
@@ -20,6 +22,7 @@ public class UserRequestsControl {
     private int userId;
     
     private final DataBaseRequestLoader dataBaseRequestLoader = new DataBaseRequestLoader();
+    private final DatabaseUserBalanceLogger dataBaseUserBalanceLogger = new DatabaseUserBalanceLogger();
     private final DataBaseUserLoader dataBaseUserLoader = new DataBaseUserLoader();
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
 
@@ -89,6 +92,8 @@ public class UserRequestsControl {
             @Override
             public void acceptRequest(Request request) {
                 dataBaseRequestLoader.acceptRequest(request);
+                Balance userBalance = new Balance(userId,request.getSourceId());
+                dataBaseUserBalanceLogger.save(userBalance);
             }
 
             @Override

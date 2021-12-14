@@ -3,9 +3,10 @@ package GS1.Model;
 import java.util.ArrayList;
 
 public class Balance {
+    private int balanceId;
     private final int memberId;
     private final int groupId;
-    private int balance;
+    private double balance;
     private ArrayList<ChunckPayment> chunckPayments;
 
     public Balance(int memberId, int groupId) {
@@ -14,27 +15,47 @@ public class Balance {
         balance = 0;
         chunckPayments = new ArrayList<>();
     }
+
+    public double getBalance() {
+        return balance;
+    }
+    
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public int getBalanceId() {
+        return balanceId;
+    }
+
+    public void setBalanceId(int balanceId) {
+        this.balanceId = balanceId;
+    }
     
     public void addChunckPayment(ChunckPayment chunckPayment){
         chunckPayments.add(chunckPayment);
-        balance += chunckPayment.getchunckAmount();
+        balance += chunckPayment.getChunckAmount();
     }
     
     public void removeChunckPayment(int index){
-        if (chunckPayments.get(index).getchunckAmount() == 0){
+        if (chunckPayments.get(index).getChunckAmount() == 0){
             chunckPayments.remove(index);
         }
     }
     
     public void payChunckPayment(int index){
-        if (chunckPayments.get(index).getchunckAmount() > 0){
+        if (chunckPayments.get(index).getChunckAmount() > 0){
             chunckPayments.get(index).pay();
-            balance -= chunckPayments.get(index).getchunckAmount();
+            balance -= chunckPayments.get(index).getChunckAmount();
         }
     }
     
-    public void payChunckPayment(int index, int amount){
-        if (chunckPayments.get(index).getchunckAmount() >= amount){
+    public void payChunckPayment(int index, double amount){
+        if (chunckPayments.get(index).getChunckAmount() >= amount){
             chunckPayments.get(index).pay(amount);
             removeChunckPayment(index);
             balance -= amount;

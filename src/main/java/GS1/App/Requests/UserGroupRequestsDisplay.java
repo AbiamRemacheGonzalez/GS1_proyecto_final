@@ -47,11 +47,6 @@ public class UserGroupRequestsDisplay extends javax.swing.JFrame {
         panel1.setBackground(new java.awt.Color(204, 204, 204));
         panel1.setLayout(new java.awt.GridBagLayout());
 
-        groupRequestList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         groupRequestList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(groupRequestList);
 

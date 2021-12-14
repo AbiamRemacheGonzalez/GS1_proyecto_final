@@ -81,7 +81,11 @@ public class UserManagePaymentsControl {
         };
     }
     private void generateChunckPayments() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Double chunckAmount = currentPayment.getAmount()/currentGroupMembers.size();
+        for (User currentGroupMember : currentGroupMembers) {
+            
+        }
+        
     }
     
 }

@@ -3,15 +3,15 @@ package GS1.Model;
 public class ChunckPayment {
     private int chunckPaymentid;
     private final int paymentId;
-    private final int userId;
-    private int chunckAmount;
+    private final int balanceId;
+    private double chunckAmount;
 
-    public ChunckPayment(int paymentId, int userId, int chunkAmount) {
+    public ChunckPayment(int paymentId, int balanceId, int chunckAmount) {
         this.paymentId = paymentId;
-        this.userId = userId;
-        this.chunckAmount = chunkAmount;
+        this.balanceId = balanceId;
+        this.chunckAmount = chunckAmount;
     }
-    
+
     public int getChunckPaymentid() {
         return chunckPaymentid;
     }
@@ -20,20 +20,24 @@ public class ChunckPayment {
         return paymentId;
     }
 
-    public int getchunckAmount() {
-        return chunckAmount;
+    public int getBalanceId() {
+        return balanceId;
     }
 
-    public void setChunckPaymentid(int chunckPaymentid) {
-        this.chunckPaymentid = chunckPaymentid;
-    }
-
-    public void setChunckAmount(int chunckAmount) {
+    public void setChunckAmount(double chunckAmount) {
         this.chunckAmount = chunckAmount;
     }
-                                         
-    public void pay(int amount){
-        this.chunckAmount-=amount;
+
+    public double getChunckAmount() {
+        return chunckAmount;
+    }
+                                 
+    public boolean pay(double amount){
+        if(amount <= chunckAmount){
+            this.chunckAmount-=amount;
+            return true;
+        }
+        return false;
     } 
     public void pay(){
         this.chunckAmount = 0;
