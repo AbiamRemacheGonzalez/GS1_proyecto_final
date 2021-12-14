@@ -157,12 +157,12 @@ public class UserGroupControl {
 
             @Override
             public ArrayList<Integer> getMembers() {
-                return databasePaymentLoader.getMembersId(currentGroup.getIdGroup());
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public String getNameUser(int id) {
-                return databasePaymentLoader.getUserByID(id);
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }

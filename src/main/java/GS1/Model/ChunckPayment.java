@@ -11,8 +11,7 @@ public class ChunckPayment {
         this.userId = userId;
         this.chunckAmount = chunkAmount;
     }
-     
-
+    
     public int getChunckPaymentid() {
         return chunckPaymentid;
     }

@@ -1,5 +1,8 @@
 package GS1.App.Group;
 
+import GS1.Model.Balance;
+import GS1.Model.ChunckPayment;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class GroupDisplay extends javax.swing.JFrame {
@@ -170,5 +173,10 @@ public class GroupDisplay extends javax.swing.JFrame {
         public String getGroupName();
         void openEditGroupDisplayEvents();
         public boolean isCurrentUserAdminOfCurrentGroup();
+    }
+    
+    public interface chunckPaymentsEvents{
+        public Balance getUserBalance(int userId);
+        public ArrayList<ChunckPayment> getUserChuncks(int userId); 
     }
 }

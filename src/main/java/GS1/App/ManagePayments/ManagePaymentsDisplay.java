@@ -12,12 +12,12 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
     private ManagePaymentsEvents event;
     User currentUser;
     Group currentGroup;
-    DefaultListModel modelo;
+    DefaultListModel membersModel;
     
     public ManagePaymentsDisplay(User currentUser,Group currentGroup) {
         initComponents();
-        modelo = new DefaultListModel();
-        listMembers.setModel(modelo);
+        membersModel = new DefaultListModel();
+        listMembers.setModel(membersModel);
         this.currentUser = currentUser; 
         this.currentGroup = currentGroup;
         
@@ -216,8 +216,10 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         }else{
             double amount = Double.parseDouble(amountText.getText());
             if(event.checkNewPaymentValues(name.getText(), amount)){
-                User destination = event.loadUserByName((String) paidBy.getSelectedItem());
-                Payment payment = new Payment(name.getText(),amount,event.getUserID(destination),currentGroup.getIdGroup()); 
+                String userRep = (String) paidBy.getSelectedItem();
+                String parts[] = userRep.split("#");
+                User destination = event.getUser(Integer.parseInt(parts[1]));
+                Payment payment = new Payment(name.getText(),amount,destination.getId(),currentGroup.getIdGroup()); 
                 event.savePayment(payment);
                 this.dispose();
             }
@@ -284,22 +286,17 @@ public class ManagePaymentsDisplay extends javax.swing.JFrame {
         amountError.setText("");
     }
     
-    public void initMembersData(){
-        ArrayList<Integer> ids = event.getMembersId();
-        for(int i = 0; i < ids.size(); i++){
-            paidBy.addItem(event.getUserbyID(ids.get(i)));
-            modelo.addElement(event.getUserbyID(ids.get(i)));
+    public void setMembersList(){
+        ArrayList<User> members = event.getMembers();
+        for (User member : members) {
+            membersModel.addElement(member.getFirstname()+"#"+member.getId());
         }
-        
     }
 
     public interface ManagePaymentsEvents{
-       int getUserID(User user);
-       User loadUserByName(String firstname);
        void savePayment(Payment p);
        boolean checkNewPaymentValues(String title, double amount);
-       ArrayList<Integer> getMembersId();
        ArrayList<User> getMembers();
-       String getUserbyID(int id);
+       User getUser(int userId);
     }
 }

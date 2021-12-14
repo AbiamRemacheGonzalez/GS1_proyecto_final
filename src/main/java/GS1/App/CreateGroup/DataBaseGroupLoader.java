@@ -1,12 +1,16 @@
 package GS1.App.CreateGroup;
 
+import GS1.App.ManagePayments.DatabasePaymentLogger;
+import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.Model.Group;
+import GS1.Model.User;
 import GS1.View.GroupLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,6 +19,7 @@ public class DataBaseGroupLoader implements GroupLoader {
 
     private Connection cn;
     private Statement st;
+    private final DataBaseUserLoader databaseUserLoader = new DataBaseUserLoader();
 
     public DataBaseGroupLoader() {
         try {
@@ -45,4 +50,19 @@ public class DataBaseGroupLoader implements GroupLoader {
         return newgroup;
     }
     
+    public ArrayList<User> getGroupMembers(int groupID){
+        ArrayList<User> res = new ArrayList<>();
+        String sql = "SELECT udserId FROM members WHERE groupId='"+groupID+"'";
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while(r.next()){
+                int userId = Integer.parseInt(r.getString("userId"));
+                res.add(databaseUserLoader.loadUser(userId));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
 }

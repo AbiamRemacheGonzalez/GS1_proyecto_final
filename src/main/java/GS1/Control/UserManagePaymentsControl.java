@@ -1,5 +1,6 @@
 package GS1.Control;
 
+import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
@@ -13,6 +14,7 @@ public class UserManagePaymentsControl {
     private ManagePaymentsDisplay managePaymentsDisplay;
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
     private DatabasePaymentLogger paymentLoader = new DatabasePaymentLogger();
+    private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     
     private User currentUser;
     private Group currentGroup;
@@ -32,17 +34,12 @@ public class UserManagePaymentsControl {
                 managePaymentsDisplay = new ManagePaymentsDisplay(currentUser,currentGroup);
                 managePaymentsDisplay.on(setManagePaymentsDisplayEvents());
                 managePaymentsDisplay.setVisible(true);
-                managePaymentsDisplay.initMembersData();
+                managePaymentsDisplay.setMembersList();
             }
         };
     }
     private ManagePaymentsDisplay.ManagePaymentsEvents setManagePaymentsDisplayEvents(){
         return new ManagePaymentsDisplay.ManagePaymentsEvents(){
-            
-            @Override
-            public int getUserID(User user) {
-                return currentUser.getId();//userLoader.loadUserId(user.getMail());
-            }
 
             @Override
             public void savePayment(Payment p) {
@@ -64,23 +61,13 @@ public class UserManagePaymentsControl {
             }
 
             @Override
-            public ArrayList<Integer> getMembersId() {
-                return paymentLoader.getMembersId(currentGroup.getIdGroup());
-            }
-
-            @Override
-            public String getUserbyID(int id) {
-                return paymentLoader.getUserByID(id);
-            }
-
-            @Override
-            public User loadUserByName(String firstname) {
-                return paymentLoader.getUserByName(firstname);
-            }
-
-            @Override
             public ArrayList<User> getMembers() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                return dataBaseGroupLoader.getGroupMembers(currentGroup.getIdGroup());
+            }
+
+            @Override
+            public User getUser(int userId) {
+                return userLoader.loadUser(userId);
             }
         };
     }
