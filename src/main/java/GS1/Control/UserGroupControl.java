@@ -1,5 +1,6 @@
 package GS1.Control;
 
+import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLoader;
 import GS1.App.CreateGroup.AddGroupDisplay;
 import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.App.CreateGroup.DataBaseGroupLogger;
@@ -15,13 +16,16 @@ import GS1.App.ManagePayments.ManagePaymentsDisplay;
 import GS1.App.Requests.DatabaseUserBalanceLogger;
 import GS1.App.ManagePayments.DatabaseBalanceLoader;
 import GS1.App.ManagePayments.DatabaseChunkLoader;
+import GS1.App.ManagePayments.PaymentGatewayDisplay;
 import GS1.Model.Balance;
 import GS1.Model.ChunckPayment;
 import GS1.Model.Group;
 import GS1.Model.Payment;
+import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
 import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserGroupControl {
 
@@ -31,6 +35,7 @@ public class UserGroupControl {
     private EditGroupDisplay editGroupDisplay;
     private AddMemberDisplay addMemberDisplay;
     private ManagePaymentsDisplay managePaymentsDisplay;
+    private PaymentGatewayDisplay paymentGatewayDisplay;
 
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
@@ -41,6 +46,7 @@ public class UserGroupControl {
     private final DatabaseUserBalanceLogger dataBaseUserBalanceLogger = new DatabaseUserBalanceLogger();
     private final DatabaseBalanceLoader dataBaseUserBalanceLoader = new DatabaseBalanceLoader();
     private final DatabaseChunkLoader dataBaseChunkPaymentLoader = new DatabaseChunkLoader();
+    private final DataBasePaymentMethodLoader databasePaymentMethodLoader = new DataBasePaymentMethodLoader();
 
     private final User currentUser;
     private Group currentGroup;
@@ -160,9 +166,34 @@ public class UserGroupControl {
             public Payment getPaymentById(int paymentId) {
                 return dataBaseChunkPaymentLoader.getPaymentById(paymentId);
             }
+
+            @Override
+            public void openPaymentGatewayDisplay(List<String> chunckToPay) {
+                paymentGatewayDisplay = new PaymentGatewayDisplay();
+                paymentGatewayDisplay.on(setPaymentGatewayDisplayEvents());
+                paymentGatewayDisplay.setVisible(true);
+                CreditCardPaymentMethod creditCard = databasePaymentMethodLoader.loadCreditCardUser(currentUser.getId());
+                paymentGatewayDisplay.setCreditCardValues(creditCard);
+                paymentGatewayDisplay.setOperationDetails(chunckToPay);
+                
+            }
         };
     }
-
+    private PaymentGatewayDisplay.Events setPaymentGatewayDisplayEvents(){
+        return new PaymentGatewayDisplay.Events(){
+            @Override
+            public float getImportChunkPayments(List<String> chunkPayments) {
+                float res=0;
+                for(String chunck: chunkPayments){
+                    String aux = chunck.substring(chunck.indexOf(':')+1,chunck.length());
+                    res += Float.parseFloat(aux);
+                }
+                return res;
+            }
+            
+        };
+    }       
+    
     private EditGroupDisplay.Events setOpenEditGroupDisplayEvents() {
         return new EditGroupDisplay.Events() {
             @Override

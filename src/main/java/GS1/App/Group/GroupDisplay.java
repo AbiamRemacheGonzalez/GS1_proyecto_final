@@ -4,6 +4,7 @@ import GS1.Model.Balance;
 import GS1.Model.ChunckPayment;
 import GS1.Model.Payment;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -74,6 +75,11 @@ public class GroupDisplay extends javax.swing.JFrame {
         jPanel2.add(jScrollPane1, gridBagConstraints);
 
         buttonPay.setText("Pay");
+        buttonPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPayActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -171,6 +177,16 @@ public class GroupDisplay extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_myPaymentsChuncksListMouseClicked
 
+    private void buttonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPayActionPerformed
+        // TODO add your handling code here:
+        List<String> chunckToPay = myPaymentsChuncksList.getSelectedValuesList();
+        for(String chunck : chunckToPay){
+            chunksPaymentModel.removeElement(chunck);
+        }
+        event.openPaymentGatewayDisplay(chunckToPay);
+        
+    }//GEN-LAST:event_buttonPayActionPerformed
+
     public void setChunkList() {
         userBalance = event.getUserBalance();
         chunckList = event.getUserChuncks(userBalance.getBalanceId());
@@ -220,6 +236,8 @@ public class GroupDisplay extends javax.swing.JFrame {
         public ArrayList<ChunckPayment> getUserChuncks(int balanceId);
 
         public Payment getPaymentById(int paymentId);
+        
+        void openPaymentGatewayDisplay(List<String> chunckToPay);
     }
 
     public interface chunckPaymentsEvents {
