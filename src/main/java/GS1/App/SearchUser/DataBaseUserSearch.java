@@ -4,6 +4,7 @@ import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.Model.Request;
 import GS1.Model.User;
 import GS1.View.UserSearch;
+import static java.lang.Integer.parseInt;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -37,10 +38,11 @@ public class DataBaseUserSearch implements UserSearch {
         ResultSet r = st.getResultSet();
         while(r.next()){
             User current = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+            current.setId(parseInt(r.getString("userId")));
             //!= currentUser    s(YES)
             //!= friends        (NO)
             //!= requested      (NO)
-            System.out.println(current.getMail()+" == "+currentUser.getMail());
+            //System.out.println(current.getMail()+" == "+currentUser.getMail());
             if(!currentUser.getMail().equals(current.getMail())){
                 res.add(current);
             }

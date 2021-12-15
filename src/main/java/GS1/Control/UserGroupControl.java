@@ -13,20 +13,25 @@ import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
 import GS1.App.Requests.DatabaseUserBalanceLogger;
+import GS1.App.ManagePayments.DatabaseBalanceLoader;
+import GS1.App.ManagePayments.DatabaseChunkLoader;
 import GS1.Model.Balance;
+import GS1.Model.ChunckPayment;
 import GS1.Model.Group;
+import GS1.Model.Payment;
 import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
 
 public class UserGroupControl {
+
     private final UserMainDisplay userMainDisplay;
     private AddGroupDisplay addNewGroupDisplay;
     private GroupDisplay groupDisplay;
     private EditGroupDisplay editGroupDisplay;
     private AddMemberDisplay addMemberDisplay;
     private ManagePaymentsDisplay managePaymentsDisplay;
-    
+
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DataBaseGroupLogger dataBaseGroupLogger = new DataBaseGroupLogger();
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
@@ -34,7 +39,9 @@ public class UserGroupControl {
     private final DataBaseFriendsLoader friendsLoader = new DataBaseFriendsLoader();
     private final DatabasePaymentLogger databasePaymentLoader = new DatabasePaymentLogger();
     private final DatabaseUserBalanceLogger dataBaseUserBalanceLogger = new DatabaseUserBalanceLogger();
-    
+    private final DatabaseBalanceLoader dataBaseUserBalanceLoader = new DatabaseBalanceLoader();
+    private final DatabaseChunkLoader dataBaseChunkPaymentLoader = new DatabaseChunkLoader();
+
     private final User currentUser;
     private Group currentGroup;
 
@@ -58,19 +65,20 @@ public class UserGroupControl {
                 currentGroup = g;
                 groupDisplay = new GroupDisplay();
                 groupDisplay.on(setOpenGroupDisplay());
+                groupDisplay.setChunkList();
                 groupDisplay.updateLabels();
                 groupDisplay.setVisible(true);
             }
         };
     }
-    
+
     private AddGroupDisplay.Events setAddNewGroupEvents() {
         return new AddGroupDisplay.Events() {
             @Override
             public void openUserMainDisplay() {
                 userMainDisplay.setVisible(true);
             }
-            
+
             @Override
             public void saveNewGroup(Group group) {
                 currentGroup = group;
@@ -87,11 +95,11 @@ public class UserGroupControl {
             public boolean checkNewGroupValues(String name, String description) {
                 Boolean res = true;
                 addNewGroupDisplay.resetPrintErrors();
-                if(name.isEmpty()){
+                if (name.isEmpty()) {
                     res = false;
                     addNewGroupDisplay.printNameError();
                 }
-                if(description.isEmpty()){
+                if (description.isEmpty()) {
                     res = false;
                     addNewGroupDisplay.printDescriptionError();
                 }
@@ -104,12 +112,12 @@ public class UserGroupControl {
                 editGroupDisplay.on(setOpenEditGroupDisplayEvents());
                 editGroupDisplay.updateLabels();
                 editGroupDisplay.setVisible(true);
-                UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
+                UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay, currentUser, currentGroup);
                 editGroupDisplay.setMembersList();
             }
         };
     }
-    
+
     private GroupDisplay.Events setOpenGroupDisplay() {
         return new GroupDisplay.Events() {
             @Override
@@ -129,15 +137,32 @@ public class UserGroupControl {
                 editGroupDisplay.on(setOpenEditGroupDisplayEvents());
                 editGroupDisplay.updateLabels();
                 editGroupDisplay.setVisible(true);
-                UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay,currentUser,currentGroup);
+                UserManagePaymentsControl userManagePaymentsControl = new UserManagePaymentsControl(editGroupDisplay, currentUser, currentGroup);
                 editGroupDisplay.setMembersList();
             }
 
             @Override
-            public boolean isCurrentUserAdminOfCurrentGroup() {return dataBaseGroupLogger.isAdminOfCurrentGroup(currentUser.getId(), currentGroup.getIdGroup());}
+            public boolean isCurrentUserAdminOfCurrentGroup() {
+                return dataBaseGroupLogger.isAdminOfCurrentGroup(currentUser.getId(), currentGroup.getIdGroup());
+            }
+
+            @Override
+            public Balance getUserBalance() {
+                return dataBaseUserBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentUser.getId());
+            }
+
+            @Override
+            public ArrayList<ChunckPayment> getUserChuncks(int balanceId) {
+                return dataBaseChunkPaymentLoader.getChunksPayment(balanceId);
+            }
+            
+            @Override
+            public Payment getPaymentById(int paymentId) {
+                return dataBaseChunkPaymentLoader.getPaymentById(paymentId);
+            }
         };
     }
-    
+
     private EditGroupDisplay.Events setOpenEditGroupDisplayEvents() {
         return new EditGroupDisplay.Events() {
             @Override
@@ -158,7 +183,7 @@ public class UserGroupControl {
                 ArrayList<User> friendList = friendsLoader.search("", currentUser);
                 addMemberDisplay.setFriendsList(friendList);
                 addMemberDisplay.setVisible(true);
-            }            
+            }
 
             @Override
             public ArrayList<User> getMembers() {
@@ -166,9 +191,9 @@ public class UserGroupControl {
             }
         };
     }
-    
+
     private AddMemberDisplay.Events setEventsNewMemberDisplay() {
-        return new AddMemberDisplay.Events(){
+        return new AddMemberDisplay.Events() {
             @Override
             public boolean sendGroupRequest(int userId) {
                 Request request = new Request(currentGroup.getIdGroup(), userId, 'G');
@@ -179,7 +204,7 @@ public class UserGroupControl {
             public int getUserId(User friend) {
                 return currentUser.getId();//userLoader.loadUserId(friend.getMail());
             }
-        
+
         };
     }
 }

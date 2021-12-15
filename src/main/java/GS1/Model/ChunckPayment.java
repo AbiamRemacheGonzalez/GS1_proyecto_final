@@ -42,4 +42,8 @@ public class ChunckPayment {
     public void pay(){
         this.chunckAmount = 0;
     }
+
+    public void setId(int chunckPaymentid) {
+        this.chunckPaymentid = chunckPaymentid;
+    }
 }

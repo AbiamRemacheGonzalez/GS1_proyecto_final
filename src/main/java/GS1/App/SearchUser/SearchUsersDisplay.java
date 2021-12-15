@@ -4,6 +4,7 @@ import GS1.Model.User;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class SearchUsersDisplay extends javax.swing.JFrame {
     Events event;
@@ -122,6 +123,7 @@ public class SearchUsersDisplay extends javax.swing.JFrame {
     private void addFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendButtonActionPerformed
         String friend = searchedUsersList.getSelectedValue();
         event.SendFriendRequest(friend);
+        JOptionPane.showMessageDialog(null, "Sent a friend request to " + friend, "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_addFriendButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
@@ -132,7 +134,7 @@ public class SearchUsersDisplay extends javax.swing.JFrame {
         }else{
             users = event.search(searchField.getText());
             for(User user : users){
-                modelo.addElement(user.getFirstname()+"#"+event.getUserId(user));
+                modelo.addElement(user.getFirstname()+"#"+user.getId());
             }
         }
     }//GEN-LAST:event_searchFieldKeyReleased

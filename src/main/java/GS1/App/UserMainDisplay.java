@@ -348,7 +348,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
 
         void openLoginDisplay();
 
-        public ArrayList<Group> getGroups(); //COMO COÑO FUNCIONA ESTO (BUENA PREGUNTA)
+        public ArrayList<Group> getGroups();
     }
 
 }
