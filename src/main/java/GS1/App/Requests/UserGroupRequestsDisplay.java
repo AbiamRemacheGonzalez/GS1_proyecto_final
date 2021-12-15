@@ -5,6 +5,7 @@ import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class UserGroupRequestsDisplay extends javax.swing.JFrame {
     Events event;
@@ -117,7 +118,7 @@ public class UserGroupRequestsDisplay extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void initLists(){
+    public void setGroupRequests(){
         groupRequests = event.getRequests('G');
         for (Request request : groupRequests) {
             int groupId = request.getSourceId();
@@ -128,10 +129,12 @@ public class UserGroupRequestsDisplay extends javax.swing.JFrame {
     }
     private void acceptGroupRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptGroupRequestButtonActionPerformed
         event.acceptRequest(groupRequests.get(groupRequestList.getSelectedIndex()));
+        JOptionPane.showMessageDialog(null, "The group request have been accepted");
     }//GEN-LAST:event_acceptGroupRequestButtonActionPerformed
 
     private void declineGroupRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declineGroupRequestButtonActionPerformed
         event.discardRequest(groupRequests.get(groupRequestList.getSelectedIndex()));
+        JOptionPane.showMessageDialog(null, "The group request have been denied");
     }//GEN-LAST:event_declineGroupRequestButtonActionPerformed
 
 
@@ -148,7 +151,6 @@ public class UserGroupRequestsDisplay extends javax.swing.JFrame {
 
     public void on(Events ev) {
         this.event = ev;
-        initLists();
     }
 
     public interface Events {

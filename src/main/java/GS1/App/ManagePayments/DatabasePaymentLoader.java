@@ -33,7 +33,7 @@ public class DatabasePaymentLoader implements PaymentLoader{
     public int getPaymentId(Payment p) {
         int paymentId = -1;
         try {
-            String sql = "SELECT paymentsId FROM payments WHERE title='"+p.getTitle()+"' and amount='"+p.getAmount()+"' and destinatioUserID ='"+p.getUserDestinationID()+"' and groupId='"+p.getGroupID()+"'";
+            String sql = "SELECT paymentsId FROM payments WHERE title='"+p.getTitle()+"' and amount='"+p.getAmount()+"' and destinationUserID ='"+p.getUserDestinationID()+"' and groupId='"+p.getGroupID()+"'";
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while(r.next()){

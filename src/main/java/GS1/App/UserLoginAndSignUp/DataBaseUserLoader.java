@@ -82,6 +82,7 @@ public class DataBaseUserLoader implements UserLoader{
             ResultSet r = st.getResultSet();
             while(r.next()){
                 resUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
+                resUser.setId(userId);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataBaseUserLoader.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,6 +139,8 @@ public class DataBaseUserLoader implements UserLoader{
                     loadUser = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
                 }
                 passwordIsCorrect = Boolean.TRUE;
+                int userId = loadUserId(loadUser.getMail());
+                loadUser.setId(userId);
             }
             
         } catch (SQLException ex) {

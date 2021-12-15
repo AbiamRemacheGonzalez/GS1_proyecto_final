@@ -141,7 +141,7 @@ public class GroupDisplay extends javax.swing.JFrame {
             event.openEditGroupDisplayEvents();
             this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Usted no es el administrador de este grupo");
+            JOptionPane.showMessageDialog(null, "You are not the group administrator.");
         }
         
     }//GEN-LAST:event_editModeMenuActionPerformed

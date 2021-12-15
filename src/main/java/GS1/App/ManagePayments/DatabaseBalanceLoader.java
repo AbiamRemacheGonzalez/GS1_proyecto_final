@@ -30,7 +30,7 @@ public class DatabaseBalanceLoader implements BalanceLoader {
     public Balance getUserBalance(int groupId, int userId) {
         Balance balance = null;
         try {
-            String sql = "SELECT * FROM balances WHERE groupId='" + groupId + "' and userId='" + userId + "'";
+            String sql = "SELECT * FROM balances WHERE groupId='" + groupId + "' and memberId='" + userId + "'";
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while (r.next()) {

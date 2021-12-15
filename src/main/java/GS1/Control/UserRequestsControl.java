@@ -39,7 +39,7 @@ public class UserRequestsControl {
             public void openFriendRequestsWindow() {
                 userFriendRequestsDisplay = new UserFriendRequestsDisplay();
                 userFriendRequestsDisplay.on(setUserFriendRequestsDisplayEvents());
-                userFriendRequestsDisplay.initLists();
+                userFriendRequestsDisplay.setFriendRequests();
                 userFriendRequestsDisplay.setVisible(true);
             }
 
@@ -47,6 +47,7 @@ public class UserRequestsControl {
             public void openGroupRequestsWindow() {
                 userGroupRequestsDisplay = new UserGroupRequestsDisplay();
                 userGroupRequestsDisplay.on(setUserGroupRequestsDisplayEvents());
+                userGroupRequestsDisplay.setGroupRequests();
                 userGroupRequestsDisplay.setVisible(true);
             }
         };
@@ -55,18 +56,19 @@ public class UserRequestsControl {
         return new UserFriendRequestsDisplay.Events() {
             @Override
             public ArrayList<Request> getRequests(char requestType) {
-                //int userId = dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
                 return dataBaseRequestLoader.getRequests(currentUser.getId(), requestType);
             }
 
             @Override
             public void acceptRequest(Request request) {
                 dataBaseRequestLoader.acceptRequest(request);
+                userFriendRequestsDisplay.setFriendRequests();
             }
 
             @Override
             public void discardRequest(Request request) {
                 dataBaseRequestLoader.discardRequest(request);
+                userFriendRequestsDisplay.setFriendRequests();
             }
 
             @Override
@@ -85,7 +87,7 @@ public class UserRequestsControl {
             
             @Override
             public ArrayList<Request> getRequests(char requestType) {
-                userId = currentUser.getId();//dataBaseUserLoader.loadUserId(currentUser.getMail(), currentUser.getPassword());
+                userId = currentUser.getId();
                 return dataBaseRequestLoader.getRequests(userId, requestType);
             }
 
@@ -94,11 +96,13 @@ public class UserRequestsControl {
                 dataBaseRequestLoader.acceptRequest(request);
                 Balance userBalance = new Balance(userId,request.getSourceId());
                 dataBaseUserBalanceLogger.save(userBalance);
+                userGroupRequestsDisplay.setGroupRequests();
             }
 
             @Override
             public void discardRequest(Request request) {
                 dataBaseRequestLoader.discardRequest(request);
+                userGroupRequestsDisplay.setGroupRequests();
             }
 
             @Override

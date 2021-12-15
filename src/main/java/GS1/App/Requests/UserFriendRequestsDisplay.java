@@ -5,6 +5,7 @@ import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 public class UserFriendRequestsDisplay extends javax.swing.JFrame {
     Events event;
@@ -120,12 +121,14 @@ public class UserFriendRequestsDisplay extends javax.swing.JFrame {
 
     private void acceptFriendRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptFriendRequestButtonActionPerformed
         event.acceptRequest(friendRequests.get(friendRequestList.getSelectedIndex()));
+        JOptionPane.showMessageDialog(null, "The friend request have been accepted");
     }//GEN-LAST:event_acceptFriendRequestButtonActionPerformed
 
     private void declineFriendRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declineFriendRequestButtonActionPerformed
         event.discardRequest(friendRequests.get(friendRequestList.getSelectedIndex()));
+        JOptionPane.showMessageDialog(null, "The friend request have been denied");
     }//GEN-LAST:event_declineFriendRequestButtonActionPerformed
-    public void initLists(){
+    public void setFriendRequests(){
         friendRequests = event.getRequests('F');
         for (Request request : friendRequests) {
             int userId = request.getSourceId();

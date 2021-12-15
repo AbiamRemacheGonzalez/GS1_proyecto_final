@@ -94,12 +94,14 @@ public class UserManagePaymentsControl {
     }
     private void generateChunckPayments() {
         Double chunckAmount = currentPayment.getAmount()/currentGroupMembers.size();
+        int userDestinationID = currentPayment.getUserDestinationID();
         for (User currentGroupMember : currentGroupMembers) {
-            Balance userBalance = databaseBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentUser.getId());
-            ChunckPayment chunk = new ChunckPayment(currentPayment.getPaymentId(), userBalance.getBalanceId(), chunckAmount);
-            databaseChunkLogger.save(chunk);
+            if(currentGroupMember.getId()!=userDestinationID){
+                Balance userBalance = databaseBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentGroupMember.getId());
+                ChunckPayment chunk = new ChunckPayment(currentPayment.getPaymentId(), userBalance.getBalanceId(), chunckAmount);
+                databaseChunkLogger.save(chunk);
+            }
         }
-        
     }
     
 }

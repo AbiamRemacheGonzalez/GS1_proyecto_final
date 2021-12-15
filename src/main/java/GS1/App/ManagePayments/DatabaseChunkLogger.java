@@ -26,7 +26,7 @@ public class DatabaseChunkLogger implements ChunckPaymentLogger {
 
     @Override
     public boolean save(ChunckPayment chunckPayment) {
-        String sql = "INSERT INTO chunks (idPayment,idBalance,chunkAmount) VALUES('"+chunckPayment.getPaymentId()+"','"+chunckPayment.getBalanceId()+"','"+chunckPayment.getChunckAmount()+"')";
+        String sql = "INSERT INTO chunkpayments (balanceId,paymentId,chunkAmount) VALUES('"+chunckPayment.getBalanceId()+"','"+chunckPayment.getPaymentId()+"','"+chunckPayment.getChunckAmount()+"')";
         try {
             st.execute(sql);
         } catch (SQLException ex) {
