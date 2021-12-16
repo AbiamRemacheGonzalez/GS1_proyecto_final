@@ -6,6 +6,7 @@ import GS1.Model.User;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 public class UserGroupRequestsDisplay extends javax.swing.JFrame {
     Events event;
@@ -16,6 +17,7 @@ public class UserGroupRequestsDisplay extends javax.swing.JFrame {
         initComponents();
         groupModel = new DefaultListModel();
         groupRequestList.setModel(groupModel);
+        groupRequestList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

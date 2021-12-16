@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
 public class GroupDisplay extends javax.swing.JFrame {
 
@@ -19,6 +20,8 @@ public class GroupDisplay extends javax.swing.JFrame {
         initComponents();
         chunksPaymentModel = new DefaultListModel();
         myPaymentsChuncksList.setModel(chunksPaymentModel);
+        myPaymentsChuncksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        balanceField.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -34,6 +37,10 @@ public class GroupDisplay extends javax.swing.JFrame {
         buttonPay = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        balanceField = new javax.swing.JTextField();
+        payinfullButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -104,7 +111,39 @@ public class GroupDisplay extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 5);
         jPanel2.add(jLabel1, gridBagConstraints);
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jLabel2.setText("User Balance");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(jLabel2, gridBagConstraints);
+
+        balanceField.setText("0€");
+        balanceField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                balanceFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(balanceField, gridBagConstraints);
+
+        payinfullButton.setText("Pay in full");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel3.add(payinfullButton, gridBagConstraints);
 
         jMenu2.setText("Group");
 
@@ -130,18 +169,21 @@ public class GroupDisplay extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,7 +213,7 @@ public class GroupDisplay extends javax.swing.JFrame {
             for (ChunckPayment chunk : chunckList) {
                 Payment payment = event.getPaymentById(chunk.getPaymentId());
                 if (chunkSelect.equals(payment.getTitle())) {
-                    JOptionPane.showMessageDialog(this, "El precio total es: " + payment.getAmount());
+                    JOptionPane.showMessageDialog(this, "El pago total de "+payment.getTitle()+"  es de " + payment.getAmount()+"€");
                 }
             }
         }
@@ -183,9 +225,11 @@ public class GroupDisplay extends javax.swing.JFrame {
         for(String chunck : chunckToPay){
             chunksPaymentModel.removeElement(chunck);
         }
-        event.openPaymentGatewayDisplay(chunckToPay);
-        
     }//GEN-LAST:event_buttonPayActionPerformed
+
+    private void balanceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_balanceFieldActionPerformed
 
     public void setChunkList() {
         userBalance = event.getUserBalance();
@@ -193,24 +237,33 @@ public class GroupDisplay extends javax.swing.JFrame {
         for (ChunckPayment chunk : chunckList) {
             Payment payment = event.getPaymentById(chunk.getPaymentId());
             if (payment != null) {
-                chunksPaymentModel.addElement(payment.getTitle() + ": " + chunk.getChunckAmount());
+                chunksPaymentModel.addElement(payment.getTitle() + ": " + chunk.getChunckAmount()+"€");
             }
         }
+        setBalance();
+    }
+    public void setBalance(){
+        userBalance = event.getUserBalance();
+        balanceField.setText(""+userBalance.getBalance()+"€");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JTextField balanceField;
     private javax.swing.JButton buttonPay;
     private javax.swing.JMenuItem editModeMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelName;
     private javax.swing.JList<String> myPaymentsChuncksList;
+    private javax.swing.JButton payinfullButton;
     // End of variables declaration//GEN-END:variables
 
     public void on(Events event) {
@@ -238,10 +291,5 @@ public class GroupDisplay extends javax.swing.JFrame {
         public Payment getPaymentById(int paymentId);
         
         void openPaymentGatewayDisplay(List<String> chunckToPay);
-    }
-
-    public interface chunckPaymentsEvents {
-        //public Balance getUserBalance(int userId);
-        //public ArrayList<ChunckPayment> getUserChuncks(int userId); 
     }
 }

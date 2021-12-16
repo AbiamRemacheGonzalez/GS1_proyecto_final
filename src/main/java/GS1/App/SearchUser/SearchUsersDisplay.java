@@ -123,7 +123,7 @@ public class SearchUsersDisplay extends javax.swing.JFrame {
     private void addFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendButtonActionPerformed
         String friend = searchedUsersList.getSelectedValue();
         event.SendFriendRequest(friend);
-        JOptionPane.showMessageDialog(null, "Sent a friend request to " + friend, "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "A friend request has been sent to " + friend, "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_addFriendButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased

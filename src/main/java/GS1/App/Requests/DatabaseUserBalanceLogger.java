@@ -36,4 +36,13 @@ public class DatabaseUserBalanceLogger implements UserBalanceLogger{
         return true;
     }
     
+    public void updateBalance(Balance balance){
+        String sql = "UPDATE balances SET balanceAmount='"+balance.getBalance()+"' WHERE balanceId='"+balance.getBalanceId()+"'";
+        try {
+            st.execute(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

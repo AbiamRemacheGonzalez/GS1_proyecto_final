@@ -16,7 +16,7 @@ import GS1.App.ManagePayments.ManagePaymentsDisplay;
 import GS1.App.Requests.DatabaseUserBalanceLogger;
 import GS1.App.ManagePayments.DatabaseBalanceLoader;
 import GS1.App.ManagePayments.DatabaseChunkLoader;
-import GS1.App.ManagePayments.PaymentGatewayDisplay;
+import GS1.App.PaymentGateway.PaymentGatewayDisplay;
 import GS1.Model.Balance;
 import GS1.Model.ChunckPayment;
 import GS1.Model.Group;

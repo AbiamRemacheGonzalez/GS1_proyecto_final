@@ -4,6 +4,7 @@ import GS1.App.CreateGroup.DataBaseGroupLoader;
 import GS1.Model.Group;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
 
 public class UserMainDisplay extends javax.swing.JFrame {
 
@@ -18,6 +19,7 @@ public class UserMainDisplay extends javax.swing.JFrame {
     public UserMainDisplay() {
         initComponents();
         groupList.setModel(groupListModel);
+        groupList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     @SuppressWarnings("unchecked")
