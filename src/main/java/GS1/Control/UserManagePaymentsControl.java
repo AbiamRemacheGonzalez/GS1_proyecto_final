@@ -2,7 +2,6 @@ package GS1.Control;
 
 import GS1.Persistence.Group.DataBaseGroupLoader;
 import GS1.App.Group.EditGroupDisplay;
-import GS1.App.Group.GroupDisplay;
 import GS1.Persistence.Payment.DatabaseBalanceLoader;
 import GS1.Persistence.Payment.DatabaseChunkLoader;
 import GS1.Persistence.Payment.DatabaseChunkLogger;
@@ -10,30 +9,30 @@ import GS1.Persistence.Payment.DatabasePaymentLoader;
 import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
 import GS1.Persistence.Payment.DatabasePaymentLogger;
-import GS1.App.PaymentGateway.PaymentGatewayDisplay;
 import GS1.Persistence.Payment.DatabaseBalanceLogger;
 import GS1.Model.Balance;
 import GS1.Model.ChunkPayment;
 import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.User;
+import GS1.Persistence.Payment.DatabaseChunkEraser;
 import java.util.ArrayList;
-import java.util.List;
 
 public class UserManagePaymentsControl {
     private ManagePaymentsDisplay managePaymentsDisplay;
     private final DataBaseUserLoader databaseUserLoader = new DataBaseUserLoader();
-    private DatabasePaymentLogger databasePaymentLogger = new DatabasePaymentLogger();
-    private DatabasePaymentLoader databasePaymentLoader = new DatabasePaymentLoader();
+    private final DatabasePaymentLogger databasePaymentLogger = new DatabasePaymentLogger();
+    private final DatabasePaymentLoader databasePaymentLoader = new DatabasePaymentLoader();
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
     private final DatabaseBalanceLogger databaseBalanceLogger = new DatabaseBalanceLogger();
-    private DatabaseChunkLogger databaseChunkLogger = new DatabaseChunkLogger();
-    private DatabaseChunkLoader databaseChunkLoader = new DatabaseChunkLoader();
-    private DatabaseBalanceLoader databaseBalanceLoader = new DatabaseBalanceLoader();
+    private final DatabaseChunkLogger databaseChunkLogger = new DatabaseChunkLogger();
+    private final DatabaseChunkLoader databaseChunkLoader = new DatabaseChunkLoader();
+    private final DatabaseBalanceLoader databaseBalanceLoader = new DatabaseBalanceLoader();
+    private final DatabaseChunkEraser databaseChunkEraser = new DatabaseChunkEraser();
     
-    private User currentUser;
-    private Group currentGroup;
-    private EditGroupDisplay editGroupDisplay;
+    private final User currentUser;
+    private final Group currentGroup;
+    private final EditGroupDisplay editGroupDisplay;
     private ArrayList<User> currentGroupMembers;
     private Payment currentPayment;
     
@@ -107,12 +106,14 @@ public class UserManagePaymentsControl {
                 if(chunk != null) databaseChunkLogger.save(chunk);
             }
         }
+        databasePaymentLoader.updateGroupPayments(currentGroup.getIdGroup());
     }
 
     private ChunkPayment generateChunk(User currentGroupMember) {
         Balance currentGroupMemberBalance = databaseBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentGroupMember.getId());
+        Balance currentDestinationBalance = databaseBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentPayment.getUserDestinationID());
         ChunkPayment chunk = null;
-        double newChunkAmount = generateChuckAmount(currentGroupMember, currentGroupMemberBalance.getBalanceId());
+        double newChunkAmount = generateChuckAmount(currentGroupMember, currentDestinationBalance.getBalanceId());
         if (newChunkAmount != 0.0){
             chunk = new ChunkPayment(currentPayment.getPaymentId(), currentGroupMemberBalance.getBalanceId(), newChunkAmount);
             currentGroupMemberBalance.addChunckPayment(chunk);
@@ -121,10 +122,10 @@ public class UserManagePaymentsControl {
         return chunk;
     }
 
-    private double generateChuckAmount(User currentGroupMember, int currentGroupMemberBalanceid) {
+    private double generateChuckAmount(User currentGroupMember, int currentDestinationBalanceid) {
         int userDestinationID = currentPayment.getUserDestinationID();
-        Double chunckAmount = 0.0;
-        ArrayList<ChunkPayment> chunks = databaseChunkLoader.getUserChunksPaymentsWithAEspecificDestination(currentGroup.getIdGroup(), currentGroupMemberBalanceid, userDestinationID);
+        Double chunckAmount = currentPayment.getAmount()/currentGroupMembers.size();
+        ArrayList<ChunkPayment> chunks = databaseChunkLoader.getUserChunksPaymentsWithAEspecificDestination(currentGroup.getIdGroup(), currentDestinationBalanceid, currentGroupMember.getId());
         if(!chunks.isEmpty()){
             ChunkPayment selectedChunk = getBestChunk(chunks);
             chunckAmount = adjustChunks(selectedChunk);
@@ -146,15 +147,15 @@ public class UserManagePaymentsControl {
         Double chunkAmount = 0.0;
         Double chunckAmountBase = currentPayment.getAmount()/currentGroupMembers.size();
         Double updateChunkAmount = Math.abs(chunckAmountBase - selectedChunk.getChunckAmount());
+        Double updateBalanceAmount = chunckAmountBase;
         
         if(selectedChunk.getChunckAmount() < chunckAmountBase){
             chunkAmount = chunckAmountBase - selectedChunk.getChunckAmount();
             updateChunkAmount = 0.0;
+            updateBalanceAmount = selectedChunk.getChunckAmount();
         }
-        
-        selectedChunk.setChunckAmount(updateChunkAmount);
-        
-        updateDestinationUserBalance(chunckAmountBase);
+        updateDestinationUserBalance(updateBalanceAmount);
+        selectedChunk.setChunckAmount(updateChunkAmount);        
         updateDestinationUserChunk(selectedChunk);
         
         return chunkAmount;
@@ -169,12 +170,9 @@ public class UserManagePaymentsControl {
 
     private void updateDestinationUserChunk(ChunkPayment selectedChunk) {
         if(selectedChunk.getChunckAmount()==0.0){
-            //DELETE
+            databaseChunkEraser.removeChunk(selectedChunk);
         }else{
-            //UPDATE
+            databaseChunkLogger.updateChunckPayment(selectedChunk);
         }
-    }
-
-
-    
+    }    
 }

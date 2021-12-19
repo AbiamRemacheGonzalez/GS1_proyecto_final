@@ -43,6 +43,24 @@ public class DatabaseChunkLoader implements ChunkPaymentLoader {
         return chunks;
     }
     
+    public ArrayList<ChunkPayment> getChunksPaymentByPaymentId(int paymentId) {
+        ArrayList<ChunkPayment> chunks = new ArrayList<>();
+        String sql = "SELECT * FROM chunkpayments WHERE paymentId='" + paymentId + "'";
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while (r.next()) {
+                ChunkPayment chunk = new ChunkPayment(Integer.parseInt(r.getString("paymentId")), Integer.parseInt(r.getString("balanceId")), Double.parseDouble(r.getString("chunkAmount")));
+                chunk.setId(Integer.parseInt(r.getString("chunkId")));
+                chunks.add(chunk);
+            }
+        } catch (SQLException ex) {
+
+        }
+        return chunks;
+    }
+    
+    
     @Override
     public Payment getPaymentById(int paymentId){
         Payment payment = null;
@@ -62,7 +80,7 @@ public class DatabaseChunkLoader implements ChunkPaymentLoader {
     
     public ArrayList<ChunkPayment> getUserChunksPaymentsWithAEspecificDestination(int groupId, int balanceId, int destinationUserId){
         ArrayList<ChunkPayment> chunks = new ArrayList<>();
-        String sql = "SELECT * FROM payments INNER JOIN chunkpayments WHERE balanceId='"+balanceId+"' AND destinationUserID='"+destinationUserId+"' AND groupId='"+groupId+"'";
+        String sql = "SELECT * FROM payments JOIN chunkpayments WHERE balanceId='"+balanceId+"' AND destinationUserID='"+destinationUserId+"' AND groupId='"+groupId+"' AND payments.paymentsID=chunkpayments.paymentId";
         try {
             st.execute(sql);
             ResultSet r = st.getResultSet();

@@ -1,5 +1,6 @@
 package GS1.Persistence.Payment;
 
+import GS1.Model.ChunkPayment;
 import GS1.Model.Payment;
 import GS1.View.PaymentLoader;
 import java.sql.Connection;
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 public class DatabasePaymentLoader implements PaymentLoader{
     private Connection cn;
     private Statement st;
+    private final DatabaseChunkLoader chunkLoader = new DatabaseChunkLoader();
+    private final DatabasePaymentEraser paymentEraser = new DatabasePaymentEraser();
     
     public DatabasePaymentLoader() {
         try {
@@ -27,7 +30,20 @@ public class DatabasePaymentLoader implements PaymentLoader{
     
     @Override
     public ArrayList<Payment> getGroupsPayments(int groupId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Payment> payments = new ArrayList<>();
+        String sql = "SELECT * FROM payments WHERE groupId='" + groupId + "'";
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while (r.next()) {
+                Payment payment = new Payment(r.getString("title"), Double.parseDouble(r.getString("amount")), Integer.parseInt(r.getString("destinationUserID")),Integer.parseInt(r.getString("groupId")));
+                payment.setPaymentId(Integer.parseInt(r.getString("paymentsId")));
+                payments.add(payment);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabasePaymentLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return payments;
     }
 
     
@@ -60,6 +76,15 @@ public class DatabasePaymentLoader implements PaymentLoader{
             Logger.getLogger(DatabasePaymentLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return paymentId;
+    }
+    
+    //De forma automatica reconoce si existen chunks asociados, en caso de no haber chunks asociados elimina el payment
+    public void updateGroupPayments(int groupId){
+        ArrayList<Payment> payments = getGroupsPayments(groupId);
+        for (Payment payment : payments) {
+            ArrayList<ChunkPayment> chunks = chunkLoader.getChunksPaymentByPaymentId(payment.getPaymentId());
+            if(chunks.isEmpty()) paymentEraser.removePayment(payment);
+        }
     }
     
 }
