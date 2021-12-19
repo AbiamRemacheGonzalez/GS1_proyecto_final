@@ -6,5 +6,4 @@ import java.util.ArrayList;
 
 public interface ChunkPaymentLoader {
     public ArrayList<ChunkPayment> getChunksPayment(int balanceId);
-    public Payment getPaymentById(int paymentId);
 }

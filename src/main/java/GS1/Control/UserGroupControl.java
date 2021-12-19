@@ -23,6 +23,8 @@ import GS1.Model.Group;
 import GS1.Model.Payment;
 import GS1.Model.Request;
 import GS1.Model.User;
+import GS1.Persistence.Payment.DatabaseChunkEraser;
+import GS1.Persistence.Payment.DatabasePaymentLoader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +43,13 @@ public class UserGroupControl {
     private final DataBaseUserLoader userLoader = new DataBaseUserLoader();
     private final DataBaseUserSearch userSearch = new DataBaseUserSearch();
     private final DataBaseFriendsLoader friendsLoader = new DataBaseFriendsLoader();
-    private final DatabasePaymentLogger databasePaymentLoader = new DatabasePaymentLogger();
+    private final DatabasePaymentLogger databasePaymentLogger = new DatabasePaymentLogger();
+    private final DatabasePaymentLoader databasePaymentLoader = new DatabasePaymentLoader();
     private final DatabaseBalanceLogger dataBaseUserBalanceLogger = new DatabaseBalanceLogger();
     private final DatabaseBalanceLoader dataBaseUserBalanceLoader = new DatabaseBalanceLoader();
     private final DatabaseChunkLoader dataBaseChunkPaymentLoader = new DatabaseChunkLoader();
     private final DataBasePaymentMethodLoader databasePaymentMethodLoader = new DataBasePaymentMethodLoader();
+    private final DatabaseChunkEraser databaseChunkEraser = new DatabaseChunkEraser();
 
     private final User currentUser;
     private Group currentGroup;
@@ -163,12 +167,13 @@ public class UserGroupControl {
             
             @Override
             public Payment getPaymentById(int paymentId) {
-                return dataBaseChunkPaymentLoader.getPaymentById(paymentId);
+                return databasePaymentLoader.getPaymentById(paymentId);
             }
 
             @Override
-            public boolean payChunck(ChunkPayment chunckId) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public boolean payChunck(ChunkPayment chunk) {
+                databaseChunkEraser.removeChunk(chunk);
+                return true;
             }
 
             @Override

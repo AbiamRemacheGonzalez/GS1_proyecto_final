@@ -224,12 +224,17 @@ public class GroupDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_myPaymentsChuncksListMouseClicked
 
     private void buttonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPayActionPerformed
-        int chunkSelectId = Integer.parseInt(myPaymentsChuncksList.getSelectedValue().substring(0, myPaymentsChuncksList.getSelectedValue().indexOf("#")));
-        userBalance = event.getUserBalance();
-        chunckList = event.getUserChuncks(userBalance.getBalanceId());
-        for (ChunkPayment chunk : chunckList) {
-            if (chunk.getBalanceId() == chunkSelectId) event.payChunck(chunk);
+        if (myPaymentsChuncksList.getSelectedValue() != null){
+            int chunkSelectId = Integer.parseInt(myPaymentsChuncksList.getSelectedValue().substring(0, myPaymentsChuncksList.getSelectedValue().indexOf("#")));
+            userBalance = event.getUserBalance();
+            chunckList = event.getUserChuncks(userBalance.getBalanceId());
+            for (ChunkPayment chunk : chunckList) {
+                if (chunk.getBalanceId() == chunkSelectId) event.payChunck(chunk);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "No payment selected");
         }
+        
     
     }//GEN-LAST:event_buttonPayActionPerformed
 
