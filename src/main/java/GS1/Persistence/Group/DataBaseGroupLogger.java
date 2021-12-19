@@ -1,6 +1,6 @@
-package GS1.App.CreateGroup;
+package GS1.Persistence.Group;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
+import GS1.Persistence.User.DataBaseUserLogger;
 import GS1.Model.Group;
 import GS1.View.GroupLogger;
 import java.sql.Connection;

@@ -1,6 +1,6 @@
-package GS1.App.SearchUser;
+package GS1.Persistence.User;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.Model.Request;
 import GS1.Model.User;
 import GS1.View.UserSearch;
@@ -39,7 +39,7 @@ public class DataBaseUserSearch implements UserSearch {
         while(r.next()){
             User current = new User(r.getString("firstname"),r.getString("lastname"),r.getString("email"),r.getString("password"));
             current.setId(parseInt(r.getString("userId")));
-            //!= currentUser    s(YES)
+            //!= currentUser    (YES)
             //!= friends        (NO)
             //!= requested      (NO)
             //System.out.println(current.getMail()+" == "+currentUser.getMail());

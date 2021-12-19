@@ -1,10 +1,10 @@
 package GS1.Control;
 
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import GS1.Persistence.PaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
-import GS1.App.CreateGroup.DataBaseGroupLogger;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
+import GS1.Persistence.Group.DataBaseGroupLogger;
+import GS1.Persistence.User.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLogger;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
 import GS1.App.UserMainDisplay;
 import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;

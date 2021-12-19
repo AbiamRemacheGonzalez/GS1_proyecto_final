@@ -123,12 +123,14 @@ public class UserFriendRequestsDisplay extends javax.swing.JFrame {
 
     private void acceptFriendRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptFriendRequestButtonActionPerformed
         event.acceptRequest(friendRequests.get(friendRequestList.getSelectedIndex()));
-        JOptionPane.showMessageDialog(null, "The friend request have been accepted");
+        JOptionPane.showMessageDialog(this, "The friend request have been accepted");
+        setFriendRequests();
     }//GEN-LAST:event_acceptFriendRequestButtonActionPerformed
 
     private void declineFriendRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declineFriendRequestButtonActionPerformed
         event.discardRequest(friendRequests.get(friendRequestList.getSelectedIndex()));
-        JOptionPane.showMessageDialog(null, "The friend request have been denied");
+        JOptionPane.showMessageDialog(this, "The friend request have been denied");
+        setFriendRequests();
     }//GEN-LAST:event_declineFriendRequestButtonActionPerformed
     public void setFriendRequests(){
         friendRequests = event.getRequests('F');

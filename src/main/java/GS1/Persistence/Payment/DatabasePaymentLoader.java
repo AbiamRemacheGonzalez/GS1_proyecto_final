@@ -1,4 +1,4 @@
-package GS1.App.ManagePayments;
+package GS1.Persistence.Payment;
 
 import GS1.Model.Payment;
 import GS1.View.PaymentLoader;
@@ -30,6 +30,23 @@ public class DatabasePaymentLoader implements PaymentLoader{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    public Payment getPaymentById(int paymentId){
+        Payment payment = null;
+        String sql = "SELECT * FROM payments WHERE paymentsID='" + paymentId + "'";
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while (r.next()) {
+                payment = new Payment(r.getString("title"), Double.parseDouble(r.getString("amount")), Integer.parseInt(r.getString("destinationUserID")),Integer.parseInt(r.getString("groupId")));
+                payment.setPaymentId(Integer.parseInt(r.getString("paymentsId")));
+            }
+        } catch (SQLException ex) {
+
+        }
+        return payment;
+    }
+    
     public int getPaymentId(Payment p) {
         int paymentId = -1;
         try {

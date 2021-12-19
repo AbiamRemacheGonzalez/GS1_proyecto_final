@@ -1,6 +1,6 @@
-package GS1.App.Requests;
+package GS1.Persistence.Request;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.Model.Request;
 import java.sql.Connection;
 import java.sql.DriverManager;

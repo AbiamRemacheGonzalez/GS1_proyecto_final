@@ -131,12 +131,14 @@ public class UserGroupRequestsDisplay extends javax.swing.JFrame {
     }
     private void acceptGroupRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptGroupRequestButtonActionPerformed
         event.acceptRequest(groupRequests.get(groupRequestList.getSelectedIndex()));
-        JOptionPane.showMessageDialog(null, "The group request have been accepted");
+        JOptionPane.showMessageDialog(this, "The group request have been accepted");
+        setGroupRequests();
     }//GEN-LAST:event_acceptGroupRequestButtonActionPerformed
 
     private void declineGroupRequestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_declineGroupRequestButtonActionPerformed
         event.discardRequest(groupRequests.get(groupRequestList.getSelectedIndex()));
-        JOptionPane.showMessageDialog(null, "The group request have been denied");
+        JOptionPane.showMessageDialog(this, "The group request have been denied");
+        setGroupRequests();
     }//GEN-LAST:event_declineGroupRequestButtonActionPerformed
 
 

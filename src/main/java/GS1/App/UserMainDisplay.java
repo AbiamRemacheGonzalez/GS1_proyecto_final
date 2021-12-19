@@ -1,6 +1,6 @@
 package GS1.App;
 
-import GS1.App.CreateGroup.DataBaseGroupLoader;
+import GS1.Persistence.Group.DataBaseGroupLoader;
 import GS1.Model.Group;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;

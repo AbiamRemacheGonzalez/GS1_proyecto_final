@@ -1,8 +1,8 @@
 package GS1.App;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLogger;
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import GS1.Persistence.User.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLogger;
+import GS1.Persistence.PaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.UserLoginAndSignUp.UserLoginDisplay;
 import GS1.Control.UserAccessControl;
 

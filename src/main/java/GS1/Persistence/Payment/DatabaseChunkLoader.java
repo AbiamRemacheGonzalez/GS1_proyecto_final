@@ -1,8 +1,7 @@
-package GS1.App.ManagePayments;
+package GS1.Persistence.Payment;
 
-import GS1.Model.ChunckPayment;
+import GS1.Model.ChunkPayment;
 import GS1.Model.Payment;
-import GS1.View.ChunckPaymentLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,8 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import GS1.View.ChunkPaymentLoader;
 
-public class DatabaseChunkLoader implements ChunckPaymentLoader {
+public class DatabaseChunkLoader implements ChunkPaymentLoader {
 
     private Connection cn;
     private Statement st;
@@ -26,14 +26,14 @@ public class DatabaseChunkLoader implements ChunckPaymentLoader {
     }
 
     @Override
-    public ArrayList<ChunckPayment> getChunksPayment(int balanceId) {
-        ArrayList<ChunckPayment> chunks = new ArrayList<>();
+    public ArrayList<ChunkPayment> getChunksPayment(int balanceId) {
+        ArrayList<ChunkPayment> chunks = new ArrayList<>();
         String sql = "SELECT * FROM chunkpayments WHERE balanceId='" + balanceId + "'";
         try {
             st.execute(sql);
             ResultSet r = st.getResultSet();
             while (r.next()) {
-                ChunckPayment chunk = new ChunckPayment(Integer.parseInt(r.getString("paymentId")), Integer.parseInt(r.getString("balanceId")), Double.parseDouble(r.getString("chunkAmount")));
+                ChunkPayment chunk = new ChunkPayment(Integer.parseInt(r.getString("paymentId")), Integer.parseInt(r.getString("balanceId")), Double.parseDouble(r.getString("chunkAmount")));
                 chunk.setId(Integer.parseInt(r.getString("chunkId")));
                 chunks.add(chunk);
             }
@@ -59,5 +59,21 @@ public class DatabaseChunkLoader implements ChunckPaymentLoader {
         }
         return payment;
     }
+    
+    public ArrayList<ChunkPayment> getUserChunksPaymentsWithAEspecificDestination(int groupId, int balanceId, int destinationUserId){
+        ArrayList<ChunkPayment> chunks = new ArrayList<>();
+        String sql = "SELECT * FROM payments INNER JOIN chunkpayments WHERE balanceId='"+balanceId+"' AND destinationUserID='"+destinationUserId+"' AND groupId='"+groupId+"'";
+        try {
+            st.execute(sql);
+            ResultSet r = st.getResultSet();
+            while (r.next()) {
+                ChunkPayment chunk = new ChunkPayment(Integer.parseInt(r.getString("paymentId")), Integer.parseInt(r.getString("balanceId")), Double.parseDouble(r.getString("chunkAmount")));
+                chunk.setId(Integer.parseInt(r.getString("chunkId")));
+                chunks.add(chunk);
+            }
+        } catch (SQLException ex) {
 
+        }
+        return chunks;
+    }
 }

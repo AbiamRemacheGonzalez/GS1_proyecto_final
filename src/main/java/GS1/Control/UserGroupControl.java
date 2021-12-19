@@ -1,27 +1,26 @@
 package GS1.Control;
 
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLoader;
+import GS1.Persistence.PaymentMethod.DataBasePaymentMethodLoader;
 import GS1.App.CreateGroup.AddGroupDisplay;
-import GS1.App.CreateGroup.DataBaseGroupLoader;
-import GS1.App.CreateGroup.DataBaseGroupLogger;
+import GS1.Persistence.Group.DataBaseGroupLoader;
+import GS1.Persistence.Group.DataBaseGroupLogger;
 import GS1.App.Group.AddMemberDisplay;
-import GS1.App.Group.DataBaseFriendsLoader;
+import GS1.Persistence.User.DataBaseFriendsLoader;
 import GS1.App.Group.EditGroupDisplay;
 import GS1.App.Group.GroupDisplay;
-import GS1.App.ManagePayments.DatabasePaymentLogger;
-import GS1.App.SearchUser.DataBaseUserSearch;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.Payment.DatabasePaymentLogger;
+import GS1.Persistence.User.DataBaseUserSearch;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.App.ManagePayments.ManagePaymentsDisplay;
-import GS1.App.Requests.DatabaseUserBalanceLogger;
-import GS1.App.ManagePayments.DatabaseBalanceLoader;
-import GS1.App.ManagePayments.DatabaseChunkLoader;
+import GS1.Persistence.Payment.DatabaseBalanceLogger;
+import GS1.Persistence.Payment.DatabaseBalanceLoader;
+import GS1.Persistence.Payment.DatabaseChunkLoader;
 import GS1.App.PaymentGateway.PaymentGatewayDisplay;
 import GS1.Model.Balance;
-import GS1.Model.ChunckPayment;
+import GS1.Model.ChunkPayment;
 import GS1.Model.Group;
 import GS1.Model.Payment;
-import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
 import GS1.Model.Request;
 import GS1.Model.User;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class UserGroupControl {
     private final DataBaseUserSearch userSearch = new DataBaseUserSearch();
     private final DataBaseFriendsLoader friendsLoader = new DataBaseFriendsLoader();
     private final DatabasePaymentLogger databasePaymentLoader = new DatabasePaymentLogger();
-    private final DatabaseUserBalanceLogger dataBaseUserBalanceLogger = new DatabaseUserBalanceLogger();
+    private final DatabaseBalanceLogger dataBaseUserBalanceLogger = new DatabaseBalanceLogger();
     private final DatabaseBalanceLoader dataBaseUserBalanceLoader = new DatabaseBalanceLoader();
     private final DatabaseChunkLoader dataBaseChunkPaymentLoader = new DatabaseChunkLoader();
     private final DataBasePaymentMethodLoader databasePaymentMethodLoader = new DataBasePaymentMethodLoader();
@@ -158,7 +157,7 @@ public class UserGroupControl {
             }
 
             @Override
-            public ArrayList<ChunckPayment> getUserChuncks(int balanceId) {
+            public ArrayList<ChunkPayment> getUserChuncks(int balanceId) {
                 return dataBaseChunkPaymentLoader.getChunksPayment(balanceId);
             }
             
@@ -168,14 +167,13 @@ public class UserGroupControl {
             }
 
             @Override
-            public void openPaymentGatewayDisplay(List<String> chunckToPay) {
-                paymentGatewayDisplay = new PaymentGatewayDisplay();
-                paymentGatewayDisplay.on(setPaymentGatewayDisplayEvents());
-                paymentGatewayDisplay.setVisible(true);
-                CreditCardPaymentMethod creditCard = databasePaymentMethodLoader.loadCreditCardUser(currentUser.getId());
-                paymentGatewayDisplay.setCreditCardValues(creditCard);
-                paymentGatewayDisplay.setOperationDetails(chunckToPay);
-                
+            public boolean payChunck(ChunkPayment chunckId) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public boolean payBalance(Balance balance) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }

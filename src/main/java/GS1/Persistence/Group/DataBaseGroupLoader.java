@@ -1,9 +1,10 @@
-package GS1.App.CreateGroup;
+package GS1.Persistence.Group;
 
-import GS1.App.ManagePayments.DatabasePaymentLogger;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.Payment.DatabasePaymentLogger;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.Model.Group;
 import GS1.Model.User;
+import GS1.Persistence.Payment.DatabasePaymentLogger;
 import GS1.View.GroupLoader;
 import java.sql.Connection;
 import java.sql.DriverManager;

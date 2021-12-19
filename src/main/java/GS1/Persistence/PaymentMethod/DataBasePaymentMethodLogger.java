@@ -1,4 +1,4 @@
-package GS1.App.AddNewPaymentMethod;
+package GS1.Persistence.PaymentMethod;
 
 import GS1.Model.PaymentsMethods.BizumPaymentMethod;
 import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;

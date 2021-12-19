@@ -1,6 +1,5 @@
-package GS1.App.Group;
+package GS1.Persistence.User;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
 import GS1.Model.Request;
 import GS1.Model.User;
 import GS1.View.UserSearch;

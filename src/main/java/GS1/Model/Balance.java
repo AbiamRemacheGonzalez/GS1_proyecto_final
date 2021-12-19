@@ -7,7 +7,7 @@ public class Balance {
     private final int memberId;
     private final int groupId;
     private double balance;
-    private ArrayList<ChunckPayment> chunckPayments;
+    private ArrayList<ChunkPayment> chunckPayments;
 
     public Balance(int memberId, int groupId) {
         this.memberId = memberId;
@@ -40,7 +40,7 @@ public class Balance {
         this.balanceId = balanceId;
     }
     
-    public void addChunckPayment(ChunckPayment chunckPayment){
+    public void addChunckPayment(ChunkPayment chunckPayment){
         chunckPayments.add(chunckPayment);
         balance += chunckPayment.getChunckAmount();
     }
@@ -68,7 +68,7 @@ public class Balance {
     
     public void payBalance(){
         int index = 0;
-        for (ChunckPayment chunckPayment : chunckPayments) {
+        for (ChunkPayment chunckPayment : chunckPayments) {
             chunckPayment.pay();
             removeChunckPayment(index);
             index++;

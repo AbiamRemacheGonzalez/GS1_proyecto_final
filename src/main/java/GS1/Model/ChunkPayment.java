@@ -1,12 +1,12 @@
 package GS1.Model;
 
-public class ChunckPayment {
+public class ChunkPayment {
     private int chunckPaymentid;
     private final int paymentId;
     private final int balanceId;
     private double chunckAmount;
 
-    public ChunckPayment(int paymentId, int balanceId, double chunckAmount) {
+    public ChunkPayment(int paymentId, int balanceId, double chunckAmount) {
         this.paymentId = paymentId;
         this.balanceId = balanceId;
         this.chunckAmount = chunckAmount;

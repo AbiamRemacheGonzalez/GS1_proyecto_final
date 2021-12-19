@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GS1.App.AddNewPaymentMethod;
+package GS1.Persistence.PaymentMethod;
 
 import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
 import java.sql.Connection;

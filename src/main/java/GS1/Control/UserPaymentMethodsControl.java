@@ -1,11 +1,11 @@
 package GS1.Control;
 
 import GS1.App.Requests.UserFriendRequestsDisplay;
-import GS1.App.AddNewPaymentMethod.DataBasePaymentMethodLogger;
+import GS1.Persistence.PaymentMethod.DataBasePaymentMethodLogger;
 import GS1.App.AddNewPaymentMethod.AddBizumPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.AddCreditCardPaymentDisplay;
 import GS1.App.AddNewPaymentMethod.AddPaypalPaymentDisplay;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.Model.PaymentsMethods.BizumPaymentMethod;
 import GS1.Model.PaymentsMethods.PaymentMethod;

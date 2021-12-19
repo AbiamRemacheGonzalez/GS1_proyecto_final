@@ -1,7 +1,8 @@
-package GS1.App.UserLoginAndSignUp;
 
-import GS1.Model.User;
-import GS1.View.UserLogger;
+package GS1.Persistence.Payment;
+
+import GS1.Model.Payment;
+import GS1.View.PaymentLogger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,11 +11,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class DataBaseUserLogger implements UserLogger{
-
+public class DatabasePaymentLogger implements PaymentLogger{
     private Connection cn;
     private Statement st;
-    public DataBaseUserLogger(){
+    
+    public DatabasePaymentLogger() {
         try {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();
@@ -23,12 +24,12 @@ public class DataBaseUserLogger implements UserLogger{
         }
     }
     @Override
-    public boolean save(User user) {
-        String sql = "INSERT INTO users(firstname,lastname,email,password) VALUES('"+user.getFirstname()+"','"+user.getLastname()+"','"+user.getMail()+"','"+user.getPassword()+"');";
+    public boolean save(Payment p) {
+        String sql = "INSERT INTO payments(title,amount,destinationUserID,groupId) VALUES('"+p.getTitle()+"','"+p.getAmount()+"','"+p.getUserDestinationID()+"','"+p.getGroupID()+"')";
         try {
-            boolean res = st.execute(sql);
+            st.execute(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(DataBaseUserLogger.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabasePaymentLogger.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;

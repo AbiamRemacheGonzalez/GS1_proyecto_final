@@ -1,6 +1,5 @@
-package GS1.App.Requests;
+package GS1.Persistence.Payment;
 
-import GS1.App.ManagePayments.DatabasePaymentLogger;
 import GS1.Model.Balance;
 import GS1.View.UserBalanceLogger;
 import java.sql.Connection;
@@ -11,11 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class DatabaseUserBalanceLogger implements UserBalanceLogger{
+public class DatabaseBalanceLogger implements UserBalanceLogger{
     private Connection cn;
     private Statement st;
     
-    public DatabaseUserBalanceLogger() {
+    public DatabaseBalanceLogger() {
         try {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL","root","");
             st =cn.createStatement();

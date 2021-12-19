@@ -34,7 +34,7 @@ public class SearchUsersDisplay extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -123,11 +123,10 @@ public class SearchUsersDisplay extends javax.swing.JFrame {
     private void addFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFriendButtonActionPerformed
         String friend = searchedUsersList.getSelectedValue();
         event.SendFriendRequest(friend);
-        JOptionPane.showMessageDialog(null, "A friend request has been sent to " + friend, "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "A friend request has been sent to " + friend, "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_addFriendButtonActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
-        // TODO add your handling code here:
         modelo.clear();
         if(searchField.getText().equals("")){
             modelo.clear();

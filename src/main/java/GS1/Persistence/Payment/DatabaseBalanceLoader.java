@@ -1,4 +1,4 @@
-package GS1.App.ManagePayments;
+package GS1.Persistence.Payment;
 
 import GS1.Model.Balance;
 import GS1.View.BalanceLoader;
@@ -16,7 +16,7 @@ public class DatabaseBalanceLoader implements BalanceLoader {
     private Connection cn;
     private Statement st;
 
-    //MAYUS ALT F
+    
     public DatabaseBalanceLoader() {
         try {
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/gs1?zeroDateTimeBehavior=CONVERT_TO_NULL", "root", "");
@@ -43,5 +43,4 @@ public class DatabaseBalanceLoader implements BalanceLoader {
         }
         return balance;
     }
-    
 }

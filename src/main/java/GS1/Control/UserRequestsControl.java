@@ -1,11 +1,11 @@
 package GS1.Control;
 
-import GS1.App.CreateGroup.DataBaseGroupLoader;
-import GS1.App.Requests.DataBaseRequestLoader;
-import GS1.App.Requests.DatabaseUserBalanceLogger;
+import GS1.Persistence.Group.DataBaseGroupLoader;
+import GS1.Persistence.Request.DataBaseRequestLoader;
+import GS1.Persistence.Payment.DatabaseBalanceLogger;
 import GS1.App.Requests.UserFriendRequestsDisplay;
 import GS1.App.Requests.UserGroupRequestsDisplay;
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Balance;
 import GS1.Model.Group;
@@ -22,7 +22,7 @@ public class UserRequestsControl {
     private int userId;
     
     private final DataBaseRequestLoader dataBaseRequestLoader = new DataBaseRequestLoader();
-    private final DatabaseUserBalanceLogger dataBaseUserBalanceLogger = new DatabaseUserBalanceLogger();
+    private final DatabaseBalanceLogger dataBaseUserBalanceLogger = new DatabaseBalanceLogger();
     private final DataBaseUserLoader dataBaseUserLoader = new DataBaseUserLoader();
     private final DataBaseGroupLoader dataBaseGroupLoader = new DataBaseGroupLoader();
 

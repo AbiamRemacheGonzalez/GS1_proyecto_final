@@ -1,9 +1,9 @@
 package GS1.Control;
 
-import GS1.App.UserLoginAndSignUp.DataBaseUserLoader;
+import GS1.Persistence.User.DataBaseUserLoader;
 import GS1.Model.User;
 import GS1.App.SearchUser.SearchUsersDisplay;
-import GS1.App.SearchUser.DataBaseUserSearch;
+import GS1.Persistence.User.DataBaseUserSearch;
 import GS1.App.UserMainDisplay;
 import GS1.Model.Request;
 

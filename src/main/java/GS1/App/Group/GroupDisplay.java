@@ -1,10 +1,9 @@
 package GS1.App.Group;
 
 import GS1.Model.Balance;
-import GS1.Model.ChunckPayment;
+import GS1.Model.ChunkPayment;
 import GS1.Model.Payment;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -14,7 +13,7 @@ public class GroupDisplay extends javax.swing.JFrame {
     private GroupDisplay.Events event;
     DefaultListModel chunksPaymentModel;
     private Balance userBalance;
-    private ArrayList<ChunckPayment> chunckList;
+    private ArrayList<ChunkPayment> chunckList;
 
     public GroupDisplay() {
         initComponents();
@@ -139,6 +138,11 @@ public class GroupDisplay extends javax.swing.JFrame {
         jPanel3.add(balanceField, gridBagConstraints);
 
         payinfullButton.setText("Pay in full");
+        payinfullButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payinfullButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -207,12 +211,12 @@ public class GroupDisplay extends javax.swing.JFrame {
 
     private void myPaymentsChuncksListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myPaymentsChuncksListMouseClicked
         if (evt.getClickCount() == 2) {
-            String chunkSelect = myPaymentsChuncksList.getSelectedValue().substring(0, myPaymentsChuncksList.getSelectedValue().indexOf(":"));
+            int chunkSelectId = Integer.parseInt(myPaymentsChuncksList.getSelectedValue().substring(0, myPaymentsChuncksList.getSelectedValue().indexOf("#")));
             userBalance = event.getUserBalance();
             chunckList = event.getUserChuncks(userBalance.getBalanceId());
-            for (ChunckPayment chunk : chunckList) {
+            for (ChunkPayment chunk : chunckList) {
                 Payment payment = event.getPaymentById(chunk.getPaymentId());
-                if (chunkSelect.equals(payment.getTitle())) {
+                if (chunk.getBalanceId() == chunkSelectId) {
                     JOptionPane.showMessageDialog(this, "El pago total de "+payment.getTitle()+"  es de " + payment.getAmount()+"€");
                 }
             }
@@ -220,24 +224,31 @@ public class GroupDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_myPaymentsChuncksListMouseClicked
 
     private void buttonPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPayActionPerformed
-        // TODO add your handling code here:
-        List<String> chunckToPay = myPaymentsChuncksList.getSelectedValuesList();
-        for(String chunck : chunckToPay){
-            chunksPaymentModel.removeElement(chunck);
+        int chunkSelectId = Integer.parseInt(myPaymentsChuncksList.getSelectedValue().substring(0, myPaymentsChuncksList.getSelectedValue().indexOf("#")));
+        userBalance = event.getUserBalance();
+        chunckList = event.getUserChuncks(userBalance.getBalanceId());
+        for (ChunkPayment chunk : chunckList) {
+            if (chunk.getBalanceId() == chunkSelectId) event.payChunck(chunk);
         }
+    
     }//GEN-LAST:event_buttonPayActionPerformed
 
     private void balanceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_balanceFieldActionPerformed
 
+    private void payinfullButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payinfullButtonActionPerformed
+        // TODO add your handling code here:
+        event.payBalance(event.getUserBalance());
+    }//GEN-LAST:event_payinfullButtonActionPerformed
+
     public void setChunkList() {
         userBalance = event.getUserBalance();
         chunckList = event.getUserChuncks(userBalance.getBalanceId());
-        for (ChunckPayment chunk : chunckList) {
+        for (ChunkPayment chunk : chunckList) {
             Payment payment = event.getPaymentById(chunk.getPaymentId());
             if (payment != null) {
-                chunksPaymentModel.addElement(payment.getTitle() + ": " + chunk.getChunckAmount()+"€");
+                chunksPaymentModel.addElement(chunk.getChunckPaymentid()+"#"+payment.getTitle() + ": " + chunk.getChunckAmount()+"€");
             }
         }
         setBalance();
@@ -286,10 +297,12 @@ public class GroupDisplay extends javax.swing.JFrame {
 
         public Balance getUserBalance();
 
-        public ArrayList<ChunckPayment> getUserChuncks(int balanceId);
+        public ArrayList<ChunkPayment> getUserChuncks(int balanceId);
 
         public Payment getPaymentById(int paymentId);
         
-        void openPaymentGatewayDisplay(List<String> chunckToPay);
+        boolean payChunck(ChunkPayment chunckId);
+        
+        boolean payBalance(Balance balance);
     }
 }
