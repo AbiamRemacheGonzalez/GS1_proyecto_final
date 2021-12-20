@@ -7,13 +7,13 @@ public class Balance {
     private final int memberId;
     private final int groupId;
     private double balance;
-    private ArrayList<ChunkPayment> chunckPayments;
+    private ArrayList<ChunkPayment> chunkPayments;
 
     public Balance(int memberId, int groupId) {
         this.memberId = memberId;
         this.groupId = groupId;
         balance = 0;
-        chunckPayments = new ArrayList<>();
+        chunkPayments = new ArrayList<>();
     }
 
     public void setBalance(double balance) {
@@ -41,26 +41,26 @@ public class Balance {
     }
     
     public void addChunckPayment(ChunkPayment chunckPayment){
-        chunckPayments.add(chunckPayment);
+        chunkPayments.add(chunckPayment);
         balance += chunckPayment.getChunckAmount();
     }
     
     public void removeChunckPayment(int index){
-        if (chunckPayments.get(index).getChunckAmount() == 0){
-            chunckPayments.remove(index);
+        if (chunkPayments.get(index).getChunckAmount() == 0){
+            chunkPayments.remove(index);
         }
     }
     
     public void payChunckPayment(int index){
-        if (chunckPayments.get(index).getChunckAmount() > 0){
-            chunckPayments.get(index).pay();
-            balance -= chunckPayments.get(index).getChunckAmount();
+        if (chunkPayments.get(index).getChunckAmount() > 0){
+            chunkPayments.get(index).pay();
+            balance -= chunkPayments.get(index).getChunckAmount();
         }
     }
     
     public void payChunckPayment(int index, double amount){
-        if (chunckPayments.get(index).getChunckAmount() >= amount){
-            chunckPayments.get(index).pay(amount);
+        if (chunkPayments.get(index).getChunckAmount() >= amount){
+            chunkPayments.get(index).pay(amount);
             removeChunckPayment(index);
             balance -= amount;
         }
@@ -68,7 +68,7 @@ public class Balance {
     
     public void payBalance(){
         int index = 0;
-        for (ChunkPayment chunckPayment : chunckPayments) {
+        for (ChunkPayment chunckPayment : chunkPayments) {
             chunckPayment.pay();
             removeChunckPayment(index);
             index++;

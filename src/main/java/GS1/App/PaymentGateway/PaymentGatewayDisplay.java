@@ -1,17 +1,22 @@
 package GS1.App.PaymentGateway;
 
-import java.util.List;
-import javax.swing.DefaultListModel;
+import GS1.Model.Balance;
+import GS1.Model.ChunkPayment;
+import GS1.Model.PaymentsMethods.BizumPaymentMethod;
+import GS1.Model.PaymentsMethods.CreditCardPaymentMethod;
+import GS1.Model.PaymentsMethods.PaymentMethod;
+import GS1.Model.PaymentsMethods.PaypalPaymentMethod;
+import GS1.Model.User;
+import java.util.ArrayList;
 
 public class PaymentGatewayDisplay extends javax.swing.JFrame {
-
-    DefaultListModel chunksPaymentModel;
     Events event;
+    private ChunkPayment chunk;
+    private Balance balance;
     public PaymentGatewayDisplay() {
         initComponents();
         totalAmount.setEditable(false);
         destinationUser.setEditable(false);
-        chunksPaymentModel = new DefaultListModel();
     }
 
     @SuppressWarnings("unchecked")
@@ -26,14 +31,14 @@ public class PaymentGatewayDisplay extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         totalAmount = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        paymentMethods = new javax.swing.JComboBox<>();
+        pay = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         destinationUser = new javax.swing.JTextField();
 
         jLabel5.setText("jLabel5");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Titulo.setBackground(new java.awt.Color(153, 153, 153));
         Titulo.setLayout(new java.awt.GridBagLayout());
@@ -73,20 +78,24 @@ public class PaymentGatewayDisplay extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        jPanel1.add(jComboBox1, gridBagConstraints);
+        jPanel1.add(paymentMethods, gridBagConstraints);
 
-        jButton1.setText("Pay");
+        pay.setText("Pay");
+        pay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
-        jPanel1.add(jButton1, gridBagConstraints);
+        jPanel1.add(pay, gridBagConstraints);
 
         jLabel4.setText("Detination User");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -125,25 +134,75 @@ public class PaymentGatewayDisplay extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payActionPerformed
+        // TODO add your handling code here:
+        if(chunk != null) event.payChunck(chunk);
+        if(balance!= null) event.payBalance(balance);
+        this.dispose();
+    }//GEN-LAST:event_payActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Titulo;
     private javax.swing.JTextField destinationUser;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton pay;
+    private javax.swing.JComboBox<String> paymentMethods;
     private javax.swing.JTextField totalAmount;
     // End of variables declaration//GEN-END:variables
+    public void setLabels(){
+        if(chunk != null){
+            totalAmount.setText(chunk.getChunckAmount()+" €");
+            destinationUser.setText(event.getDestinationUser(chunk.getPaymentId()).getFirstname());
+        }
+        if(balance!= null){
+            totalAmount.setText(balance.getBalance()+"");
+            destinationUser.setText("Multiple target users");
+        }
+        
+    }
+    public void setPaymentMethodCheckBox(){
+        ArrayList<PaymentMethod> paymentMethods = event.getUserPaymentMethods();
+        for (PaymentMethod paymentMethod : paymentMethods) {
+            String representation = getStringRepresentation(paymentMethod);
+            this.paymentMethods.addItem(representation);
+        }
+    }
+    public void setBalance(Balance balance){
+        this.balance = balance;
+        this.chunk = null;
+    }
+    public void setChunk(ChunkPayment chunk){
+        this.chunk = chunk;
+        this.balance = null;
+    }
     public void on(Events ev){
         this.event = ev;
     }
+
+    private String getStringRepresentation(PaymentMethod paymentMethod) {
+        String representation = "";
+        if(paymentMethod instanceof BizumPaymentMethod){
+            representation = "Bizum: "+((BizumPaymentMethod) paymentMethod).getPhoneNumber();
+        }
+        if(paymentMethod instanceof CreditCardPaymentMethod){
+            representation = "Credit card: "+((CreditCardPaymentMethod) paymentMethod).getCreditNumber();
+        }
+        if(paymentMethod instanceof PaypalPaymentMethod){
+            representation = "Paypal: "+((PaypalPaymentMethod) paymentMethod).getEmail();
+        }
+        return representation;
+    }
     public interface Events{
-        float getImportChunkPayments(List<String> chunk);
+        public ArrayList<PaymentMethod> getUserPaymentMethods();
+        void payChunck(ChunkPayment chunckId);
+        void payBalance(Balance balance);
+        public User getDestinationUser(int paymentId);
     }
 
 

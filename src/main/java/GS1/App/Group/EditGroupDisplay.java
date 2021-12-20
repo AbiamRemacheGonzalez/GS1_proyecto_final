@@ -30,7 +30,6 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         addNewMember = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         editGroupDetailsMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         managePaymentsMenu = new javax.swing.JMenu();
         managePayments = new javax.swing.JMenuItem();
 
@@ -101,15 +100,11 @@ public class EditGroupDisplay extends javax.swing.JFrame {
         jPanel4.add(addNewMember, gridBagConstraints);
 
         editGroupDetailsMenu.setText("Group");
-
-        jMenuItem1.setText("Edit Group Details");
-        editGroupDetailsMenu.add(jMenuItem1);
-
         jMenuBar1.add(editGroupDetailsMenu);
 
         managePaymentsMenu.setText("Payments");
 
-        managePayments.setText("Manage Payments");
+        managePayments.setText("Add New Payment");
         managePayments.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 managePaymentsActionPerformed(evt);
@@ -167,7 +162,6 @@ public class EditGroupDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

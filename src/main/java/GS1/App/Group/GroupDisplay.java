@@ -42,7 +42,6 @@ public class GroupDisplay extends javax.swing.JFrame {
         payinfullButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         editModeMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -151,9 +150,6 @@ public class GroupDisplay extends javax.swing.JFrame {
 
         jMenu2.setText("Group");
 
-        jMenuItem3.setText("More Details");
-        jMenu2.add(jMenuItem3);
-
         editModeMenu.setText("Edit Mode");
         editModeMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,7 +225,7 @@ public class GroupDisplay extends javax.swing.JFrame {
             userBalance = event.getUserBalance();
             chunckList = event.getUserChuncks(userBalance.getBalanceId());
             for (ChunkPayment chunk : chunckList) {
-                if (chunk.getBalanceId() == chunkSelectId) event.payChunck(chunk);
+                if (chunk.getChunckPaymentid() == chunkSelectId) event.payChunck(chunk);
             }
         }else{
             JOptionPane.showMessageDialog(this, "No payment selected");
@@ -248,6 +244,9 @@ public class GroupDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_payinfullButtonActionPerformed
 
     public void setChunkList() {
+        chunksPaymentModel = new DefaultListModel();
+        myPaymentsChuncksList.setModel(chunksPaymentModel);
+        myPaymentsChuncksList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         userBalance = event.getUserBalance();
         chunckList = event.getUserChuncks(userBalance.getBalanceId());
         for (ChunkPayment chunk : chunckList) {
@@ -272,7 +271,6 @@ public class GroupDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -306,8 +304,8 @@ public class GroupDisplay extends javax.swing.JFrame {
 
         public Payment getPaymentById(int paymentId);
         
-        boolean payChunck(ChunkPayment chunckId);
+        void payChunck(ChunkPayment chunckId);
         
-        boolean payBalance(Balance balance);
+        void payBalance(Balance balance);
     }
 }

@@ -24,7 +24,7 @@ public class DatabasePaymentEraser implements PaymentEraser{
     }
     @Override
     public boolean removePayment(Payment payment) {
-        String sql = "DELETE FROM payments WHERE paymentId='"+payment.getPaymentId()+"'";
+        String sql = "DELETE FROM payments WHERE paymentsID='"+payment.getPaymentId()+"'";
         try {
             st.execute(sql);
         } catch (SQLException ex) {

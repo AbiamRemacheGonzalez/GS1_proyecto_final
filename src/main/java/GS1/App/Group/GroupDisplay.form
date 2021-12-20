@@ -9,11 +9,6 @@
             <Property name="text" type="java.lang.String" value="Group"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="More Details"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="editModeMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Edit Mode"/>

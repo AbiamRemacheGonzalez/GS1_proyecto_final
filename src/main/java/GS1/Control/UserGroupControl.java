@@ -21,6 +21,7 @@ import GS1.Model.Balance;
 import GS1.Model.ChunkPayment;
 import GS1.Model.Group;
 import GS1.Model.Payment;
+import GS1.Model.PaymentsMethods.PaymentMethod;
 import GS1.Model.Request;
 import GS1.Model.User;
 import GS1.Persistence.Payment.DatabaseChunkEraser;
@@ -171,27 +172,69 @@ public class UserGroupControl {
             }
 
             @Override
-            public boolean payChunck(ChunkPayment chunk) {
-                databaseChunkEraser.removeChunk(chunk);
-                return true;
+            public void payChunck(ChunkPayment chunk) {
+                paymentGatewayDisplay = new PaymentGatewayDisplay();
+                paymentGatewayDisplay.on(setPaymentGatewayDisplayEvents());
+                paymentGatewayDisplay.setVisible(true);
+                paymentGatewayDisplay.setChunk(chunk);
+                paymentGatewayDisplay.setLabels();
+                paymentGatewayDisplay.setPaymentMethodCheckBox();
             }
 
             @Override
-            public boolean payBalance(Balance balance) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public void payBalance(Balance balance) {
+                paymentGatewayDisplay = new PaymentGatewayDisplay();
+                paymentGatewayDisplay.on(setPaymentGatewayDisplayEvents());
+                paymentGatewayDisplay.setVisible(true);
+                paymentGatewayDisplay.setBalance(balance);
+                paymentGatewayDisplay.setLabels();
+                paymentGatewayDisplay.setPaymentMethodCheckBox();
             }
+
         };
     }
     private PaymentGatewayDisplay.Events setPaymentGatewayDisplayEvents(){
         return new PaymentGatewayDisplay.Events(){
             @Override
-            public float getImportChunkPayments(List<String> chunkPayments) {
-                float res=0;
-                for(String chunck: chunkPayments){
-                    String aux = chunck.substring(chunck.indexOf(':')+1,chunck.length());
-                    res += Float.parseFloat(aux);
+            public ArrayList<PaymentMethod> getUserPaymentMethods() {
+                return databasePaymentMethodLoader.getPaymentMethods(currentUser.getId());
+            }
+
+            @Override
+            public void payChunck(ChunkPayment chunk) {
+                updateBalance(chunk);
+                databaseChunkEraser.removeChunk(chunk);
+                updateGroupDisplay();
+                databasePaymentLoader.updateGroupPayments(currentGroup.getIdGroup());
+            }
+
+            @Override
+            public void payBalance(Balance balance) {
+                ArrayList<ChunkPayment> chunks = dataBaseChunkPaymentLoader.getChunksPayment(balance.getBalanceId());
+                for (ChunkPayment chunk : chunks) {
+                    databaseChunkEraser.removeChunk(chunk);
                 }
-                return res;
+                balance.setBalance(0);
+                dataBaseUserBalanceLogger.updateBalance(balance);
+                updateGroupDisplay();
+                databasePaymentLoader.updateGroupPayments(currentGroup.getIdGroup());
+            }
+
+            private void updateBalance(ChunkPayment chunk) {
+                Balance userBalance = dataBaseUserBalanceLoader.getUserBalance(currentGroup.getIdGroup(), currentUser.getId());
+                userBalance.setBalance(userBalance.getBalance()-chunk.getChunckAmount());
+                dataBaseUserBalanceLogger.updateBalance(userBalance);
+            }
+
+            @Override
+            public User getDestinationUser(int paymentId) {
+                Payment payment = databasePaymentLoader.getPaymentById(paymentId);
+                return userLoader.loadUser(payment.getUserDestinationID());
+            }
+
+            private void updateGroupDisplay() {
+                groupDisplay.setChunkList();
+                groupDisplay.updateLabels();
             }
             
         };
